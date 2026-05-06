@@ -34,6 +34,15 @@ Symbols with BB in the name tend to match the physical pin layout so that the sc
 The layout dimensions are very large (almost twice as big as A0 paper size) at 40" x 70".
 PDF readers may have problems dealing with the schematic.
 
+I have numbered all the IC's with the Unn values in the Compaq Design document and the bill of materials in the document which is useful to clarify component IDs when the text is unclear.
+Please note that if you run the Electrical Rules checker it may say "Schematic is not fully annotated." then ask you to Run the Annotation Dialog.
+If you do this you may lose all the manually applied component numbering.
+I would suggest NOT running the Annotation Dialog.
+Also the rules checker will identify various warnings which can be ignored. Many are excluded.
+There is one strange issue which messages about U13 (near a 74ALS1035 with ID U91). U13 is in fact an EPROM nowhere near.
+This appears to be left over from when I was re-numbering the chips.
+I have not found a way to delete it! 
+
 ## Programmable Logic Definitions
 There are two versions of the Internal Design Document, text mode and photo mode.
 Generally I have used text mode to convert the content but sometimes photo mode is better.
