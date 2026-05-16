@@ -58,7 +58,10 @@ Each PLD is in its own folder.
 The project files were created under C:\DOS\PALASM\D4-xxxxx.
 They will only work with this structure
 
-If creating new Projects then the device should be ATF16V8B Auto except for D4-SADOD and D4-STATB which need ATF22V10C None.
+If creating new Projects then the device should be ATF16V8B "Auto" except for D4-SADOD and D4-STATB which need ATF22V10C "None".
 
-More folders will be added with the .PLD logic definition and .SI simulation files as these are migrated and tested.
-
+Sub folders for each PLD have been added with the .PLD logic definition and .SI simulation files.
+Other WInCUPL II output files are included. 
+There is also a .yaml and .lbc file for each PLD to import into the XGPro programmer software to test the physical PLDs.
+All PLDs except for D4-SKEY have been physically tested.
+D4-SKEY requires the test vectors for the .SI file to be manually entered as the PDF OCR has not worked.
