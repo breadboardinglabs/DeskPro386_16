@@ -1,0 +1,124 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Thu May 07 16:36:23 2026
+
+LISTING FOR SIMULATION FILE: D4-RCTLA.si
+
+   1: NAME         D4-RCTLA ;
+   2: PARTNO       XXXXX ;
+   3: REV          XX ;
+   4: DATE         XX/XX/XX ;
+   5: DESIGNER     XXXXX ;
+   6: COMPANY      XXXXX ;
+   7: ASSEMBLY     XXXXX ;
+   8: LOCATION     XXXXX ;
+   9: 
+  10: 
+  11: ORDER:
+  12:  
+  13:     CLK, %1
+  14:  , !CLK16, %1
+  15:  , !OE, %1
+  16:  , !ADSM, %1
+  17:  , !DMIO, %1
+  18:  ,  D_C, %1
+  19:  ,  W_R, %1
+  20:  , !M32, %1
+  21:  ,  HLDA, %1
+  22:  , !HIT, %3
+  23: 
+  24:  , !MRAS, %1
+  25:  , !SWM, %1
+  26:  , !MCAS, %1
+  27:  , !NAM, %1
+  28:  , !MRDY, %1
+  29:  , !MWE, %1
+  30:  , !MRD, %1
+  31:  , !YY;
+  32: 
+  33: 
+
+==============================================
+        !                                     
+        C   ! !             !   !   !         
+        L   A D     ! H !   M ! M ! M ! !     
+      C K ! D M D W M L H   R S C N R M M !   
+      L 1 O S I _ _ 3 D I   A W A A D W R Y   
+      K 6 E M O C R 2 A T   S M S M Y E D Y   
+==============================================
+0001: C 0 0 0 1 1 1 1 1 1   H H H H H H H H
+0002: C 1 0 0 1 0 0 0 0 0   H H H H H H H H
+0003: C 0 0 0 1 0 0 0 0 0   H L H H H H H H
+0004: C 1 0 1 1 0 0 0 0 0   L L H H H H H H
+0005: C 0 0 1 1 0 0 0 0 0   L H H L H H H H
+0006: C 1 0 1 1 0 0 0 0 0   L H H L H H L L
+0007: C 0 0 1 1 0 0 0 0 1   L H L H L H L L
+0008: C 1 0 0 1 0 0 0 0 0   L H L H L H L L
+0009: C 0 0 0 1 0 0 0 0 0   L H H L H H H H
+0010: C 1 0 1 1 0 0 0 0 0   L H H L H H L L
+0011: C 0 0 1 1 0 0 0 0 0   L H L H L H L L
+0012: C 1 0 0 1 0 0 0 0 1   L H L H L H L L
+0013: C 0 0 0 1 0 0 0 0 1   H H H H H H H L
+0014: C 1 0 1 1 0 0 0 0 1   H H H H H H H L
+0015: C 0 0 1 1 0 0 0 0 1   H L H H H H H H
+0016: C 1 0 1 1 0 0 0 0 1   L L H H H H H H
+0017: C 0 0 1 1 0 0 0 0 0   L H H L H H H H
+0018: C 1 0 1 1 0 0 0 0 0   L H H L H H L L
+0019: C 0 0 1 1 0 0 0 0 1   L H L H L H L L
+0020: C 1 0 0 1 1 1 0 0 0   L H L H L H L L
+0021: C 0 0 0 1 1 1 0 0 0   L H H L H H H H
+0022: C 1 0 1 1 1 1 0 0 0   L H H L H L H L
+0023: C 0 0 1 1 1 1 0 0 0   L H H H L L H L
+0024: C 1 0 0 1 1 1 0 0 1   L H L H L L H L
+0025: C 0 0 0 1 1 1 0 0 1   H H H H H H H L
+0026: C 1 0 1 1 1 1 0 0 1   H H H H H H H L
+0027: C 0 0 1 1 1 1 0 0 1   H L H H H H H H
+0028: C 1 0 1 1 1 1 0 0 1   L L H H H H H H
+0029: C 0 0 1 1 1 1 0 0 0   L H H L H H H H
+0030: C 1 0 1 1 1 1 0 0 0   L H H L H L H L
+0031: C 0 0 1 1 1 1 0 0 1   L H H H L L H L
+0032: C 1 0 1 1 1 1 0 0 0   L H L H L L H L
+0033: C 0 0 1 1 1 1 0 0 0   H H H H H H H H
+0034: C 1 0 0 1 1 1 0 0 0   H H H H H H H H
+0035: C 0 0 0 1 1 1 0 0 0   H L H H H H H H
+0036: C 1 0 0 1 1 1 0 0 0   H L H H H H H H
+0037: C 0 0 0 1 1 1 0 0 0   H L H H H H H H
+0038: C 1 0 1 1 1 1 0 0 0   L L H H H H H H
+0039: C 0 0 1 1 1 1 0 0 0   L H H L H H H H
+0040: C 1 0 1 1 1 1 0 0 0   L H H L H L H L
+0041: C 0 0 1 1 1 1 0 0 1   L H H H L L H L
+0042: C 1 0 1 1 1 1 0 0 0   L H L H L L H L
+0043: C 0 0 1 1 1 1 0 0 0   H H H H H H H H
+0044: C 1 0 1 1 1 1 0 1 0   H L H L H H H H
+0045: C 0 0 1 1 0 1 0 1 0   H H H L H H H H
+0046: C 1 0 1 1 0 1 0 1 0   H H H L H H H H
+0047: C 0 0 1 0 0 1 1 1 1   L H H L H H H H
+0048: C 1 0 1 0 0 1 1 1 1   L H H L H H H H
+0049: C 0 0 1 0 0 1 1 1 1   L H H L H H H L
+0050: C 1 0 1 0 0 1 1 1 1   L L H L H H H L
+0051: C 0 0 1 0 0 1 1 1 1   H L H L H H H L
+0052: C 1 0 1 0 0 1 1 1 1   H L H L H H H L
+0053: C 0 0 1 1 0 1 1 1 1   H H H L H H H H
+0054: C 1 0 1 1 1 0 1 1 1   H L H L H H H H
+0055: C 0 0 1 0 1 1 1 1 1   H L H L H H H H
+0056: C 1 0 1 0 1 1 0 1 1   L L H L H H H H
+0057: C 0 0 1 0 1 1 0 1 1   L H H L H H L H
+0058: C 1 0 1 0 1 1 0 1 1   L H L L H H L H
+0059: C 0 0 1 0 1 1 0 1 1   L H L L H H L L
+0060: C 1 0 1 0 1 0 0 1 1   H H L L H H L L
+0061: C 0 0 1 0 1 0 0 1 1   H L L L H H L L
+0062: C 1 0 1 1 1 0 0 1 1   H L H L H H H H
+0063: C 0 0 1 1 1 0 1 1 1   H L H L H H H H
+0064: C 1 0 1 0 1 0 1 1 1   H L H L H H H H
+0065: C 0 0 1 0 1 0 0 1 1   L L H L H L H H
+0066: C 1 0 1 0 1 0 0 1 1   L H H L H L H H
+0067: C 0 0 1 0 1 0 0 1 1   L H L L H L H H
+0068: C 1 0 1 0 1 0 0 1 1   L H L L H L H L
+0069: C 0 0 1 0 1 0 0 1 1   H H L L H L H L
+0070: C 1 0 1 0 1 1 0 1 1   H L H L H L H L
+0071: C 0 0 1 0 1 1 0 1 1   H L H L H L H L
+0072: C 1 0 1 1 1 1 0 1 1   H L H L H H H H
+0073: C 0 0 1 1 1 0 0 1 1   H L H L H H H H
+0074: C 1 0 1 1 1 0 0 0 1   H L H L H H H H
+0075: C 0 0 1 1 1 0 0 0 1   H H H H H H H H

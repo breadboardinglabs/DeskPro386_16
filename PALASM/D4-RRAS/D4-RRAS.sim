@@ -1,0 +1,53 @@
+%SIGNAL
+PIN   8 =  A17 
+PIN   7 =  A18 
+PIN   6 =  A19 
+PIN   5 =  A20 
+PIN   4 =  A21 
+PIN   3 =  A22 
+PIN   2 =  A23 
+PIN   1 =  A31 
+PIN   9 =  FA20 
+PIN  14 = !MRD 
+PIN  13 = !MWE 
+PIN  16 = !PARRD 
+PIN  17 = !PARWR 
+PIN  11 = !RFSH 
+PIN  18 = !ROM 
+PIN  12 = !RS0 
+PIN  19 = !RS1 
+PIN  15 = !WE0 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+PARRD =>
+    !A17 & !A18 & !A19 & !A20 & !A21 & A22 & A23 & A31 & !MRD
+
+PARWR =>
+    !A17 & !A18 & !A19 & !A20 & !A21 & A22 & A23 & A31 & !MWE
+
+RS0 =>
+    !A19 & !A20 & !A21 & !A22 & !A23 & !A31
+  # !A19 & !A21 & !A22 & !A23 & !A31 & !FA20
+  # !A17 & !A18 & A19 & !A20 & !A21 & !A22 & !A23 & !A31
+  # A17 & A18 & A19 & !A20 & !A21 & !A22 & !A23 & !A31
+  # A20 & A21 & A22 & A23 & !A31
+  # !RFSH
+
+RS1 =>
+    A20 & !A21 & !A22 & !A23 & !A31 & FA20
+  # !RFSH
+
+WE0 =>
+    !A19 & !A21 & !A22 & !A23 & !A31 & !MWE
+  # !A17 & !A18 & A19 & !A20 & !A21 & !A22 & !A23 & !A31 & !MWE
+  # A17 & A18 & A19 & !A20 & !A21 & !A22 & !A23 & !A31 & !MWE & ROM
+  # A18 & !A19 & A20 & A21 & A22 & A23 & !A31 & !MWE
+  # !A18 & A19 & A20 & A21 & A22 & A23 & !A31 & !MWE
+  # !A17 & A18 & A19 & A20 & A21 & A22 & A23 & !A31 & !MWE
+  # A17 & A18 & A19 & A20 & A21 & A22 & A23 & !A31 & !MWE & ROM
+
+%END

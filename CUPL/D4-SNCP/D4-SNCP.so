@@ -1,0 +1,73 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Thu May 07 16:46:53 2026
+
+LISTING FOR SIMULATION FILE: D4-SNCP.si
+
+   1: NAME         D4-SNCP ;
+   2: PARTNO       XXXXX ;
+   3: REV          XX ;
+   4: DATE         XX/XX/XX ;
+   5: DESIGNER     XXXXX ;
+   6: COMPANY      XXXXX ;
+   7: ASSEMBLY     XXXXX ;
+   8: LOCATION     XXXXX ;
+   9: 
+  10: 
+  11: ORDER:
+  12:  
+  13:      !NCPIN, %1
+  14:    , !XIOWC, %1
+  15:    ,  TIMO, %1
+  16:    , !TIMCS, %1
+  17:    , !NCPCS, %1
+  18:    ,  XA3, %1
+  19:    ,  XA0, %1
+  20:    , !RESET, %1
+  21:    , !ERROR, %1
+  22:    , !BUSYIN, %3
+  23: 
+  24:    ,  RES287, %1
+  25:    , !BUSYOUT, %1
+  26:    ,  IRQ13, %1
+  27:    ,  ONESHT, %1
+  28:    , !EN_ERR, %1
+  29:    , !TIM1CS, %1
+  30:    , !TIM2CS;
+  31: 
+  32: 
+
+============================================
+                              !             
+                        !     B     ! ! !   
+      ! !   ! !     ! ! B   R U   O E T T   
+      N X   T N     R E U   E S I N N I I   
+      C I T I C     E R S   S Y R E _ M M   
+      P O I M P X X S R Y   2 O Q S E 1 2   
+      I W M C C A A E O I   8 U 1 H R C C   
+      N C O S S 3 0 T R N   7 T 3 T R S S   
+============================================
+0001: 0 1 0 1 1 1 1 0 1 1   H H L L L H H
+0002: 0 1 0 1 1 1 1 1 1 1   L H L L L H H
+0003: 0 0 0 1 0 0 1 1 1 1   H H L L L H H
+0004: 0 0 0 1 0 1 1 1 1 0   L L L L L H H
+0005: 0 0 0 1 1 0 1 1 0 1   L L H H L H H
+0006: 0 0 1 1 1 0 1 1 0 1   L H H H L H H
+0007: 0 0 1 1 1 0 1 0 0 0   H H L L L H H
+0008: 0 1 1 1 0 0 1 1 1 1   L H L L L H H
+0009: 0 0 1 1 0 0 0 1 1 1   L H L L H H H
+0010: 0 0 1 1 0 0 0 1 1 0   L L L L H H H
+0011: 0 0 1 1 1 0 0 1 1 0   L L L L H H H
+0012: 0 0 1 1 1 0 0 1 0 0   L L L L H H H
+0013: 0 0 1 1 1 0 0 1 0 1   L H L L H H H
+0014: 0 1 1 0 1 0 1 1 1 1   L H L L L L H
+0015: 0 1 1 0 1 1 1 1 1 1   L H L L L H L
+0016: 1 0 0 1 0 1 0 1 1 1   L L L H L H H
+0017: 1 1 0 1 1 1 1 1 0 1   L L L H L H H
+0018: 1 1 1 1 1 1 1 1 1 0   L H L L L H H
+0019: 1 1 0 1 0 1 1 1 1 0   L H L L L H H
+0020: 1 1 0 1 1 0 1 1 1 0   L H L L L H H
+0021: 1 0 0 1 1 1 1 1 1 0   L H L L L H H
+0022: 1 1 0 1 1 0 1 1 1 0   L H L L L H H
+0023: 1 0 0 1 0 0 1 1 1 0   H H L L L H H

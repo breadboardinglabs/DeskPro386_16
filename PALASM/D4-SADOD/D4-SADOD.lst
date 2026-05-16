@@ -1,0 +1,181 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SADOD.pld                     Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 15:39:18 2026
+
+  1:Name            D4-SADOD Bus enable to address converter and cycle end logic;
+  2:PartNo          108393-001;
+  3:Revision        01;
+  4:Date            16/5/26;
+  5:Designer        Dave Henry;
+  6:Company         Breadboarding Labs;
+  7:Location        None;
+  8:Assembly        None;
+  9:Device          p22v10;
+ 10:
+ 11:/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+ 12:/*                                                                                         */
+ 13:/*******************************************************************************************/
+ 14:/*                                                                                         */
+ 15:/*******************************************************************************************/
+ 16:/*
+ 17:DESCRIPTION
+ 18:This PAL converts the CPUs bus enable lines to address lines and cycles from 
+ 19:one to the next when multiple cycles are required. It also determines_when 
+ 20:the last cycle is in progress to develop the Cycle LAST signal. 
+ 21:Rev A of this device changes the CX16* equation to go away on ALE. The input 
+ 22:T01 is changed to T10 and IO16* is changed to LM_IO as part of an overall 
+ 23:change to delay the sampling of IO16* by one clock. Rev A can be used in any 
+ 24:D4-PROCESSOR from rev X5 up.
+ 25:Rev D is for the D4-Processor Enhanced (397 version)
+ 26:
+ 27:*/
+ 28:
+ 29:/* Pin Map 
+ 30:                               ______________
+ 31:                              |   D4-SADOD   |
+ 32:                     CALE x---|1           24|---x Vcc                      
+ 33:                      ALE x---|2           23|---x !RST                     
+ 34:                     !BE3 x---|3           22|---x !DCMD                    
+ 35:                     !BE2 x---|4           21|---x !CX16                    
+ 36:                     !BE1 x---|5           20|---x !ALST                    
+ 37:                     !BE0 x---|6           19|---x !BHE                     
+ 38:                    LM_IO x---|7           18|---x A0                       
+ 39:                      T00 x---|8           17|---x A1                       
+ 40:                      T10 x---|9           16|---x !CLSTD                   
+ 41:                    !LM16 x---|10          15|---x !CLAST                   
+ 42:                    !IO16 x---|11          14|---x !CMD                     
+ 43:                      GND x---|12          13|---x BHLDA                    
+ 44:                              |______________|
+ 45:
+ 46:*/
+ 47:
+ 48:/*******************************************************************************************/
+ 49:
+ 50:/* Inputs Note GAL20V10 Pin 23 and 14 are also inputs. Only Pins 15-22 can be Outputs */
+ 51:
+ 52:
+ 53:
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SADOD.pld                     Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 15:39:18 2026
+
+ 54:PIN 1 = CALE ;
+ 55:PIN 2 = ALE ;
+ 56:PIN 3 = !BE3 ;
+ 57:PIN 4 = !BE2 ;
+ 58:PIN 5 = !BE1 ;
+ 59:PIN 6 = !BE0 ;
+ 60:PIN 7 = LM_IO ;
+ 61:PIN 8 = T00 ;
+ 62:PIN 9 = T10 ;
+ 63:PIN 10 = !LM16 ;
+ 64:PIN 11 = !IO16 ;
+ 65:PIN 13 = BHLDA ;
+ 66:PIN 14 = !CMD ;
+ 67:PIN 15 = !CLAST ;
+ 68:PIN 16 = !CLSTD ;
+ 69:PIN 17 = A1 ;
+ 70:PIN 18 = A0 ;
+ 71:PIN 19 = !BHE ;
+ 72:PIN 20 = !ALST ;
+ 73:PIN 21 = !CX16 ;
+ 74:PIN 22 = !DCMD ;
+ 75:PIN 23 = !RST ;/* The following 4 outputs are clocked by ALE, output only when /HLDA is true */
+ 76:
+ 77:                      
+ 78:                 
+ 79:
+ 80:  
+ 81:!A1.D =
+ 82:        !RST & !BE3 & !BE2 
+ 83:      # !RST & !A1 & !A0  & !CX16 & !CLAST 
+ 84:      # !RST & BE1 & CLAST;         
+ 85:
+ 86:A1.oe = !BHLDA;
+ 87:  
+ 88:!A0.D =
+ 89:        !RST & BE0 & CLAST         
+ 90:      # !RST & BE2 & !BE1 & CLAST   
+ 91:      # !RST & BE2 & A0 & !CLAST    
+ 92:      # !RST & CX16 & !CLAST;       
+ 93:A0.oe = !BHLDA;
+ 94:
+ 95:  
+ 96:BHE.D =
+ 97:        !RST & !A0 & !CX16 & !CLAST 
+ 98:      # !RST & BE1 & CLAST         
+ 99:      # !RST & BE3; 
+100:BHE.oe = !BHLDA;
+101:
+102: 
+103:ALST.D =
+104:        !RST & !CX16  & !BE2   & !CLAST 
+105:      # !RST & !BE2   & !BE0   & CLAST  
+106:      # !RST & !BE3   & !BE1   & CLAST  
+107:      # !RST & !BE3   & A0     & !CLAST 
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SADOD.pld                     Page 3
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 15:39:18 2026
+
+108:      # !RST & !CX16  & A1     & !A0  & !CLAST 
+109:      # !RST & CX16   & !BE3   & !CLAST;        /* Cycle LAST PRESET input for internal F/F (Cleared by rising edge of ALE)  */
+110:ALST.oe = !BHLDA;                                /* This is pulsed only once to set F/F and generate the NAB* signal */
+111: 
+112:
+113: 
+114:CLSTD =
+115:         ALST  &  T00                            /* Active during the last cycle of set */
+116:      #  LM_IO  & LM16 & T00 & !BE2 
+117:      #  LM_IO  & LM16 & T00 & A1  
+118:      # !LM_IO & IO16 & T10 & !BE2 & !ALST 
+119:      # !LM_IO & IO16 & T10 & A1  & !ALST  
+120:      #  RST;                                    /* and during RESET */
+121:CLSTD.oe = 'b'1;                               
+122: 
+123:CLAST =
+124:         ALST   & T00                             /* Active during the last cycle of set */
+125:      #  LM_IO  & LM16 & T00 & !BE2 
+126:      #  LM_IO  & LM16 & T00 & A1  
+127:      # !LM_IO & IO16 & T10 & !BE2 & !ALST 
+128:      # !LM_IO & IO16 & T10 & A1 & !ALST   
+129:      #  RST                                      /* and during RESET */
+130:      #  CLAST  &  !ALE;                          /* HOLDS ACTIVE TILL ALE */
+131:CLAST.oe = 'b'1;                      
+132:  
+133:CX16 = 
+134:  !RST &  LM_IO &  T00 & LM16  /* CPU MEM OP */
+135:# !RST & !LM_IO &  T10 & IO16  /* CPU I/O OP */                  
+136:# !RST & !ALE          & CX16; /* CPU HOLD */
+137:CX16.oe = 'b'1;            
+138: 
+139:DCMD = CMD; /*  DELAYED COMMAND */
+140:DCMD.oe = 'b'1;                                 
+141:
+142:
+143:
+144:
+145:
+
+[0016cb] Please note: no expression assigned to:  A0.ar
+[0016cb] Please note: no expression assigned to:  A0.sp
+[0016cb] Please note: no expression assigned to:  A1.ar
+[0016cb] Please note: no expression assigned to:  A1.sp
+[0016cb] Please note: no expression assigned to:  ALST.ar
+[0016cb] Please note: no expression assigned to:  ALST.sp
+[0016cb] Please note: no expression assigned to:  BHE.ar
+[0016cb] Please note: no expression assigned to:  BHE.sp
+
+
+Jedec Fuse Checksum       (d2ba)
+Jedec Transmit Checksum   (6e34)

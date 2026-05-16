@@ -1,0 +1,99 @@
+Name            D4-SROMA System ROM decode logic;
+PartNo          108135-001;
+Revision        01;
+Date            16/05/26;
+Designer        Dave Henry;
+Company         Breadboarding Labs;
+Location        None;
+Assembly        None;
+
+/********************************************************************/
+/*                                                                  */
+/********************************************************************/
+/* Target Device Types: ATF16V8 - Device g16v8                      */
+/********************************************************************/
+
+
+ORDER:
+ 
+    BALE, %1
+  , LA23, %1
+  , LA22, %1
+  , LA21, %1
+  , LA20, %1
+  , LA19, %1
+  , LA18, %1
+  , LA17, %1
+  , SA16, %1
+  ,!MRDC, %1
+  ,!RFSH, %1
+  ,!M32, %3
+
+  ,!ROM, %1
+  ,!ROMIOE, %1
+  ,!ROM20E, %1
+  ,!ROMEN, %1
+  ,!M16E, %1
+  ,!LOWEN;
+
+/*
+                             R R 
+                             O O R   L 
+ B L L L L L L L S M R       M M O M O 
+ A A A A A A A A A R F M   R 1 2 M 1 W 
+ L 2 2 2 2 1 1 1 1 D S 3   O O O E 6 E 
+ E 3 2 1 0 9 8 7 6 C H 2   M E E N E N */
+
+VECTORS:
+
+ 1 0 0 0 0 0 0 0 0 1 1 0   H H H H L L /* INACTIVE */
+
+ 0 0 0 0 0 0 0 0 0 1 1 1   H H H H H L /* INACTIVE */
+
+ 0 0 0 0 0 1 1 1 0 1 1 1   H H H H L L /* ROM2 ADDRESS, NO READ, NO ALE */
+
+ 1 0 0 0 0 1 1 1 0 1 1 1   L H H H L L /* ROM2 ADDRESS, NO READ, ALE */
+
+ 0 0 0 0 0 0 0 0 0 0 1 1   L H L L H L /* ROM2 READ, HOLD ADDRESS ON ROM */
+
+ 1 0 0 0 0 0 0 0 0 1 1 1   H H H H H L /* INACTIVE */
+
+ 0 0 0 0 0 0 0 0 0 1 1 1   H H H H H L /* INACTIVE */
+
+ 0 1 1 1 1 1 1 1 1 1 1 1   H H H H L L /* ROMl ADDRESS, NO READ, NO ALE */
+
+ 1 1 1 1 1 1 1 1 1 1 1 1   L H H H L H /* ROM1 ADDRESS, NO READ, ALE */
+
+ 0 1 1 1 1 0 0 0 1 0 1 1   L L H L H H /* ROM1 READ, HOLD ADDRESS ON ROM */
+
+ 1 0 0 0 0 0 0 0 1 1 1 1   H H H H H L /* INACTIVE */
+
+ 1 1 0 0 0 1 1 1 1 1 1 1   H H H H H H /* INACTIVE */
+
+ 1 0 1 0 0 1 1 1 1 1 1 1   H H H H H H /* INACTIVE */
+
+ 1 0 0 1 0 1 1 1 1 1 1 1   H H H H H H /* INACTIVE */
+
+ 1 0 0 0 1 1 1 1 1 1 1 1   H H H H H H /* INACTIVE */
+
+ 1 0 0 0 0 0 1 1 1 1 1 1   H H H H H L /* INACTIVE */
+
+ 1 0 0 0 0 1 0 1 1 1 1 1   H H H H H L /* INACTIVE */
+
+ 1 0 0 0 0 1 1 0 1 1 1 1   H H H H H L /* INACTIVE */
+
+ 1 0 1 1 1 1 1 1 1 1 1 1   H H H H H H /* INACTIVE */
+
+ 
+ 1 1 0 1 1 1 1 1 1 1 1 1   H H H H H H /* INACTIVE */
+
+ 1 1 1 0 1 1 1 1 1 1 1 1   H H H H H H /* INACTIVE */
+
+ 1 1 1 1 0 1 1 1 1 1 1 1   H H H H H H /* INACTIVE */
+
+ 1 1 1 1 1 0 1 1 1 1 1 1   H H H H H H /* INACTIVE */
+
+ 1 1 1 1 1 1 0 1 1 1 0 1   H H H H H L /* INACTIVE */
+
+ 1 1 1 1 1 1 1 0 1 1 1 1   H H H H H H /* INACTIVE */
+

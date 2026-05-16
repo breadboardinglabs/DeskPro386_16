@@ -71,7 +71,7 @@ MRD :=
 
 FUNCTION TABLE
 CLK /CLK16 /OE /ADSM /DMIO D-C W-R /M32 HLDA /HIT
-MRAS /SWM /MCAS /NAM /MRDY MWE MRD /YY
+/MRAS /SWM /MCAS /NAM /MRDY /MWE /MRD /YY
 ;  / 
 ;C C   / /             /   /   / 
 ;L L   A D     / H /   M / M / M / /

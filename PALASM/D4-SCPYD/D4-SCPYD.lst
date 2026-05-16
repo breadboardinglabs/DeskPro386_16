@@ -1,0 +1,148 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SCPYD.pld                     Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:21:09 2026
+
+  1:Name            D4-SCPYD Copy buffer control logic and DMA low address logic;
+  2:PartNo          108395-OO1;
+  3:Revision        01;
+  4:Date            16/5/26;
+  5:Designer        Dave Henry;
+  6:Company         Breadboarding Labs;
+  7:Location        None;
+  8:Assembly        None;
+  9:Device          g16v8;
+ 10:
+ 11:/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+ 12:/*                                                                                         */
+ 13:/*******************************************************************************************/
+ 14:/*                                                                                         */
+ 15:/*******************************************************************************************/
+ 16:/*
+ 17:DESCRIPTION
+ 18:This PAL implements the logic to enable the copy buffer (high to low halves 
+ 19:of the 16 bit bus). It also drives the A0 and BHE lines as appropriate during
+ 20:DMA.
+ 21:Rev A changes the COPYHL enable during byte DMA operations to the high half of 
+ 22:the bus. The timing is made earlier by changing to IORC from MWTC. 
+ 23:Rev D changes the polarity of the AEN2 signal for logic reduction on the D3PE 
+ 24:D4-PROCESSOR board (with 80387).
+ 25:
+ 26:Note that changes were required to LM16 to avoid Unstable Output errors in the simulation
+ 27:!LM16 changed to registered with BALE as the clock and Pin 11 defined as oe output enable active low
+ 28:!HLDA moved to pin 19
+ 29:*/
+ 30:
+ 31:/* Pin Map 
+ 32:                               ______________
+ 33:                              |   D4-SCPYD   |
+ 34:                     BALE x---|1           20|---x Vcc                      
+ 35:                    !IO16 x---|2           19|---x !HLDA                    
+ 36:                    !MWTC x---|3           18|---x !LM16                    
+ 37:                    !MRDC x---|4           17|---x XA0                      
+ 38:                    !IOWX x---|5           16|---x !BHE                     
+ 39:                    !IORC x---|6           15|---x !DAEN                    
+ 40:                   !DAEN1 x---|7           14|---x !COPYHL                  
+ 41:                     AEN2 x---|8           13|---x !COPYEN                  
+ 42:                     !M16 x---|9           12|---x !DAEN2                   
+ 43:                      GND x---|10          11|---x oe                       
+ 44:                              |______________|
+ 45:*/
+ 46:
+ 47:
+ 48:/* PIN 1 = !M16 ; */
+ 49:PIN 1 = BALE ;
+ 50:PIN 2 = !IO16 ;
+ 51:PIN 3 = !MWTC ;
+ 52:PIN 4 = !MRDC ;
+ 53:PIN 5 = !IOWX ;
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SCPYD.pld                     Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:21:09 2026
+
+ 54:PIN 6 = !IORC ;
+ 55:PIN 7 = !DAEN1 ;
+ 56:PIN 8 = AEN2 ;
+ 57:PIN 9 = !M16 ;
+ 58:/* PIN 9 = BALE ; */
+ 59:/* PIN 11 = !HLDA ; */
+ 60:PIN 11 =  oe ;
+ 61:PIN 12 = !DAEN2 ;
+ 62:PIN 13 = !COPYEN ;
+ 63:PIN 14 = !COPYHL ;
+ 64:PIN 15 = !DAEN ;
+ 65:PIN 16 = !BHE ;
+ 66:PIN 17 = XA0 ;
+ 67:PIN 18 = !LM16 ;
+ 68:PIN 19 = !HLDA ;
+ 69:               
+ 70:            
+ 71:
+ 72:  
+ 73:COPYEN =
+ 74:  !DAEN  & BHE     & XA0  & !LM16 & MWTC  /* CPU write MEM */
+ 75:# !DAEN  & BHE     & XA0  & !IO16 & IOWX  /* CPU write I/O */
+ 76:# !DAEN  & BHE     & XA0  & !LM16 & MRDC  /* CPU read MEM */
+ 77:# !DAEN  & BHE     & XA0  & !IO16 & IORC  /* CPU read I/O */
+ 78:#  DAEN1 & COPYHL  & XA0  &  LM16 & MRDC  /* DMA byte mem read high of 16 */
+ 79:#  DAEN1           & XA0  &  LM16 & IORC; /* DMA byte mem write high of 16 */
+ 80:            
+ 81:  
+ 82:COPYHL = 
+ 83:  !DAEN  & BHE  & XA0  & !LM16  & MWTC    /* mem write */
+ 84:# !DAEN  & BHE  & XA0  & !IO16  & IOWX    /* I/O write */
+ 85:#  DAEN1        & XA0  &  LM16  & MRDC    /* DMA byte mem read high of 16 */
+ 86:#  COPYHL  & COPYEN;                      /*  Short holdover for write */
+ 87:                      
+ 88:    
+ 89:DAEN =
+ 90:  DAEN1  & HLDA 
+ 91:# AEN2   & HLDA;                          /* If word type of DMA, enable out  */
+ 92: 
+ 93:        
+ 94:                                              
+ 95:XA0.OE = AEN2 & HLDA;
+ 96:     
+ 97:!XA0 = AEN2;                              /*  (Pin is low for word DMA) */
+ 98:
+ 99:/* If DMA, enable output */
+100:BHE.OE = DAEN ;
+101:   
+102:BHE =
+103:  XA0  & DAEN1                             /*  If byte type, is inverted XA0 */
+104:# AEN2;                                    /* If word type, is active */
+105:                           
+106:
+107:LM16.d = M16;                              /* use BALE to latch M16 to avoid unstable output error on LM16 in simulation */
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SCPYD.pld                     Page 3
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:21:09 2026
+
+108:
+109:/* The Latch term below causes simulations to fail due to Unstable Outputs, converted to registered pin
+110:LM16 =
+111:  M16  &  BALE                             Enable M16 input 
+112:# LM16 & !BALE                             Latch term **** Doesn't work reliably!
+113:# LM16 &  M16;                             Deglitch term */
+114:                              
+115: 
+116:DAEN2 = AEN2  &  HLDA;                     /* TIGHTEN UP ON HLDA */
+117:                            
+118:
+119:
+120:
+
+
+
+Jedec Fuse Checksum       (6107)
+Jedec Transmit Checksum   (4221)

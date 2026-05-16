@@ -1,0 +1,137 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-RM32.pld                      Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:37:10 2026
+
+  1:NAME         D4-RM32 ;
+  2:PARTNO       XXXXX ;
+  3:REV          XX ;
+  4:DATE         XX/XX/XX ;
+  5:DESIGNER     XXXXX ;
+  6:COMPANY      XXXXX ;
+  7:ASSEMBLY     XXXXX ;
+  8:LOCATION     XXXXX ;
+  9:
+ 10:/* PAL16L8 */
+ 11:
+ 12:/*                                                PAL DESIGN SPECIFICATION */
+ 13:
+ 14:/* D4-RM32   108053-001                                    PAUL R. CULLEY 04/02/86 */
+ 15:
+ 16:/* D4 PAGE RAM BOARD M32 decode logic Copyright Compaq Computer Houston, Texas 1986 */
+ 17:
+ 18:/*  */
+ 19:
+ 20:
+ 21:PIN 1 = A31 ;
+ 22:PIN 2 = A23 ;
+ 23:PIN 3 = A22 ;
+ 24:PIN 4 = A21 ;
+ 25:PIN 5 = A20 ;
+ 26:PIN 6 = A19 ;
+ 27:PIN 7 = A18 ;
+ 28:PIN 8 = A17 ;
+ 29:PIN 9 = FA20 ;
+ 30:PIN 11 = !2M ;
+ 31:PIN 12 = !M32A ;
+ 32:PIN 13 = !M32B ;
+ 33:PIN 14 = !ROM ;
+ 34:PIN 15 = !512K ;
+ 35:PIN 16 = !640K ;
+ 36:PIN 17 = !1M ;
+ 37:PIN 18 = !8M ;
+ 38:PIN 19 = !M32C ;
+ 39:
+ 40:M32A.OE = !A22&!A21 ;
+ 41:     
+ 42:M32A =
+ 43:  !A31 & !A23& !A22& !A21& !A20& !A19& !A18              /* 000000-03FFFF 256K */
+ 44:# !A31 & !A23& !A22& !A21& !A19& !A18& !FA20             /* 000000-03FFFF 256K */
+ 45:# !A31 & !A23& !A22& !A21& !A20& !A19&  A18&       512K  /* 040000-07FFFF 256K */
+ 46:# !A31 & !A23& !A22& !A21& !A20&  A19& !A18& !A17& 640K  /* 080000-09FFFF 128K */
+ 47:# !A31 & !A23& !A22& !A21& !A20&  A19&  A18&  A17& ROM   /* 0E0000-0FFFFF 128K */
+ 48:# !A31 & !A23& !A22& !A21&  A20&                   1M    /* 100000-1FFFFF 1M */
+ 49:# !A31 &  A23& !A22& !A21&                         8M;   /* 800000-9FFFFF 2M */
+ 50:                               
+ 51:
+ 52:M32B.OE = A22&!A21 ;
+ 53:     
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-RM32.pld                      Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:37:10 2026
+
+ 54:M32B =
+ 55: !A31 & !A23& A22 & !A21&                          8M    /* 400000-5FFFFF 2M */
+ 56:# A31  & A23 & A22 & !A21& !A20& !A19& !A18& !A17;       /* DIAG 8000000h 128K */
+ 57:              
+ 58:
+ 59:M32C.OE = A21 ;
+ 60:   
+ 61:M32C =
+ 62:  !A31 & A23 & A22 & A21 & A20& !A19&  A18&       !512K  /* F40000-F7FFFF 256K */
+ 63:# !A31 & A23 & A22 & A21 & A20&  A19& !A18& !A17& !640K  /* F80000-F9FFFF 128K */
+ 64:# !A31 & A23 & A22 & A21 & A20&  A19& !A18&  A17         /* FA0000-FBFFFF 128K */
+ 65:# !A31 & A23 & A22 & A21 & A20&  A19&  A18               /* FC0000-FFFFFF 256K */
+ 66:# !A31 & !A23& A22 & A21 &                         8M    /* 600000-7FFFFF 2M */
+ 67:# !A31 & !A23& !A22& A21 &                         2M;   /* 200000-3FFFFF 2M */
+ 68:
+ 69:/*
+ 70:DESCRIPTION
+ 71:This PAL is used in the D4 (386) memomy board to decode addresses within the
+ 72:memory space and assert the M32* signal. It does all the decoding for all the 
+ 73:expected options according to the following jumper settings.
+ 74:
+ 75:512K 640K                              1M
+ 76:H    H 256K     000000-03FFFFh         H       NO EXTENDED MEMORY
+ 77:L    H 512K     000000-07FFFFh         L       1024K   100000-1FFFFFh
+ 78:L    L 640K     000000-9FFFFFh         
+ 79:H    L ****     ILLEGAL
+ 80:8M 2M
+ 81:H  H   OK
+ 82:H  L   2048K    200000-3FFFFFh
+ 83:L  H   6144K    400000-9FFFFFh (NOTE: The 8 Meg board asserts both 8M and 2M
+ 84:L  L  8192K     200000-9FFFFFh strobes)
+ 85:
+ 86:When FA20 is low, the address line A20 should be considered to be low.
+ 87:When FA20 is high, A20 is decoded as usual.
+ 88:
+ 89:The above set of m32 outputs are wire ORed to form the signal M32*. The
+ 90:actual equation for M32 is shown below.
+ 91:M32 = /A31* /A23* /A22* /A21* /A20* /A19* /A18            ;000000-03FFFF 256K
+ 92:+     /A31* /A23* /A22* /A21*     /A19* /A18*    /FA20 ;000000-03FFFF 256K
+ 93:+     /A31* /A23* /A22* /A21* /A20* /A19* A18*      512K ;040000-07FFFF 256K
+ 94:+     /A31* /A23* /A22* /A21* /A20* A19* /A18* /A17* 640K ;080000-09FFFF 128K
+ 95:+     /A31* /A23* /A22* /A21* /A20* A19* A18* A17* ROM  ;0E0000-0FFFFF 128K
+ 96:+     /A31* A23* A22* A21* A20* /A19* A18*     /512K ;F40000-F7FFFF 256K
+ 97:+     /A31* A23* A22* A21* A20* A19* /A18* /A17* /640K ;F80000-F9FFFF 128K
+ 98:+     /A31* A23* A22* A21* A20* A19* /A18* A17       ;FA0000-FBFFFF 128K
+ 99:+     /A31* A23* A22* A21* A20* A19* A18            ;FC0000-FFFFFF 256K
+100:+     /A31* /A23* /A22* /A21* A20*                1M   ;100000-1FFFFF 1M
+101:+     /A31* /A23* /A22* A21*                     2M   ;200000-3FFFFF 2M
+102:+     /A31* /A23* A22* /A21*                     8M   ;400000-5FFFFF 2M
+103:+     /A31* /A23* A22* A21*                     8M   ;600000-7FFFFF 2M
+104:+     /A31* A23* /A22* /A21*                     8M   ;800000-9FFFFF 2M
+105:+     A31*  A23* A22* /A21* /A20* /A19* /A18* /A17       ;DIAG 80C0000h 128K
+106:
+107:*/
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-RM32.pld                      Page 3
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:37:10 2026
+
+108:
+109:
+
+
+
+Jedec Fuse Checksum       (4974)
+Jedec Transmit Checksum   (02de)

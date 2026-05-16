@@ -1,0 +1,102 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SPPI.pld                      Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 17:05:51 2026
+
+  1:Name            D4-SPPI Peripheral interface decode logic;
+  2:PartNo          105659-001;
+  3:Revision        01;
+  4:Date            16/5/26;
+  5:Designer        Dave Henry;
+  6:Company         Breadboarding Labs;
+  7:Location        None;
+  8:Assembly        None;
+  9:Device          g16v8;
+ 10:
+ 11:/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+ 12:/*                                                                                         */
+ 13:/*******************************************************************************************/
+ 14:/*                                                                                         */
+ 15:/*******************************************************************************************/
+ 16:/*
+ 17:DESCRIPTION
+ 18:This PAL is used in the D4 (386) processor board to decode addresses within the
+ 19:range 60h to 7Fh for I/O. It also generates the signal that controls the
+ 20:direction of the I/O data buffer XD<7..0>.
+ 21:*/
+ 22:/* Pin Map 
+ 23:                               ______________
+ 24:                              |   D4-SPPI    |
+ 25:                      XA4 x---|1           20|---x Vcc                      
+ 26:                   !PPICS x---|2           19|---x CMOSAWR                  
+ 27:                   !XIORC x---|3           18|---x !PBRD                    
+ 28:                      XA3 x---|4           17|---x !CIORD                   
+ 29:                      XA9 x---|5           16|---x !KEYCS                   
+ 30:                      XA0 x---|6           15|---x !CMOSRD                  
+ 31:                      XA8 x---|7           14|---x !PBWR                    
+ 32:                   !XIOWC x---|8           13|---x !NMICLK                  
+ 33:                    !INTA x---|9           12|---x !CMOSWR                  
+ 34:                      GND x---|10          11|---x RESCMOS                  
+ 35:                              |______________|
+ 36:
+ 37:*/
+ 38:
+ 39:PIN 1 = XA4 ;
+ 40:PIN 2 = !PPICS ;
+ 41:PIN 3 = !XIORC ;
+ 42:PIN 4 = XA3 ;
+ 43:PIN 5 = XA9 ;
+ 44:PIN 6 = XA0 ;
+ 45:PIN 7 = XA8 ;
+ 46:PIN 8 = !XIOWC ;
+ 47:PIN 9 = !INTA ;
+ 48:PIN 11 = RESCMOS ;
+ 49:PIN 12 = !CMOSWR ;
+ 50:PIN 13 = !NMICLK ;
+ 51:PIN 14 = !PBWR ;
+ 52:PIN 15 = !CMOSRD ;
+ 53:PIN 16 = !KEYCS ;
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SPPI.pld                      Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 17:05:51 2026
+
+ 54:PIN 17 = !CIORD ;
+ 55:PIN 18 = !PBRD ;
+ 56:PIN 19 = CMOSAWR ;
+ 57:                              
+ 58:           
+ 59:
+ 60: 
+ 61:NMICLK = PPICS  &  XA4  & !XA3  & !XA0 & XIOWC; /*  NMI register write (70h) */
+ 62: 
+ 63:CMOSRD = PPICS  &  XA4  & !XA3  &  XA0 & XIORC; /*  CMOS data read (71h) */
+ 64: 
+ 65:CMOSWR = PPICS  &  XA4  & !XA3  &  XA0 & XIOWC; /*  CMOS data write (71h) */
+ 66:  
+ 67:KEYCS  = PPICS  & !XA4  & !XA3  & !XA0;         /*  8042 (60h, 64h) */
+ 68:   
+ 69:PBWR   = PPICS  & !XA4  & !XA3  &  XA0 & XIOWC; /*  Port B write (61h) */
+ 70:   
+ 71:PBRD   = PPICS  & !XA4  & !XA3  &  XA0 & XIORC; /*  Port B read (61h) */
+ 72:  
+ 73:CIORD  = !XA9   & !XA8  &  XIORC                /*  0-FFH */
+ 74:       # INTA;                                  /*  or Interrupt ack */
+ 75: 
+ 76:!CMOSAWR = !NMICLK  & !RESCMOS                  /*  Inverted NMICLK */
+ 77:         # !XIOWC   & !RESCMOS;                 /*  CMOS address write (70h) */
+ 78:                  
+ 79:
+ 80:
+ 81:
+ 82:
+
+
+
+Jedec Fuse Checksum       (525b)
+Jedec Transmit Checksum   (1494)

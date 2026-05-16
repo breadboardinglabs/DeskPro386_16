@@ -1,0 +1,144 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SADI.pld                      Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:41:39 2026
+
+  1:NAME         D4-SADI ;
+  2:PARTNO       XXXXX ;
+  3:REV          XX ;
+  4:DATE         XX/XX/XX ;
+  5:DESIGNER     XXXXX ;
+  6:COMPANY      XXXXX ;
+  7:ASSEMBLY     XXXXX ;
+  8:LOCATION     XXXXX ;
+  9:
+ 10:/* PAL16L8 */
+ 11:
+ 12:/*                                                PAL DESIGN SPECIFICATION */
+ 13:
+ 14:/* D4-SADI 105645-001                                      PAUL R. CULLEY 02/13/86 */
+ 15:
+ 16:/* Address to byte enable conversion and read latch enable logic */
+ 17:
+ 18:/* Copyright 1986 COMPAQ COMPUTER Houston, Texas */
+ 19:
+ 20:
+ 21:PIN 1 = A1 ;
+ 22:PIN 2 = A0 ;
+ 23:PIN 3 = !BHE ;
+ 24:PIN 4 = !CX16 ;
+ 25:PIN 5 = NC2 ;
+ 26:PIN 6 = !CMD ;
+ 27:PIN 7 = LW_R ;
+ 28:PIN 8 = HLDA ;
+ 29:PIN 9 = NC1 ;
+ 30:PIN 11 = TST ;
+ 31:PIN 12 = !BE0 ;
+ 32:PIN 13 = !BE1 ;
+ 33:PIN 14 = !BE2 ;
+ 34:PIN 15 = !BE3 ;
+ 35:PIN 16 = B0CK ;
+ 36:PIN 17 = B1CK ;
+ 37:PIN 18 = B2CK ;
+ 38:PIN 19 = B3CK ;
+ 39:
+ 40:
+ 41:
+ 42:BE0.OE = HLDA ;
+ 43:   
+ 44:BE0 = !A1  & !A0; 
+ 45:
+ 46:
+ 47:BEl.OE = HLDA ;
+ 48:   
+ 49:BEl = !A1  & BHE; 
+ 50:
+ 51:
+ 52:BE2.OE = HLDA ;
+ 53:   
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SADI.pld                      Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:41:39 2026
+
+ 54:BE2 = A1  & !A0; 
+ 55:
+ 56:
+ 57:BE3.OE = HLDA ;
+ 58:   
+ 59:BE3 = A1  & BHE; 
+ 60:
+ 61:
+ 62:
+ 63:
+ 64:
+ 65:
+ 66:
+ 67:B0CK.OE = !TST ;
+ 68:    
+ 69:!B0CK = !CMD  
+ 70:                 # LW_R   
+ 71:                 # A0   
+ 72:                 # A1;   
+ 73:
+ 74:
+ 75:B1CK.OE = !TST ;
+ 76:    
+ 77:!B1CK = !CMD  
+ 78:                 # !BHE 
+ 79:                 # !CX16  & !A0 
+ 80:                 # LW_R  
+ 81:                 # A1;  
+ 82:
+ 83:
+ 84:B2CK.OE = !TST ;
+ 85:    
+ 86:!B2CK = !CMD  
+ 87:                 # !A1  
+ 88:                 # LW_R   
+ 89:                 # A0;   
+ 90:
+ 91:
+ 92:B3CK.OE = !TST ;
+ 93:    
+ 94:!B3CK = !CMD  
+ 95:                 # !BHE  
+ 96:                 # !A1  
+ 97:                 # !CX16   & !A0 
+ 98:                 # LW_R;   
+ 99:
+100:
+101:
+102:
+103:/*
+104:DESCRIPTION
+105:This PAL contains the logic to back drive the 386 byte enables during the non 
+106:CPU operations. It decodes the address inputs and drives the appropriate BEx 
+107:lines whenever the 386 is in a HLDA state.
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SADI.pld                      Page 3
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:41:39 2026
+
+108:
+109:This PAL also contains the decoding logic to drive the read latches clock lines 
+110:(74ALS573 fall through latch). These clock lines have positive true outputs 
+111:and are enabled when the CPU executes a MRDC, IORC, or INTA command.
+112:The basic equation is: BxCK = BSOx * CMD * !LW_R
+113:
+114:*/
+115:
+116:
+
+
+
+Jedec Fuse Checksum       (7655)
+Jedec Transmit Checksum   (5114)

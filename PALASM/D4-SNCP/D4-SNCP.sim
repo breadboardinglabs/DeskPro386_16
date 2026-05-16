@@ -1,0 +1,84 @@
+%SIGNAL
+PIN   5 = !BUSYIN 
+PIN  19 = !BUSYOUT 
+PIN  18 =  EN_ERR 
+PIN   4 = !ERROR 
+PIN  16 =  IRQ13 
+PIN  17 =  NC02 
+PIN   8 = !NCPCS 
+PIN   7 = !NCPIN 
+PIN  15 =  ONESHT 
+PIN  12 =  RES287 
+PIN   9 = !RESET 
+PIN  14 = !TIM1CS 
+PIN  13 = !TIM2CS 
+PIN   1 = !TIMCS 
+PIN   6 =  TIMO 
+PIN   3 =  XA0 
+PIN  11 =  XA3 
+PIN   2 = !XIOWC 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+BUSYOUT =>
+    !BUSYIN & !NCPIN & RESET
+  # EN_ERR & !ERROR & !NCPIN & RESET & !TIMO
+  # !NCPCS & NCPIN & RESET & XA3 & !XIOWC
+  # NCPIN & ONESHT & RESET & !TIMO
+
+!EN_ERR =>
+    !EN_ERR & !ERROR & !NCPIN & RESET
+  # !BUSYIN & !EN_ERR & !NCPIN & RESET
+  # !NCPCS & !XA0 & !XA3 & !XIOWC
+
+!IRQ13 =>
+    ERROR
+  # !BUSYIN
+  # !EN_ERR
+  # NCPIN
+
+!ONESHT =>
+    !IRQ13 & !NCPIN
+  # NCPIN & !ONESHT & XIOWC
+  # NCPIN & !ONESHT & !XA3
+  # NCPCS & NCPIN & !ONESHT
+  # NCPIN & TIMO
+  # !RESET
+
+!RES287 =>
+    RESET & XIOWC
+  # NCPCS & RESET
+  # RESET & XA3
+  # RESET & !XA0
+
+TIM1CS =>
+    !TIMCS & !XA3
+
+TIM2CS =>
+    !TIMCS & XA3
+
+BUSYOUT.oe  =>
+    1 
+
+EN_ERR.oe  =>
+    1 
+
+IRQ13.oe  =>
+    1 
+
+ONESHT.oe  =>
+    1 
+
+RES287.oe  =>
+    1 
+
+TIM1CS.oe  =>
+    1 
+
+TIM2CS.oe  =>
+    1 
+
+%END

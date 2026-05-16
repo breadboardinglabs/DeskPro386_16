@@ -1,0 +1,51 @@
+#WAVEFORM
+#H Name            D4-SDEND DataBuffer enable logic;
+#H PartNo          109390-001;
+#H Revision        01;
+#H Date            16/05/26;
+#E 0025 
+
+#H Designer        Dave Henry;
+#H Company         Breadboarding Labs;
+#H Location        None;
+#H Assembly        None;
+#H 
+#H /********************************************************************/
+#H /*                                                                  */
+#H /********************************************************************/
+#H /* Target Device Types: ATF16V8 - Device g16v8                      */
+#H /********************************************************************/
+#H 
+#H ORDER:
+#H  
+#H 
+#H   TST, %1
+#H  , A1, %1
+#H  , A0, %1
+#H  , !BHE, %1
+#H  , !WDEN, %1
+#H  , LM_IO, %1
+#H  , LW_R, %1
+#H  , LD_C, %1
+#H  , !CMD, %1
+#H  , !M32, %1
+#H  , !MWTC, %1
+#H  , !MRDC, %3
+#H  
+#H  , !BDIRRD, %1
+#H  , !B3EN, %1
+#H  , !B2EN, %1
+#H  , !B1EN, %1
+#H  , !B0EN, %1
+#H  , !INTA;
+#H 
+#V 0001 000011111001LHHLLH
+#V 0002 010011111001LLLHHH
+#V 0003 000010100010HHHLLH
+#V 0004 010011000010HLLHHH
+#V 0005 000010010111LHHHHH
+#V 0006 000000000111HHHHHL
+#V 0007 000000001111HHHHHH
+#V 0008 000001111111HHHLLH
+#V 0009 010001111111HLLHHH
+#V 0010 110001111111ZZZZZZ

@@ -1,0 +1,80 @@
+Name            D4-SPPI Peripheral interface decode logic;
+PartNo          105659-001;
+Revision        01;
+Date            16/5/26;
+Designer        Dave Henry;
+Company         Breadboarding Labs;
+Location        None;
+Assembly        None;
+Device          g16v8;
+
+/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+/*                                                                                         */
+/*******************************************************************************************/
+/*                                                                                         */
+/*******************************************************************************************/
+/*
+DESCRIPTION
+This PAL is used in the D4 (386) processor board to decode addresses within the
+range 60h to 7Fh for I/O. It also generates the signal that controls the
+direction of the I/O data buffer XD<7..0>.
+*/
+/* Pin Map 
+                               ______________
+                              |   D4-SPPI    |
+                      XA4 x---|1           20|---x Vcc                      
+                   !PPICS x---|2           19|---x CMOSAWR                  
+                   !XIORC x---|3           18|---x !PBRD                    
+                      XA3 x---|4           17|---x !CIORD                   
+                      XA9 x---|5           16|---x !KEYCS                   
+                      XA0 x---|6           15|---x !CMOSRD                  
+                      XA8 x---|7           14|---x !PBWR                    
+                   !XIOWC x---|8           13|---x !NMICLK                  
+                    !INTA x---|9           12|---x !CMOSWR                  
+                      GND x---|10          11|---x RESCMOS                  
+                              |______________|
+
+*/
+
+PIN 1 = XA4 ;
+PIN 2 = !PPICS ;
+PIN 3 = !XIORC ;
+PIN 4 = XA3 ;
+PIN 5 = XA9 ;
+PIN 6 = XA0 ;
+PIN 7 = XA8 ;
+PIN 8 = !XIOWC ;
+PIN 9 = !INTA ;
+PIN 11 = RESCMOS ;
+PIN 12 = !CMOSWR ;
+PIN 13 = !NMICLK ;
+PIN 14 = !PBWR ;
+PIN 15 = !CMOSRD ;
+PIN 16 = !KEYCS ;
+PIN 17 = !CIORD ;
+PIN 18 = !PBRD ;
+PIN 19 = CMOSAWR ;
+                              
+           
+
+ 
+NMICLK = PPICS  &  XA4  & !XA3  & !XA0 & XIOWC; /*  NMI register write (70h) */
+ 
+CMOSRD = PPICS  &  XA4  & !XA3  &  XA0 & XIORC; /*  CMOS data read (71h) */
+ 
+CMOSWR = PPICS  &  XA4  & !XA3  &  XA0 & XIOWC; /*  CMOS data write (71h) */
+  
+KEYCS  = PPICS  & !XA4  & !XA3  & !XA0;         /*  8042 (60h, 64h) */
+   
+PBWR   = PPICS  & !XA4  & !XA3  &  XA0 & XIOWC; /*  Port B write (61h) */
+   
+PBRD   = PPICS  & !XA4  & !XA3  &  XA0 & XIORC; /*  Port B read (61h) */
+  
+CIORD  = !XA9   & !XA8  &  XIORC                /*  0-FFH */
+       # INTA;                                  /*  or Interrupt ack */
+ 
+!CMOSAWR = !NMICLK  & !RESCMOS                  /*  Inverted NMICLK */
+         # !XIOWC   & !RESCMOS;                 /*  CMOS address write (70h) */
+                  
+
+

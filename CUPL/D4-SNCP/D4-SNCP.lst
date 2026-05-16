@@ -1,0 +1,125 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SNCP.pld                      Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:46:53 2026
+
+  1:NAME         D4-SNCP ;
+  2:PARTNO       XXXXX ;
+  3:REV          XX ;
+  4:DATE         XX/XX/XX ;
+  5:DESIGNER     XXXXX ;
+  6:COMPANY      XXXXX ;
+  7:ASSEMBLY     XXXXX ;
+  8:LOCATION     XXXXX ;
+  9:
+ 10:/* PAL16L8 */
+ 11:
+ 12:/*                                                PAL DESIGN SPECIFICATION */
+ 13:
+ 14:/* D4-SNCP        105657-001                               PAUL R. CULLEY 05/07/86 */
+ 15:
+ 16:/* Numeric Coproccessor error and busy logic  */
+ 17:
+ 18:/* Copyright 1986 Compaq Computer Houston, Texas */
+ 19:
+ 20:
+ 21:PIN 1 = !TIMCS ;
+ 22:PIN 2 = !XIOWC ;
+ 23:PIN 3 = XA0 ;
+ 24:PIN 4 = !ERROR ;
+ 25:PIN 5 = !BUSYIN ;
+ 26:PIN 6 = TIMO ;
+ 27:PIN 7 = !NCPIN ;
+ 28:PIN 8 = !NCPCS ;
+ 29:PIN 9 = !RESET ;
+ 30:PIN 11 = XA3 ;
+ 31:PIN 12 = RES287 ;
+ 32:PIN 13 = !TIM2CS ;
+ 33:PIN 14 = !TIM1CS ;
+ 34:PIN 15 = ONESHT ;
+ 35:PIN 16 = IRQ13 ;
+ 36:PIN 17 = NC02 ;
+ 37:PIN 18 = EN_ERR ;
+ 38:PIN 19 = !BUSYOUT ;/* The following equation is the positive true output of the equation: */
+ 39:
+ 40:
+ 41:
+ 42:/* RES287 = RESET + XIOWC * NCPCS * /XA3 * XA0  ; I/O write to F1h */
+ 43:   
+ 44:IRES287 =
+ 45:  !RESET  & !XIOWC /* NOT I/O WRITE */
+ 46:# !RESET  & !NCPCS /*  NOT port FX */
+ 47:# !RESET  &  XA3   /*  NOT address XXIXXXb */
+ 48:# !RESET  & !XA0;  /*  NOT address XXXXXOb */
+ 49:                  
+ 50:   
+ 51:BUSYOUT =
+ 52:  !RESET & NCPIN  & BUSYIN /*  coprocessor busy */
+ 53:# !RESET  & NCPIN  & ERROR  & EN_ERR & !TIMO /*  error before int ack */
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SNCP.pld                      Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:46:53 2026
+
+ 54:# !RESET  & !NCPIN & NCPCS  & XA3  & XIOWC /*  When not installed and NCP accessed */
+ 55:# !RESET  & !NCPIN & ONESHT & !TIMO; /*  When not installed till timeout */
+ 56:
+ 57:
+ 58:/* The following equation is the positive true output of the equation: */
+ 59:/*  IRQ13 = ERROR* /BUSYIN* EN_ERR* NCPIN   ; Int when error and enabled */
+ 60:!IRQ13 =
+ 61:         !ERROR /*  No int if no error */
+ 62:       #  BUSYIN /*  or busy */
+ 63:       # !EN_ERR /*  or not enabled for err */
+ 64:       # !NCPIN; /*  No int if not installed */
+ 65:                                   
+ 66:   
+ 67:!EN_ERR =
+ 68:    !RESET & NCPIN & !EN_ERR  &  ERROR  /*  Hold disabled till ERROR goes away */
+ 69:  # !RESET & NCPIN & !EN_ERR  &  BUSYIN /*  Hold disabled till BUSY goes away */
+ 70:  #  XIOWC  & NCPCS & !XA3     & !XA0;   /*  Disable on write to port 0F0h */
+ 71:              
+ 72:   
+ 73:!ONESHT =
+ 74:    NCPIN & !IRQ13                      /*  One shot output when IRQ (installed) */
+ 75: # !NCPIN & !ONESHT  & !XIOWC           /*  Goes high on NCP access when not */
+ 76: # !NCPIN  & !ONESHT  & !XA3            /*      installed */
+ 77: # !NCPIN  & !ONESHT  & !NCPCS 
+ 78: # !NCPIN  &  TIMO                      /*  and stays high till timeout */
+ 79: #  RESET;                              /*  Low at reset time */
+ 80:                                    
+ 81:   
+ 82:TIM1CS = TIMCS  & !XA3;                 /*  Timer 1 at address 040h-047h, 050h-057h */
+ 83:             
+ 84:   
+ 85:TIM2CS = TIMCS  &  XA3;                 /*  Timer 2 at address 048h-04Fh, 058h-05Fh */
+ 86: 
+ 87:
+ 88:/*
+ 89:DESCRIPTION
+ 90:This PAL is used in the Magnum processor board to handle the error logic for
+ 91:the numeric coprocessor. It allows a greater measure of compatibility with
+ 92:the previous products. It sets up the system to generate an interrupt when 
+ 93:the error signal is recieved. It holds the interrupt until the service
+ 94:routine does a write to port F0h. It also holds busy out active until the 
+ 95:interrupt occurs or till the CPU times out from no activity. This is to
+ 96:prevent any other numeric processor instructions from being executed until 
+ 97:the error has been recognized. If the no activity timeout occurs, that means
+ 98:the CPU hung up on the 287 interface due to different design of the 386.
+ 99:
+100:In this case, the interrupt will have been recieved by the 386.
+101:In addition, the timer chip selects are broken out to the seperate selects by the PAL logic.
+102:
+103:*/
+104:
+105:
+
+
+
+Jedec Fuse Checksum       (668c)
+Jedec Transmit Checksum   (39c2)

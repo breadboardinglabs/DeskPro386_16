@@ -1,0 +1,92 @@
+Name                D4_STATB Bus controller state machine logic;
+Partno              108219-00l;
+Revision            13;
+Date                28/03/26;
+Designer            Dave Henry;
+Company             Breadboarding Labs;
+Location            None;
+Assembly            None;
+
+/********************************************************************/
+/* Compiling Note: For this Design , it will compile without any    */
+/* errors if Minimization is set to Quick                           */   
+/* Note rules for Vector 25 and 37 TS0 set to L from H now H again! */
+/********************************************************************/
+/* Target Device Types: ATF22V10 - Device p22v10                    */
+/********************************************************************/
+
+ORDER: CLK16, %1, !OE, %1, !RST, %1, !M16, %1, LMIO, %1, !LNOWS, %1, !BWAIT,%1, !CLAST,%1, !CX16, %3, !MYCYC,%1, TS0,%1, ALE,%1, T00,%1, 
+T01, %1, T10, %1, T31, %1,T40, %1,T41, %3, !BRDY, %1, !CMD, %1, !WDEN, %1, CK8; 
+
+VECTORS:
+/*         / / /    / 
+;C         L B C /  M                  /   / 
+;L   / / L N W L C  Y                  B / W 
+;K / R M M 0 A A X  C T A T T T T T T  R C D C
+;1 O S 1 I W I S 1  Y S L 0 0 1 3 4 4  D M E K
+;6 E T 6 O S T T 6  C 0 E 0 1 0 1 0 1  Y D N 8
+;I I I I I I I I I  I O O I I I I O O  O O O O 
+------------------------------------------------------------------------- */
+ 0 1 1 X 1 X X X X  X Z Z X X X X Z Z  Z Z Z Z /* 01 OE TEST */
+ C 0 0 X 1 X 1 0 X  1 L L 0 0 0 0 L L  H H H N /* 02 RESET */
+ C 0 1 X 1 X 1 0 X  1 L L 0 0 0 0 L L  H H H N /* 03 CLEAR RESET */
+ C 0 1 X 1 1 1 0 X  0 L H 0 0 0 0 L L  H H L L /* 04 ALE */
+ C 0 1 0 1 1 1 0 0  0 L L 0 0 0 0 L L  H L L H /* 05 CMD, T00, 16 BIT NORMAL CYCLE */
+ C 0 1 0 1 1 1 1 0  0 L L 1 0 0 0 L L  H L L L /* 06 T01 */
+ C 0 1 1 1 1 1 1 0  0 L L 0 1 0 0 H L  H L L H /* 07 T40, NOT LAST CYCLE */
+ C 0 1 1 1 1 1 1 0  0 L L 0 0 0 0 L H  H L L L /* 08 T41 */
+ C 0 1 1 1 1 1 1 0  0 H L 0 0 0 0 L L  H H L H /* 09 CMD END, TS0 NEXT CYCLE */
+ C 0 1 1 1 1 1 1 0  0 L H 0 0 0 0 L L  H H L L /* 10 ALE */
+ C 0 1 0 0 1 1 1 0  0 L L 0 0 0 0 L L  H H L H /* 11 T00, CMDLY, 16 BIT CYCLE */
+ C 0 1 0 0 1 1 0 0  0 L L 1 0 0 0 L L  H L L L /* 12 T01, CMD */
+ C 0 1 0 1 1 1 0 0  1 L L 0 1 0 0 H L  H L L H /* 13 T40, LAST CYCLE */
+ C 0 1 0 1 1 0 0 0  0 L L 0 0 0 0 L H  H L L L /* 14 T41, ADD A WAIT STATE */
+ C 0 1 0 1 1 0 0 0  0 L L 0 0 0 0 L H  H L L H /* 15 T41, ADD A WAIT STATE */
+ C 0 1 0 1 1 0 0 0  0 L L 0 0 0 0 L H  H L L L /* 16 T41, ADD A WAIT STATE */
+ C 0 1 0 1 1 1 0 0  0 H L 0 0 0 0 L L  L H L H /* 17 TS0 NEXT CYCLE */
+ C 0 1 0 1 1 1 0 0  0 L H 0 0 0 0 L L  H H L L /* 18 ALE */
+ C 0 1 0 1 1 1 0 0  0 L L 0 0 0 0 L L  H L L H /* 19 CMD, T00, 16 BIT NO WAIT STATE */
+ C 0 1 0 1 0 1 1 0  0 L L 1 0 0 0 L L  H L L L /* 20 T0l */
+ C 0 1 0 0 0 1 1 0  0 H L 0 1 0 0 L L  H H L H /* 21 CMD END, TSO NEXT CYCLE */
+ C 0 1 0 0 1 1 1 0  0 L H 0 0 0 0 L L  H H L L /* 22 ALE */
+ C 0 1 0 1 1 1 1 0  1 L L 0 0 0 0 L L  H L L H /* 23 CMD, T00, 16 BIT NO WAIT STATE  */
+ C 0 1 0 1 0 1 0 0  0 L L 1 0 0 0 L L  H L L L /* 24 T0l  */
+ C 0 1 X 1 0 1 0 0  0 H L 0 1 0 0 L L  L H L H /* 25 REQ RECEIVED *** TS0 L now H again! */
+ C 0 1 0 1 1 1 0 1  0 L H 0 0 0 0 L L  H H L L /* 26 ALE */
+ C 0 1 1 1 1 1 0 1  0 L L 0 0 0 0 L L  H H L H /* 27 T00, 8 BIT NO WAIT CYCLE  */
+ C 0 1 1 1 1 1 0 1  0 L L 1 0 0 0 L L  H L L L /* 28 T01, CMD  */
+ C 0 1 0 1 1 1 0 1  0 L L 0 1 0 0 L L  H L L H /* 29 T01, CMD  */
+ C 0 1 0 1 0 1 1 1  0 L L 0 0 0 0 L L  H L L L /* 30 T11  */
+ C 0 1 0 1 0 1 1 1  0 H L 0 0 1 0 L L  H H L H /* 31 CMD END, TS0 NEXT CYCLE  */
+ C 0 1 0 1 1 1 1 1  0 L H 0 0 0 0 L L  H H L L /* 32 ALE  */
+ C 0 1 1 1 1 1 1 1  0 L L 0 0 0 0 L L  H H L H /* 33 T00, 8 BIT NO WAIT CYCLE  */
+ C 0 1 1 1 1 1 1 1  0 L L 1 0 0 0 L L  H L L L /* 34 T01  */
+ C 0 1 0 1 1 1 0 1  1 L L 0 1 0 0 L L  H L L H /* 35 T10, CMD */ 
+ C 0 1 0 1 1 1 0 1  1 L L 0 0 1 0 L L  H L L L /* 36 T11  */
+ C 0 1 0 1 0 1 0 1  0 H L 0 0 0 0 L L  L H L H /* 37 REQ RECEIVED *** TS0 L now H again! */
+ C 0 1 0 1 1 1 0 1  0 L H 0 0 0 0 L L  H H L L /* 38 ALE  */
+ C 0 1 1 1 1 1 0 1  0 L L 0 0 0 0 L L  H H L H /* 39 CMD, TOO, 8 BIT NORMAL CYCLE  */
+ C 0 1 1 1 1 1 0 1  0 L l 1 0 0 0 L L  H L L L /* 40 T01  */
+ C 0 1 0 1 1 1 0 1  0 L L 0 1 0 0 L L  H L L H /* 41 T10  */
+ C 0 1 0 1 1 1 0 1  1 L L 0 0 1 0 L L  H L L L /* 42 T11  */
+ C 0 1 0 1 1 1 0 1  1 L L 0 0 0 0 L L  H L L H /* 43 T20,T21,T30  */
+ C 0 1 0 1 1 1 0 1  1 L L 0 0 0 0 L L  H L L L /* 44 T31  */
+ C 0 1 0 1 1 1 0 1  1 L L 0 0 0 1 H L  H L L H /* 45 T40  */
+ C 0 1 0 1 1 1 0 1  1 L L 0 0 0 0 L H  H L L L /* 46 T41  */
+ C 0 1 0 1 1 1 0 1  1 L L 0 0 0 0 L L  L H L H /* 47 CMD END  */ 
+ C 0 1 0 1 1 1 0 1  1 L L 0 0 0 0 L L  H H H L /* 48 IDLE  */
+ C 0 1 X 1 1 1 0 1  0 L H 0 0 0 0 L L  H H L L /* 49 ALE  */
+ C 0 1 0 1 1 1 0 1  0 L L 0 0 0 0 L L  H L L H /* 50 CMD, T00, 16 BIT NORMAL CYCLE  */
+ C 0 1 0 1 1 1 1 1  0 L L 1 0 0 0 L L  H L L L /* 51 T01  */
+ C 0 1 0 1 1 1 1 1  0 L L 0 1 0 0 L L  H L L H /* 52 T10  */
+ C 0 1 0 1 1 1 1 0  0 L L 0 0 1 0 L H  H L L L /* 53 T41  */
+ C 0 1 1 1 1 1 1 0  0 H L 0 0 0 0 L L  H H L H /* 54 CMD END, TS0 NEXT CYCLE */
+/* -------------------------------------------------------------------------
+           / / /    / 
+;C         L B C /  M                  /   / 
+;L   / / L N W L C  Y                  B / W 
+;K / R M M 0 A A X  C T A T T T T T T  R C D C
+;1 O S 1 I W I S 1  Y S L 0 0 1 3 4 4  D M E K
+;6 E T 6 O S T T 6  C 0 E 0 1 0 1 0 1  Y D N 8
+;I I I I I I I I I  I O O I I I I O O  O O O O 
+*/

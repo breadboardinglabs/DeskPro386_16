@@ -29,7 +29,7 @@ IF (/TST) INTA = CMD* /LM-IO* /LW-R* /LD-C    ;CPU INTERRUPT ACK
 FUNCTION TABLE
 
 TST A1 A0 /BHE /WDEN LM-IO LW-R LD-C /CMD /M32 /MWTC /MRDC 
-/BDIRRD /B3EN /B2EN /BlEN /B0EN /INTA
+/BDIRRD /B3EN /B2EN /B1EN /B0EN /INTA
 ;                         B
 ;        W L L L     M M  I B B B B I 
 ;T     B D M W D C M W R  R 3 2 1 0 N 

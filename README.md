@@ -51,7 +51,14 @@ The test vectors have required quite a lot of massaging as PDF does not make it 
 The PALASM folder has the text copies of the original PDF document in their original format (and with original typos and spelling mistakes).
 The file extension .ASM is used as this is the recognised file extension for the CUPL 2.0 PTOC.EXE converter which converts PLDASM files into a .PLD logic definition and .SI simulation file.
 
-THe ZIP file Logical_Devices_CUPL_v3.2b.zip contains an old version of CUPL (July 1990) which predates ATMEL/MicroChip and include the PTOC.EXE utility used to convert PALASM in CUPL format files.
+The ZIP file Logical_Devices_CUPL_v3.2b.zip contains an old version of CUPL (July 1990) which predates ATMEL/MicroChip and include the PTOC.EXE utility used to convert PALASM in CUPL format files.
+
+The CUPL folder holds all the source and compiled files for each of the PLA/PLDs.
+Each PLD is in its own folder.
+The project files were created under C:\DOS\PALASM\D4-xxxxx.
+They will only work with this structure
+
+If creating new Projects then the device should be ATF16V8B Auto except for D4-SADOD and D4-STATB which need ATF22V10C None.
 
 More folders will be added with the .PLD logic definition and .SI simulation files as these are migrated and tested.
 

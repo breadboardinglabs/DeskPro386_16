@@ -1,0 +1,72 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Sat May 16 16:44:01 2026
+
+LISTING FOR SIMULATION FILE: D4-SMSCD.si
+
+   1: Name            D4-SMSCD Miscellaneous garbage logic;
+   2: PartNo          108397-001;
+   3: Revision        01;
+   4: Date            16/05/26;
+                              ^
+[0025sa] Please note: inconsistent header information
+
+   5: Designer        Dave Henry;
+   6: Company         Breadboarding Labs;
+   7: Location        None;
+   8: Assembly        None;
+   9: 
+  10: /********************************************************************/
+  11: /*                                                                  */
+  12: /********************************************************************/
+  13: /* Target Device Types: ATF16V8 - Device g16v8                      */
+  14: /********************************************************************/
+  15: 
+  16: 
+  17: ORDER:
+  18:  
+  19:   CLK, %1
+  20:   , !OE, %1
+  21:   , !M32, %1
+  22:   , !BRDY, %1
+  23:   , BALE, %1
+  24:   , M_IO, %1
+  25:   , D_C, %1
+  26:   , W_R, %1
+  27:   , !BE0, %1
+  28:   , PA31, %3
+  29:   
+  30:   , !ADS, %1
+  31:   , !CLSTD, %1
+  32:   , 387I, %3
+  33:   
+  34:   , !LNCP, %3
+  35:   
+  36:   , !MYCYC, %1
+  37:   , !LOE, %1
+  38:   , !NAB, %1
+  39:   , !SHTD;
+  40: 
+
+==================================================
+                              !         !         
+            !                 C     !   M     !   
+          ! B B M     ! P   ! L 3   L   Y ! ! S   
+      C ! M R A _ D W B A   A S 8   N   C L N H   
+      L O 3 D L I _ _ E 3   D T 7   C   Y O A T   
+      K E 2 Y E O C R 0 1   S D I   P   C E B D   
+==================================================
+0001: C 0 1 0 1 1 1 1 1 0   0 1 1   H   N H H H
+0002: C 0 1 0 1 1 1 1 1 0   0 1 1   H   L H H H
+0003: C 0 1 0 1 1 1 1 1 0   1 1 1   H   L H H H
+0004: C 0 1 0 1 1 1 1 1 0   1 0 1   H   H H L H
+0005: C 0 0 0 1 1 0 1 1 0   0 0 1   H   H H L H
+0006: C 0 0 0 1 1 0 1 0 0   0 1 1   H   L H H H
+0007: C 0 0 0 1 1 0 1 0 0   0 0 1   H   H H L L
+0008: C 0 0 0 1 0 0 0 1 0   0 1 1   H   L H H H
+0009: C 0 0 0 1 0 0 0 1 0   0 0 1   H   H L L H
+0010: C 0 0 0 1 0 0 0 1 1   0 1 0   L   L H H H
+0011: 0 0 0 0 0 0 0 0 1 1   0 1 0   L   L H H H
+0012: C 0 0 1 0 0 0 0 1 1   0 0 0   L   H H L H
+0013: C 0 0 1 0 0 0 0 1 1   0 0 0   L   H H L H

@@ -1,0 +1,186 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-STATB.pld                     Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 15:57:50 2026
+
+  1:Name            D4_STATB Bus controller state machine logic;
+  2:PartNo          108219-001;
+  3:Revision        01;
+  4:Date            16/5/26;
+  5:Designer        Dave Henry;
+  6:Company         Breadboarding Labs;
+  7:Location        None;
+  8:Assembly        None;
+  9:Device          p22v10;
+ 10:
+ 11:/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+ 12:/*                                                                                         */
+ 13:/*******************************************************************************************/
+ 14:/*                                                                                         */
+ 15:/*******************************************************************************************/
+ 16:/*
+ 17:DESCRIPTION
+ 18:This PAL implements some of the bus controller state machine logic.
+ 19:REV B adjusts the sampling time of the IO16* line by adding state Tl0 to the 
+ 20:startup of T41. If the CX16* (IO16) line comes in after T00 then we shift 
+ 21:to T41 instead of T40. REV B also tightens up the response from ADS* to ALE by 
+ 22:one clock by shifting directly to ALE from MYCYC during the initial bus 
+ 23:transaction. State TSO is still used between transactions.
+ 24:*/
+ 25:
+ 26:/* Pin Map 
+ 27:                               ______________
+ 28:                              |   D4_STATB   |
+ 29:                    CLK16 x---|1           24|---x Vcc                      
+ 30:                   !MYCYC x---|2           23|---x !RST                     
+ 31:                   !CLAST x---|3           22|---x !ALE                     
+ 32:                    !CX16 x---|4           21|---x CK8                      
+ 33:                     LMIO x---|5           20|---x !T41                     
+ 34:                   !LNOWS x---|6           19|---x !T40                     
+ 35:                   !BWAIT x---|7           18|---x !WDEN                    
+ 36:                     !M16 x---|8           17|---x !CMD                     
+ 37:                      T00 x---|9           16|---x !TS0                     
+ 38:                      T01 x---|10          15|---x !BRDY                    
+ 39:                      T10 x---|11          14|---x T31                      
+ 40:                      GND x---|12          13|---x !OE                      
+ 41:                              |______________|
+ 42:
+ 43:*/
+ 44:
+ 45:/*******************************************************************************************/
+ 46:
+ 47:/* Inputs Note GAL20V10 Pin 23 and 14 are also inputs. Only Pins 15-22 can be Outputs */
+ 48:Pin  1 = CLK16;
+ 49:Pin  2 = !MYCYC;
+ 50:Pin  3 = !CLAST;
+ 51:Pin  4 = !CX16;
+ 52:Pin  5 = LMIO;
+ 53:Pin  6 = !LNOWS;
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-STATB.pld                     Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 15:57:50 2026
+
+ 54:Pin  7 = !BWAIT;
+ 55:Pin  8 = !M16;
+ 56:Pin  9 = T00;
+ 57:Pin 10 = T01;
+ 58:Pin 11 = T10;
+ 59:Pin 13 = !OE;
+ 60:Pin 14 = T31;
+ 61:Pin 23 = !RST;
+ 62:
+ 63:/* Outputs Note GAL20V10 Pin 23 and 14 are also inputs. Only Pins 15-22 can be Outputs */
+ 64:
+ 65:Pin 15 = !BRDY;
+ 66:Pin 16 = !TS0;
+ 67:Pin 17 = !CMD;
+ 68:Pin 18 = !WDEN;
+ 69:Pin 19 = !T40;
+ 70:Pin 20 = !T41;
+ 71:Pin 21 = CK8;
+ 72:Pin 22 = !ALE;
+ 73:
+ 74:
+ 75:/* The following functions are clocked by CLK16* */
+ 76:
+ 77:TS0.d =
+ 78:    !RST & !CLAST &  T41 & !BWAIT                  /* START NEXT CYCLE WHEN DONE WITH */
+ 79:  # !RST & !CLAST & !CK8 &  LNOWS & CMD            /* PREV CYCLE AND MORE IN GROUP */ 
+ 80:  # !RST &  CLAST &  T41 & !BWAIT & MYCYC          /* START NEXT CYCLE WHEN DONE WITH */
+ 81:  # !RST &  CLAST & !CK8 &  LNOWS & CMD & MYCYC;  /* PREV CYCLE AND NEW CPU REQUEST IS PENDING */
+ 82:TS0.oe = OE;
+ 83:
+ 84:CMD.d =
+ 85:    !RST &  CMD & !LNOWS & !T41            /* HOLDS UNTIL ENDED BY END OF */
+ 86:  # !RST &  CMD & !LNOWS &  BWAIT          /* WAIT */
+ 87:  # !RST &  CMD &  CK8                     /* OR NOWS AND CK8 LOW */
+ 88:  # !RST & !CMD &  ALE & M16 & LMIO       /* STARTS AFTER ALE UNLESS */
+ 89:  # !RST & !CMD &  T00;                    /* CMDLY (THEN AFTER T00) */
+ 90:CMD.oe = OE;
+ 91:  
+ 92:WDEN.d =
+ 93:    !RST &  TS0                               /* STARTS WHEN ALE DOES AFTER TSO */
+ 94:  # !RST & !TS0 & !ALE & !CMD & !T00 & MYCYC  /* OR WHEN CPU SENDS NEW START REQUEST */
+ 95:  # !RST &  ALE                               /* CONTINUES THROUGH T00 */
+ 96:  # !RST &  T00                               /* AND T01 */
+ 97:  # !RST &  CMD;                              /* UNTIL AFTER CMD GOES AWAY */
+ 98:WDEN.oe = OE;
+ 99:  
+100:T41.d =
+101:    !RST &  T40                           /* STARTS WHEN T40 ENDS */
+102:  # !RST &  T10 & CX16 & !LNOWS & CMD     /* OR WHEN T10 ENDS ON 1/0 CYCLE */
+103:  # !RST &  T41 & BWAIT;                  /* AND HOLDS TILL WAIT IS GONE */
+104:T41.oe = OE;
+105:  
+106:
+107:T40.d =
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-STATB.pld                     Page 3
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 15:57:50 2026
+
+108:    T01 & CX16 & !LNOWS & !RST            /* STARTS AFTER T01 IF 16 BIT */
+109:  # T31 &        !LNOWS & !RST;            /* OR AFTER T31 OTHERWISE */
+110:T40.oe = OE;
+111:  
+112:!CK8.d =
+113:    !RST & TS0                               /* SET TO LOW DURING ALE AFTER TS0 */
+114:  # !RST & !TS0 & !ALE & !CMD & !T00 & MYCYC /* WHEN CPU SENDS NEW START REQUEST */
+115:  # CK8;                                     /* OTHERWISE, DIVIDE BY TWO */
+116:CK8.oe = OE;
+117:  
+118:BRDY.d =
+119:    !RST & CLAST & T41 & !BWAIT              /* START NEXT CYCLE WHEN DONE */
+120:  # !RST & CLAST & !CK8 & LNOWS & CMD;      /* WITH PREV CYCLE AND NO MORE IN GROUP */
+121:BRDY.oe = OE;
+122: 
+123:ALE.d =
+124:    !RST & TS0                                 /* ALE FOLLOWS TSO FOR INTERNAL LISE */
+125:  # !RST & !TS0 & !ALE & !CMD & !T00 & MYCYC;  /* WHEN CPU SENDS NEW START REQUEST */
+126:ALE.oe = OE;
+127:  
+128:/* FUNCTION TABLE
+129:CLK16 /OE /RST /M16 LMIO /LNOWS /BWAIT /CLAST /CX16 /MYCYC TS0 ALE T00 
+130:T01 T10 T31 T40 T41 /BRDY /CMD /WDEN CK8
+131:;        / / /   / 
+132:;C       L B C /    M                  /   / 
+133:;L   /   L N W L C  Y                  B / W 
+134:;K / R M M 0 A A X  C T A T T T T T T  R C D C
+135:;1 O S 1 I W I S 1  Y S L 0 0 1 3 4 4  D M E K
+136:;6 E T 6 O S T T 6  C 0 E 0 1 0 1 0 1  Y D N 8
+137:;I I I I I I I I I  I O O I I I I O O  O O O O 
+138:---------------------------------------------------~----------------------
+139:*/
+140:
+141:
+142:
+
+[0016cb] Please note: no expression assigned to:  ALE.ar
+[0016cb] Please note: no expression assigned to:  ALE.sp
+[0016cb] Please note: no expression assigned to:  BRDY.ar
+[0016cb] Please note: no expression assigned to:  BRDY.sp
+[0016cb] Please note: no expression assigned to:  CK8.ar
+[0016cb] Please note: no expression assigned to:  CK8.sp
+[0016cb] Please note: no expression assigned to:  CMD.ar
+[0016cb] Please note: no expression assigned to:  CMD.sp
+[0016cb] Please note: no expression assigned to:  T40.ar
+[0016cb] Please note: no expression assigned to:  T40.sp
+[0016cb] Please note: no expression assigned to:  T41.ar
+[0016cb] Please note: no expression assigned to:  T41.sp
+[0016cb] Please note: no expression assigned to:  TS0.ar
+[0016cb] Please note: no expression assigned to:  TS0.sp
+[0016cb] Please note: no expression assigned to:  WDEN.ar
+[0016cb] Please note: no expression assigned to:  WDEN.sp
+
+
+Jedec Fuse Checksum       (acd8)
+Jedec Transmit Checksum   (1ac3)

@@ -11,7 +11,7 @@ IF (/A22 * /A21) M32A =
 + /A31*/A23*/A22*/A21*/A20*/A19* A18* 512K             ;040000-07FFFF 256K
 + /A31*/A23*/A22*/A21*/A20* A19*/A18*/A17* 640K        ;080000-09FFFF 128K
 + /A31*/A23*/A22*/A21*/A20* A19* A18* A17* ROM         ;0E0000-0FFFFF 128K
-+ /A31*/A23*/A22*/A21* A20* 1M                         ;100000-lFFFFF 1M
++ /A31*/A23*/A22*/A21* A20* 1M                         ;100000-1FFFFF 1M
 + /A31* A23*/A22*/A21* 8M                              ;800000-9FFFFF 2M
 
 IF (A22 * /A21) M32B = 
@@ -80,12 +80,12 @@ The above set of m32 outputs are wire ORed to form the signal M32*. The
 actual equation for M32 is shown below.
 M32 = /A31*/A23*/A22*/A21*/A20*/A19*/A18            ;000000-03FFFF 256K
 +     /A31*/A23*/A22*/A21*     /A19* /A18*    /FA20 ;000000-03FFFF 256K
-+     /A31*/A23*/A22*/A21*/A20*/AI9* A18*      512K ;040000-07FFFF 256K
++     /A31*/A23*/A22*/A21*/A20*/A19* A18*      512K ;040000-07FFFF 256K
 +     /A31*/A23*/A22*/A21*/A20* A19*/A18*/A17* 640K ;080000-09FFFF 128K
 +     /A31*/A23*/A22*/A21*/A20* A19* A18* A17* ROM  ;0E0000-0FFFFF 128K
 +     /A31* A23* A22* A21* A20*/A19* A18*     /512K ;F40000-F7FFFF 256K
-+     /A31* A23* A22* A21* A20* A19*/A18*/AI7*/640K ;F80000-F9FFFF 128K
-+     /A31* A23* A22* A21* A20* A19*/AI8* A17       ;FA0000-FBFFFF 128K
++     /A31* A23* A22* A21* A20* A19*/A18*/A17*/640K ;F80000-F9FFFF 128K
++     /A31* A23* A22* A21* A20* A19*/A18* A17       ;FA0000-FBFFFF 128K
 +     /A31* A23* A22* A21* A20* A19* A18            ;FC0000-FFFFFF 256K
 +     /A31*/A23*/A22*/A21* A20*                1M   ;100000-1FFFFF 1M
 +     /A31*/A23*/A22* A21*                     2M   ;200000-3FFFFF 2M

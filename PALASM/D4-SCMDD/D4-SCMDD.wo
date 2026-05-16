@@ -1,0 +1,63 @@
+#WAVEFORM
+#H Name            D4-SCMDD Command encode and decode logic;
+#H PartNo          108394-001;
+#H Revision        01;
+#H Date            16/05/26;
+#E 0025 
+
+#H Designer        Dave Henry;
+#H Company         Breadboarding Labs;
+#H Location        None;
+#H Assembly        None;
+#H 
+#H /********************************************************************/
+#H /*                                                                  */
+#H /********************************************************************/
+#H /* Target Device Types: ATF16V8 - Device g16v8                      */
+#H /********************************************************************/
+#H 
+#H 
+#H ORDER:
+#H  
+#H     !OE, %1
+#H    ,!DCMD, %1
+#H    ,!CMD, %1
+#H    , LM_IO, %1
+#H    , LD_C, %1
+#H    , LW_R, %1
+#H    ,!RFSH, %1
+#H    ,!BHLDA, %3
+#H  
+#H    ,!MRDC, %1
+#H    ,!MWTC, %1
+#H    ,!IORC, %1
+#H    ,!IOWC, %1
+#H    , MHLDA, %1
+#H    , M_IO, %1
+#H    , D_C, %1
+#H    , W_R, %1;
+#H 
+#H 
+#H 
+#V 0001 01000001HHHHLZZZ
+#V 0002 01000101HHHHLZZZ
+#V 0003 01001001HHLHLZZZ
+#V 0004 00001001HHLHLZZZ
+#V 0005 00101001HHLHLZZZ
+#V 0006 01001101HHHLLZZZ
+#V 0007 01010001LHHHLZZZ
+#V 0008 01010101HHHHLZZZ
+#V 0009 01011001LHHHLZZZ
+#V 0010 00011001LHHHLZZZ
+#V 0011 00111001LHHHLZZZ
+#V 0012 01011101HLHHLZZZ
+#V 0013 01111101HHHHLZZZ
+#V 0014 11111101ZZZZNZZZ
+#V 0015 11111100ZZZZN1ZZ
+#V 0016 0111110011ZZHHLH
+#V 0017 0111110001ZZHLLH
+#V 0018 0111111001ZZHLHH
+#V 0019 0111111010ZZHLHL
+#V 0020 11011011ZZZZL0ZZ
+#V 0021 11011010ZZZZL0ZZ
+#V 0022 11111110ZZZZH1ZZ

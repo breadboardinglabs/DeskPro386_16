@@ -1,0 +1,63 @@
+NAME         D4-SCMDD ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+
+ORDER:
+ 
+    !OE, %1
+   ,!DCMD, %1
+   ,!CMD, %1
+   , LM_IO, %1
+   , LD_C, %1
+   , LW_R, %1
+   ,!RFSH, %1
+   ,!BHLDA, %3
+ 
+   ,!MRDC, %1
+   ,!MWTC, %1
+   ,!IORC, %1
+   ,!IOWC, %1
+   , MHLDA, %1
+   , M_IO, %1
+   , D_C, %1
+   , W_R, %1;
+
+
+
+VECTORS:
+$TRACE 0;
+/*
+               / 
+   /   L     / B   / / / / M
+   D / M L L R H   M M I I H M
+   C C - D W F L   R W O O L - D W
+ O M M I - - S D   D T R W D I - -
+ E D D O C R H A   C C C C A O C R */
+ 0 1 0 0 0 0 0 1   H H H H L Z Z Z /*01  INTA */
+ 0 1 0 0 0 1 0 1   H H H H L Z Z Z /*02 */
+ 0 1 0 0 1 0 0 1   H H L H L Z Z Z /*03  IORC */
+ 0 0 0 0 1 0 0 1   H H L H L Z Z Z /*04  IORC */
+ 0 0 1 0 1 0 0 1   H H L H L Z Z Z /*05  IORC */
+ 0 1 0 0 1 1 0 1   H H H L L Z Z Z /*06  IOWC */
+ 0 1 0 1 0 0 0 1   L H H H L Z Z Z /*07  CODE MRDC */
+ 0 1 0 1 0 1 0 1   H H H H L Z Z Z /*08 */
+ 0 1 0 1 1 0 0 1   L H H H L Z Z Z /*09  MRDC DATA */
+ 0 0 0 1 1 0 0 1   L H H H L Z Z Z /*10  MRDC DATA */
+ 0 0 1 1 1 0 0 1   L H H H L Z Z Z /*11  MRDC DATA */
+ 0 1 0 1 1 1 0 1   H L H H L Z Z Z /*12  MWTC */
+ 0 1 1 1 1 1 0 1   H H H H L Z Z Z /*13 */
+ 1 1 1 1 1 1 0 1   Z Z Z Z N Z Z Z /*14 */
+ 1 1 1 1 1 1 0 0   Z Z Z Z N 1 Z Z /*15 When M_IO goes Z then will be input set to 0/1 */
+ 0 1 1 1 1 1 0 0   1 1 Z Z H H L H /*16  RFSH */
+ 0 1 1 1 1 1 0 0   0 1 Z Z H L L H /*17  RFSH MRDC */
+ 0 1 1 1 1 1 1 0   0 1 Z Z H L H H /*18  MRDC */
+ 0 1 1 1 1 1 1 0   1 0 Z Z H L H L /*19  MWTC */
+ 1 1 0 1 1 0 1 1   Z Z Z Z L 0 Z Z /*20 */
+ 1 1 0 1 1 0 1 0   Z Z Z Z L 0 Z Z /*21 */
+ 1 1 1 1 1 1 1 0   Z Z Z Z H 1 Z Z /*22 */

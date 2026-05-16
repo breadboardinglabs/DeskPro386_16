@@ -1,0 +1,73 @@
+[Info] Opening project file
+[Info] Running compilation ...
+
+===================================== Compiler Message Begins =====================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+[0016cb] Please note: no expression assigned to:  ALE.ar
+[0016cb] Please note: no expression assigned to:  ALE.sp
+[0016cb] Please note: no expression assigned to:  BRDY.ar
+[0016cb] Please note: no expression assigned to:  BRDY.sp
+[0016cb] Please note: no expression assigned to:  CK8.ar
+[0016cb] Please note: no expression assigned to:  CK8.sp
+[0016cb] Please note: no expression assigned to:  CMD.ar
+[0016cb] Please note: no expression assigned to:  CMD.sp
+[0016cb] Please note: no expression assigned to:  T40.ar
+[0016cb] Please note: no expression assigned to:  T40.sp
+[0016cb] Please note: no expression assigned to:  T41.ar
+[0016cb] Please note: no expression assigned to:  T41.sp
+[0016cb] Please note: no expression assigned to:  TS0.ar
+[0016cb] Please note: no expression assigned to:  TS0.sp
+[0016cb] Please note: no expression assigned to:  WDEN.ar
+[0016cb] Please note: no expression assigned to:  WDEN.sp
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+total time: 0 secs
+Normal exit
+Error Code = 0
+
+====================================== Compiler Message Ends ======================================
+[Info] Design compiled successfully
+[Info] Running compilation and simulation ...
+
+================================ Compiler/Simulator Message Begins ================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+[0016cb] Please note: no expression assigned to:  ALE.ar
+[0016cb] Please note: no expression assigned to:  ALE.sp
+[0016cb] Please note: no expression assigned to:  BRDY.ar
+[0016cb] Please note: no expression assigned to:  BRDY.sp
+[0016cb] Please note: no expression assigned to:  CK8.ar
+[0016cb] Please note: no expression assigned to:  CK8.sp
+[0016cb] Please note: no expression assigned to:  CMD.ar
+[0016cb] Please note: no expression assigned to:  CMD.sp
+[0016cb] Please note: no expression assigned to:  T40.ar
+[0016cb] Please note: no expression assigned to:  T40.sp
+[0016cb] Please note: no expression assigned to:  T41.ar
+[0016cb] Please note: no expression assigned to:  T41.sp
+[0016cb] Please note: no expression assigned to:  TS0.ar
+[0016cb] Please note: no expression assigned to:  TS0.sp
+[0016cb] Please note: no expression assigned to:  WDEN.ar
+[0016cb] Please note: no expression assigned to:  WDEN.sp
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+csima
+time: 0 secs
+total time: 0 secs
+Normal exit
+Error Code = 0
+
+================================= Compiler/Simulator Message Ends =================================
+[Info] Design compiled and simulated successfully

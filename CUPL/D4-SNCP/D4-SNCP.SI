@@ -1,0 +1,65 @@
+NAME         D4-SNCP ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+
+ORDER:
+ 
+     !NCPIN, %1
+   , !XIOWC, %1
+   ,  TIMO, %1
+   , !TIMCS, %1
+   , !NCPCS, %1
+   ,  XA3, %1
+   ,  XA0, %1
+   , !RESET, %1
+   , !ERROR, %1
+   , !BUSYIN, %3
+
+   ,  RES287, %1
+   , !BUSYOUT, %1
+   ,  IRQ13, %1
+   ,  ONESHT, %1
+   , !EN_ERR, %1
+   , !TIM1CS, %1
+   , !TIM2CS;
+
+
+VECTORS:
+
+/*
+                   /   / /     / / / 
+ /     / /     / / B   R B   O E T T 
+ N /   T N     R E U   E U I N N I I 
+ C I T I C     E R S   S S R E _ M M 
+ P O I M P X X S R Y   2 Y Q S E 1 2 
+ I W M C C A A E O I   8 O 1 H R C C 
+ N C O S S 3 0 T R N   7 U 3 T R S S */
+ 0 1 0 1 1 1 1 0 1 1   H H L L L H H /* RESET */
+ 0 1 0 1 1 1 1 1 1 1   L H L L L H H /* NO RESET  */
+ 0 0 0 1 0 0 1 1 1 1   H H L L L H H /* RES287 */
+ 0 0 0 1 0 1 1 1 1 0   L L L L L H H /* BUSYOUT,NORES287 BY XA3,NOINT BY ERROR */
+ 0 0 0 1 1 0 1 1 0 1   L L H H L H H /* IRQ13,BUSYOUT,NORES287 BY NCPCS */
+ 0 0 1 1 1 0 1 1 0 1   L H H H L H H /* BUSYOUT,NORES287 BY NCPCS */
+ 0 0 1 1 1 0 1 0 0 0   H H L L L H H /* NO INT BY BUSYIN */
+ 0 1 1 1 0 0 1 1 1 1   L H L L L H H /* NO RES287 BY IOWC */
+ 0 0 1 1 0 0 0 1 1 1   L H L L H H H /* LOCKERR,NO RES287 BY XA0 */
+ 0 0 1 1 0 0 0 1 1 0   L L L L H H H /* LOCKERR,NO RES287 BY XA0 */
+ 0 0 1 1 1 0 0 1 1 0   L L L L H H H /* LOCKERR,NO RES287 BY XA0 */
+ 0 0 1 1 1 0 0 1 0 0   L L L L H H H /* HOLD LOCKERR,NO INT BY EN_ERR */
+ 0 0 1 1 1 0 0 1 0 1   L H L L H H H /* HOLD LOCKERR,NO INT BY EN_ERR */
+ 0 1 1 0 1 0 1 1 1 1   L H L L L L H /* TIM1CS */
+ 0 1 1 0 1 1 1 1 1 1   L H L L L H L /* TIM2CS */
+ 1 0 0 1 0 1 0 1 1 1   L L L H L H H /* NOT INSTALLED AND SELECTED */
+ 1 1 0 1 1 1 1 1 0 1   L L L H L H H /* NOT INSTALLED ERROR */
+ 1 1 1 1 1 1 1 1 1 0   L H L L L H H /* NOT INSTALLED BUSY */
+ 1 1 0 1 0 1 1 1 1 0   L H L L L H H
+ 1 1 0 1 1 0 1 1 1 0   L H L L L H H
+ 1 0 0 1 1 1 1 1 1 0   L H L L L H H
+ 1 1 0 1 1 0 1 1 1 0   L H L L L H H
+ 1 0 0 1 0 0 1 1 1 0   H H L L L H H

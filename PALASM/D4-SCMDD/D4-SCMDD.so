@@ -1,0 +1,79 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Sat May 16 16:11:55 2026
+
+LISTING FOR SIMULATION FILE: D4-SCMDD.si
+
+   1: Name            D4-SCMDD Command encode and decode logic;
+   2: PartNo          108394-001;
+   3: Revision        01;
+   4: Date            16/05/26;
+                              ^
+[0025sa] Please note: inconsistent header information
+
+   5: Designer        Dave Henry;
+   6: Company         Breadboarding Labs;
+   7: Location        None;
+   8: Assembly        None;
+   9: 
+  10: /********************************************************************/
+  11: /*                                                                  */
+  12: /********************************************************************/
+  13: /* Target Device Types: ATF16V8 - Device g16v8                      */
+  14: /********************************************************************/
+  15: 
+  16: 
+  17: ORDER:
+  18:  
+  19:     !OE, %1
+  20:    ,!DCMD, %1
+  21:    ,!CMD, %1
+  22:    , LM_IO, %1
+  23:    , LD_C, %1
+  24:    , LW_R, %1
+  25:    ,!RFSH, %1
+  26:    ,!BHLDA, %3
+  27:  
+  28:    ,!MRDC, %1
+  29:    ,!MWTC, %1
+  30:    ,!IORC, %1
+  31:    ,!IOWC, %1
+  32:    , MHLDA, %1
+  33:    , M_IO, %1
+  34:    , D_C, %1
+  35:    , W_R, %1;
+  36: 
+  37: 
+  38: 
+
+==========================================
+                    !                     
+        !   L     ! B   ! ! ! ! M         
+        D ! M L L R H   M M I I H M       
+      ! C C _ D W F L   R W O O L _ D W   
+      O M M I _ _ S D   D T R W D I _ _   
+      E D D O C R H A   C C C C A O C R   
+==========================================
+0001: 0 1 0 0 0 0 0 1   H H H H L Z Z Z 
+0002: 0 1 0 0 0 1 0 1   H H H H L Z Z Z 
+0003: 0 1 0 0 1 0 0 1   H H L H L Z Z Z 
+0004: 0 0 0 0 1 0 0 1   H H L H L Z Z Z 
+0005: 0 0 1 0 1 0 0 1   H H L H L Z Z Z 
+0006: 0 1 0 0 1 1 0 1   H H H L L Z Z Z 
+0007: 0 1 0 1 0 0 0 1   L H H H L Z Z Z 
+0008: 0 1 0 1 0 1 0 1   H H H H L Z Z Z 
+0009: 0 1 0 1 1 0 0 1   L H H H L Z Z Z 
+0010: 0 0 0 1 1 0 0 1   L H H H L Z Z Z 
+0011: 0 0 1 1 1 0 0 1   L H H H L Z Z Z 
+0012: 0 1 0 1 1 1 0 1   H L H H L Z Z Z 
+0013: 0 1 1 1 1 1 0 1   H H H H L Z Z Z 
+0014: 1 1 1 1 1 1 0 1   Z Z Z Z N Z Z Z 
+0015: 1 1 1 1 1 1 0 0   Z Z Z Z N 1 Z Z 
+0016: 0 1 1 1 1 1 0 0   1 1 Z Z H H L H 
+0017: 0 1 1 1 1 1 0 0   0 1 Z Z H L L H 
+0018: 0 1 1 1 1 1 1 0   0 1 Z Z H L H H 
+0019: 0 1 1 1 1 1 1 0   1 0 Z Z H L H L 
+0020: 1 1 0 1 1 0 1 1   Z Z Z Z L 0 Z Z 
+0021: 1 1 0 1 1 0 1 0   Z Z Z Z L 0 Z Z 
+0022: 1 1 1 1 1 1 1 0   Z Z Z Z H 1 Z Z 

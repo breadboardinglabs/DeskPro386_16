@@ -1,0 +1,76 @@
+%SIGNAL
+PIN  17 = !CIORD 
+PIN  19 =  CMOSAWR 
+PIN  15 = !CMOSRD 
+PIN  12 = !CMOSWR 
+PIN   9 = !INTA 
+PIN  16 = !KEYCS 
+PIN  13 = !NMICLK 
+PIN  18 = !PBRD 
+PIN  14 = !PBWR 
+PIN   2 = !PPICS 
+PIN  11 =  RESCMOS 
+PIN   6 =  XA0 
+PIN   4 =  XA3 
+PIN   1 =  XA4 
+PIN   7 =  XA8 
+PIN   5 =  XA9 
+PIN   3 = !XIORC 
+PIN   8 = !XIOWC 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+CIORD =>
+    !XA8 & !XA9 & !XIORC
+  # !INTA
+
+!CMOSAWR =>
+    NMICLK & !RESCMOS
+  # !RESCMOS & XIOWC
+
+CMOSRD =>
+    !PPICS & XA0 & !XA3 & XA4 & !XIORC
+
+CMOSWR =>
+    !PPICS & XA0 & !XA3 & XA4 & !XIOWC
+
+KEYCS =>
+    !PPICS & !XA0 & !XA3 & !XA4
+
+NMICLK =>
+    !PPICS & !XA0 & !XA3 & XA4 & !XIOWC
+
+PBRD =>
+    !PPICS & XA0 & !XA3 & !XA4 & !XIORC
+
+PBWR =>
+    !PPICS & XA0 & !XA3 & !XA4 & !XIOWC
+
+CIORD.oe  =>
+    1 
+
+CMOSAWR.oe  =>
+    1 
+
+CMOSRD.oe  =>
+    1 
+
+CMOSWR.oe  =>
+    1 
+
+KEYCS.oe  =>
+    1 
+
+NMICLK.oe  =>
+    1 
+
+PBRD.oe  =>
+    1 
+
+PBWR.oe  =>
+    1 
+
+%END

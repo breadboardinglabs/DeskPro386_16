@@ -58,6 +58,9 @@ FUNCTION TABLE
  L H H H H H L L   L H Z Z H L L H ; RFSH MRDC
  L H H H H H H L   L H Z Z H L H H ; MRDC
  L H H H H H H L   H L Z Z H L H L ; MWTC
+ H H L H H L H H   Z Z Z Z L L H H ;
+ H H L H H L H L   Z Z Z Z L L H H ;
+ H H H H H H H L   Z Z Z Z H H H H ;
 -------------------------------------------------------------------------
 
 DESCRIPTION

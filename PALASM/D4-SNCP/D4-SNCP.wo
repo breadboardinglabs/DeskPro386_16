@@ -1,0 +1,64 @@
+#WAVEFORM
+#H Name            D4-SNCP Numeric Coprocessor error and busy logic;
+#H PartNo          105657-001;
+#H Revision        01;
+#H Date            16/05/26;
+#E 0025 
+
+#H Designer        Dave Henry;
+#H Company         Breadboarding Labs;
+#H Location        None;
+#H Assembly        None;
+#H 
+#H /********************************************************************/
+#H /*                                                                  */
+#H /********************************************************************/
+#H /* Target Device Types: ATF16V8 - Device g16v8                      */
+#H /********************************************************************/
+#H 
+#H 
+#H ORDER:
+#H  
+#H      !NCPIN, %1
+#H    , !XIOWC, %1
+#H    ,  TIMO, %1
+#H    , !TIMCS, %1
+#H    , !NCPCS, %1
+#H    ,  XA3, %1
+#H    ,  XA0, %1
+#H    , !RESET, %1
+#H    , !ERROR, %1
+#H    , !BUSYIN, %3
+#H 
+#H    ,  RES287, %1
+#H    , !BUSYOUT, %1
+#H    ,  IRQ13, %1
+#H    ,  ONESHT, %1
+#H    , !EN_ERR, %1
+#H    , !TIM1CS, %1
+#H    , !TIM2CS;
+#H 
+#H 
+#V 0001 0101111011HHLLLHH
+#V 0002 0101111111LHLLLHH
+#V 0003 0001001111HHLLLHH
+#V 0004 0001011110LLLLLHH
+#V 0005 0001101101LLHHLHH
+#V 0006 0011101101LHHHLHH
+#V 0007 0011101000HHLLLHH
+#V 0008 0111001111LHLLLHH
+#V 0009 0011000111LHLLHHH
+#V 0010 0011000110LLLLHHH
+#V 0011 0011100110LLLLHHH
+#V 0012 0011100100LLLLHHH
+#V 0013 0011100101LHLLHHH
+#V 0014 0110101111LHLLLLH
+#V 0015 0110111111LHLLLHL
+#V 0016 1001010111LLLHLHH
+#V 0017 1101111101LLLHLHH
+#V 0018 1111111110LHLLLHH
+#V 0019 1101011110LHLLLHH
+#V 0020 1101101110LHLLLHH
+#V 0021 1001111110LHLLLHH
+#V 0022 1101101110LHLLLHH
+#V 0023 1001001110HHLLLHH

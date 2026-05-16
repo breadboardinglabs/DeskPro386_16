@@ -4,11 +4,11 @@ Bus enable to address converter and cycle end logic
 COPYRIGHT 1986, 1987 COMPAQ COMPUTER HOUSTON, TEXAS
 
 CALE   ALE /BE3   /BE2  /BE1 /BE0  LM-IO T00   T10  /LM16  /IO16  GND
-BHLDA /CMD /CLAST /CLSTD A1   A0  /BHE  /ALST /CX16 /IDCMD /RST   VCC
+BHLDA /CMD /CLAST /CLSTD A1   A0  /BHE  /ALST /CX16 /DCMD /RST   VCC
 
 ;The following 4 outputs are clocked by ALE, output only when /HLDA is true
 /A1  := /RST* /BE3* /BE2
-      + /RST* /A1*  /AO* /CX16* /CLAST
+      + /RST* /A1*  /A0* /CX16* /CLAST
       + /RST* BE1*         CLAST
 
 /A0  := /RST* BE0*         CLAST
@@ -24,16 +24,16 @@ ALST := /RST* /CX16 * /BE2  * /CLAST
       + /RST* /BE2  * /BE0  *  CLAST
       + /RST* /BE3  * /BE1  *  CLAST
       + /RST* /BE3  *  A0   * /CLAST
-      + /RST* /CX16 *  Al   * lAO * /CLAST
+      + /RST* /CX16 *  A1   * /A0 * /CLAST
       + /RST*  CX16 * /BE3  * /CLAST
 
 ;Cycle LAST PRESET input for internal F/F (Cleared by rising edge of ALE) 
 ;This is pulsed only once to set F/F and generate the NAB* signal
 CLSTD =  ALST*        T00                ;Active during the last cycle of set
       +  LM-IO* LM16* T00* /BE2
-      +  LM-IO* LM16* T00*  Al
+      +  LM-IO* LM16* T00*  A1
       + /LM-IO* IO16* T10* /BE2* /ALST
-      + /LM-IO* IO16* T10*  Al*  /ALST
+      + /LM-IO* IO16* T10*  A1*  /ALST
       + RST                              ;and during RESET
 
 CLAST =  ALST* T00                       ;Active during the last cycle of set
@@ -133,5 +133,5 @@ Rev A of this device changes the CX16* equation to go away on ALE. The input
 T01 is changed to T10 and IO16* is changed to LM-IO as part of an overall 
 change to delay the sampling of IO16* by one clock. Rev A can be used in any 
 D4-PROCESSOR from rev X5 up.
-Rev D is for the D4-Processor Enhanced (397 version)
+Rev D is for the D4-Processor Enhanced (387 version)
 -----------------------------------------------------------------------------

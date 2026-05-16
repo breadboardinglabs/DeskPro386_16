@@ -1,0 +1,51 @@
+NAME         D4-SDEND ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+
+ORDER:
+ 
+
+  TST, %1
+ , A1, %1
+ , A0, %1
+ , !BHE, %1
+ , !WDEN, %1
+ , LM_IO, %1
+ , LW_R, %1
+ , LD_C, %1
+ , !CMD, %1
+ , !M32, %1
+ , !MWTC, %1
+ , !MRDC, %3
+ 
+ , !BDIRRD, %1
+ , !B3EN, %1
+ , !B2EN, %1
+ , !B1EN, %1
+ , !B0EN, %1
+ , !INTA;
+
+VECTORS:
+/*
+;                         B
+;        W L L L     M M  I B B B B I
+;T     B D M W D C M W R  R 3 2 1 0 N
+;S A A H E I - - M 3 T D  R E E E E T
+;T 1 0 E N O R C D 2 C C  D N N N N A
+---------------------------------------- */
+ 0 0 0 0 1 1 1 1 1 0 0 1  L H H L L H
+ 0 1 0 0 1 1 1 1 1 0 0 1  L L L H H H
+ 0 0 0 0 1 0 1 0 0 0 1 0  H H H L L H
+ 0 1 0 0 1 1 0 0 0 0 1 0  H L L H H H
+ 0 0 0 0 1 0 0 1 0 1 1 1  L H H H H H
+ 0 0 0 0 0 0 0 0 0 1 1 1  H H H H H L
+ 0 0 0 0 0 0 0 0 1 1 1 1  H H H H H H
+ 0 0 0 0 0 1 1 1 1 1 1 1  H H H L L H
+ 0 1 0 0 0 1 1 1 1 1 1 1  H L L H H H
+ 1 1 0 0 0 1 1 1 1 1 1 1  Z Z Z Z Z Z

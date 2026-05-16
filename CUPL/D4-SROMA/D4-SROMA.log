@@ -1,0 +1,44 @@
+[Info] Saving new project file [C:\DOS\PALASM\D4-SROMA\D4-SROMA.wcp]
+[Info] Adding existing CUPL design file into project
+[Info] Adding existing CUPL simulation input file into project
+[Info] Current project being saved
+[Info] Running compilation ...
+
+===================================== Compiler Message Begins =====================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+total time: 0 secs
+Normal exit
+Error Code = 0
+
+====================================== Compiler Message Ends ======================================
+[Info] Design compiled successfully
+[Info] Running compilation and simulation ...
+
+================================ Compiler/Simulator Message Begins ================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+csima
+time: 0 secs
+total time: 0 secs
+Normal exit
+Error Code = 0
+
+================================= Compiler/Simulator Message Ends =================================
+[Info] Design compiled and simulated successfully

@@ -1,0 +1,350 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Wed May 06 09:24:07 2026
+
+LISTING FOR SIMULATION FILE: D4-STATB.si
+
+   1: Name                D4_STATB Bus controller state machine logic;
+   2: Partno              108219-00l;
+                                    ^
+[0025sa] Please note: inconsistent header information
+
+   3: Revision            13;
+   4: Date                28/03/26;
+                                  ^
+[0025sa] Please note: inconsistent header information
+
+   5: Designer            Dave Henry;
+   6: Company             Breadboarding Labs;
+   7: Location            None;
+   8: Assembly            None;
+   9: 
+  10: /********************************************************************/
+  11: /* Compiling Note: For this Design , it will compile without any    */
+  12: /* errors if Minimization is set to Quick                           */   
+  13: /* Note rules for Vector 25 and 37 TS0 set to L from H NOW H!       */
+  14: /********************************************************************/
+  15: /* Target Device Types: ATF22V10 - Device p22v10                    */
+  16: /********************************************************************/
+  17: 
+  18: ORDER: CLK16, %1, !OE, %1,!RST, %1, !M16, %1, LMIO, %1, !LNOWS, %1, !BWAIT, %1, !CLAST, %1, !CX16,%3, %1, !MYCYC, %1, TS0, %1, ALE, %1, T00, %1, 
+  19: T01, %1, T10, %1, T31, %1, T40, %1, T41, %3, !BRDY, %1, !CMD, %1, !WDEN, %1, CK8; 
+  20: 
+
+=========================================================
+                ! ! !      !                             
+      C         L B C !    M                   !   !     
+      L   ! ! L N W L C    Y                   B ! W     
+      K ! R M M O A A X    C T A T T T T T T   R C D C   
+      1 O S 1 I W I S 1    Y S L 0 0 1 3 4 4   D M E K   
+      6 E T 6 O S T T 6    C 0 E 0 1 0 1 0 1   Y D N 8   
+=========================================================
+0001: 0 1 1 X 1 X X X X    X Z Z X X X X Z Z   Z Z Z Z
+0002: C 0 0 X 1 X 1 0 X    1 L L 0 0 0 0 L L   H H H N
+0003: C 0 1 X 1 X 1 0 X    1 L H 0 0 0 0 L H   L H L N
+                                           ^   ^   ^
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for BRDY
+[0019sa] user expected (H) for WDEN
+
+0004: C 0 1 X 1 1 1 0 X    0 L H 0 0 0 0 L H   H L L L
+                                           ^     ^
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CMD
+
+0005: C 0 1 0 1 1 1 0 0    0 L H 0 0 0 0 L H   H H L L
+                               ^           ^     ^   ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for CMD
+[0019sa] user expected (H) for CK8
+
+0006: C 0 1 0 1 1 1 1 0    0 L H 1 0 0 0 L H   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+
+0007: C 0 1 1 1 1 1 1 0    0 L H 0 1 0 0 H H   H H L L
+                               ^           ^     ^   ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for CMD
+[0019sa] user expected (H) for CK8
+
+0008: C 0 1 1 1 1 1 1 0    0 L H 0 0 0 0 L L   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (H) for T41
+
+0009: C 0 1 1 1 1 1 1 0    0 H H 0 0 0 0 L H   H H L L
+                               ^           ^         ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CK8
+
+0010: C 0 1 1 1 1 1 1 0    0 L L 0 0 0 0 L H   H L L L
+                               ^           ^     ^
+[0019sa] user expected (H) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CMD
+
+0011: C 0 1 0 0 1 1 1 0    0 L H 0 0 0 0 L H   H H L L
+                               ^           ^         ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CK8
+
+0012: C 0 1 0 0 1 1 0 0    0 L H 1 0 0 0 L H   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+
+0013: C 0 1 0 1 1 1 0 0    1 L H 0 1 0 0 H H   H H L L
+                               ^           ^     ^   ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for CMD
+[0019sa] user expected (H) for CK8
+
+0014: C 0 1 0 1 1 0 0 0    0 L H 0 0 0 0 L L   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (H) for T41
+
+0015: C 0 1 0 1 1 0 0 0    0 L H 0 0 0 0 L H   H H L L
+                               ^                 ^   ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for CMD
+[0019sa] user expected (H) for CK8
+
+0016: C 0 1 0 1 1 0 0 0    0 L H 0 0 0 0 L H   H L L L
+                               ^
+[0019sa] user expected (L) for ALE
+
+0017: C 0 1 0 1 1 1 0 0    0 L H 0 0 0 0 L H   H H L L
+                             ^ ^           ^   ^     ^
+[0019sa] user expected (H) for TS0
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for BRDY
+[0019sa] user expected (H) for CK8
+
+0018: C 0 1 0 1 1 1 0 0    0 L H 0 0 0 0 L H   H L L L
+                                           ^     ^
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CMD
+
+0019: C 0 1 0 1 1 1 0 0    0 L H 0 0 0 0 L H   H H L L
+                               ^           ^     ^   ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for CMD
+[0019sa] user expected (H) for CK8
+
+0020: C 0 1 0 1 0 1 1 0    0 L H 1 0 0 0 L H   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+
+0021: C 0 1 0 0 0 1 1 0    0 L H 0 1 0 0 L H   H H L L
+                             ^ ^           ^         ^
+[0019sa] user expected (H) for TS0
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CK8
+
+0022: C 0 1 0 0 1 1 1 0    0 L H 0 0 0 0 L H   H L L L
+                                           ^     ^
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CMD
+
+0023: C 0 1 0 1 1 1 1 0    1 L H 0 0 0 0 L H   H H L L
+                               ^           ^     ^   ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for CMD
+[0019sa] user expected (H) for CK8
+
+0024: C 0 1 0 1 0 1 0 0    0 L H 1 0 0 0 L H   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+
+0025: C 0 1 X 1 0 1 0 0    0 L H 0 1 0 0 L H   H H L L
+                             ^ ^           ^   ^     ^
+[0019sa] user expected (H) for TS0
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for BRDY
+[0019sa] user expected (H) for CK8
+
+0026: C 0 1 0 1 1 1 0 1    0 L H 0 0 0 0 L H   H L L L
+                                           ^     ^
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CMD
+
+0027: C 0 1 1 1 1 1 0 1    0 L H 0 0 0 0 L H   H H L L
+                               ^           ^         ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CK8
+
+0028: C 0 1 1 1 1 1 0 1    0 L H 1 0 0 0 L H   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+
+0029: C 0 1 0 1 1 1 0 1    0 L H 0 1 0 0 L H   H H L L
+                               ^           ^     ^   ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for CMD
+[0019sa] user expected (H) for CK8
+
+0030: C 0 1 0 1 0 1 1 1    0 L H 0 0 0 0 L H   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+
+0031: C 0 1 0 1 0 1 1 1    0 L H 0 0 1 0 L H   H H L L
+                             ^ ^           ^         ^
+[0019sa] user expected (H) for TS0
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CK8
+
+0032: C 0 1 0 1 1 1 1 1    0 L H 0 0 0 0 L H   H L L L
+                                           ^     ^
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CMD
+
+0033: C 0 1 1 1 1 1 1 1    0 L H 0 0 0 0 L H   H H L L
+                               ^           ^         ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CK8
+
+0034: C 0 1 1 1 1 1 1 1    0 L H 1 0 0 0 L H   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+
+0035: C 0 1 0 1 1 1 0 1    1 L H 0 1 0 0 L H   H H L L
+                               ^           ^     ^   ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for CMD
+[0019sa] user expected (H) for CK8
+
+0036: C 0 1 0 1 1 1 0 1    1 L H 0 0 1 0 L H   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+
+0037: C 0 1 0 1 0 1 0 1    0 L H 0 0 0 0 L H   H H L L
+                             ^ ^           ^   ^     ^
+[0019sa] user expected (H) for TS0
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for BRDY
+[0019sa] user expected (H) for CK8
+
+0038: C 0 1 0 1 1 1 0 1    0 L H 0 0 0 0 L H   H L L L
+                                           ^     ^
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CMD
+
+0039: C 0 1 1 1 1 1 0 1    0 L H 0 0 0 0 L H   H H L L
+                               ^           ^         ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CK8
+
+0040: C 0 1 1 1 1 1 0 1    0 L H 1 0 0 0 L H   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+
+0041: C 0 1 0 1 1 1 0 1    0 L H 0 1 0 0 L H   H H L L
+                               ^           ^     ^   ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for CMD
+[0019sa] user expected (H) for CK8
+
+0042: C 0 1 0 1 1 1 0 1    1 L H 0 0 1 0 L H   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+
+0043: C 0 1 0 1 1 1 0 1    1 L H 0 0 0 0 L H   H H L L
+                               ^           ^     ^   ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for CMD
+[0019sa] user expected (H) for CK8
+
+0044: C 0 1 0 1 1 1 0 1    1 L H 0 0 0 0 L H   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+
+0045: C 0 1 0 1 1 1 0 1    1 L H 0 0 0 1 H H   H H L L
+                               ^           ^     ^   ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for CMD
+[0019sa] user expected (H) for CK8
+
+0046: C 0 1 0 1 1 1 0 1    1 L H 0 0 0 0 L L   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (H) for T41
+
+0047: C 0 1 0 1 1 1 0 1    1 L H 0 0 0 0 L H   L H L L
+                               ^           ^         ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CK8
+
+0048: C 0 1 0 1 1 1 0 1    1 L H 0 0 0 0 L H   H L L L
+                               ^           ^     ^ ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CMD
+[0019sa] user expected (H) for WDEN
+
+0049: C 0 1 X 1 1 1 0 1    0 L H 0 0 0 0 L H   H H L L
+                                           ^
+[0019sa] user expected (L) for T41
+
+0050: C 0 1 0 1 1 1 0 1    0 L H 0 0 0 0 L H   H L L L
+                               ^           ^         ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CK8
+
+0051: C 0 1 0 1 1 1 1 1    0 L H 1 0 0 0 L H   H L L L
+                               ^           ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+
+0052: C 0 1 0 1 1 1 1 1    0 L H 0 1 0 0 L H   H H L L
+                               ^           ^     ^   ^
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (L) for CMD
+[0019sa] user expected (H) for CK8
+
+0053: C 0 1 0 1 1 1 1 0    0 L H 0 0 1 0 L H   H L L L
+                               ^
+[0019sa] user expected (L) for ALE
+
+0054: C 0 1 1 1 1 1 1 0    0 L H 0 0 0 0 L H   H H L L
+                             ^ ^           ^         ^
+[0019sa] user expected (H) for TS0
+[0019sa] user expected (L) for ALE
+[0019sa] user expected (L) for T41
+[0019sa] user expected (H) for CK8
+

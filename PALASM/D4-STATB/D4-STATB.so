@@ -1,0 +1,96 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Sat May 16 15:57:50 2026
+
+LISTING FOR SIMULATION FILE: D4-STATB.si
+
+   1: Name            D4_STATB Bus controller state machine logic;
+   2: PartNo          108219-00l;
+                                ^
+[0025sa] Please note: inconsistent header information
+
+   3: Revision        01;
+   4: Date            16/05/26;
+                              ^
+[0025sa] Please note: inconsistent header information
+
+   5: Designer        Dave Henry;
+   6: Company         Breadboarding Labs;
+   7: Location        None;
+   8: Assembly        None;
+   9: 
+  10: /********************************************************************/
+  11: /* Compiling Note: For this Design , it will compile without any    */
+  12: /* errors if Minimization is set to Quick                           */   
+  13: /*                                                                  */
+  14: /********************************************************************/
+  15: /* Target Device Types: ATF22V10 - Device p22v10                    */
+  16: /********************************************************************/
+  17: 
+  18: ORDER: CLK16, %1, !OE, %1, !RST, %1, !M16, %1, LMIO, %1, !LNOWS, %1, !BWAIT,%1, !CLAST,%1, !CX16, %3, !MYCYC,%1, TS0,%1, ALE,%1, T00,%1, 
+  19: T01, %1, T10, %1, T31, %1,T40, %1,T41, %3, !BRDY, %1, !CMD, %1, !WDEN, %1, CK8; 
+  20: 
+
+========================================================
+                ! ! !     !                             
+      C         L B C !   M                   !   !     
+      L   ! ! L N W L C   Y                   B ! W     
+      K ! R M M O A A X   C T A T T T T T T   R C D C   
+      1 O S 1 I W I S 1   Y S L 0 0 1 3 4 4   D M E K   
+      6 E T 6 O S T T 6   C 0 E 0 1 0 1 0 1   Y D N 8   
+========================================================
+0001: 0 1 1 X 1 X X X X   X Z Z X X X X Z Z   Z Z Z Z
+0002: C 0 0 X 1 X 1 0 X   1 L L 0 0 0 0 L L   H H H N
+0003: C 0 1 X 1 X 1 0 X   1 L L 0 0 0 0 L L   H H H N
+0004: C 0 1 X 1 1 1 0 X   0 L H 0 0 0 0 L L   H H L L
+0005: C 0 1 0 1 1 1 0 0   0 L L 0 0 0 0 L L   H L L H
+0006: C 0 1 0 1 1 1 1 0   0 L L 1 0 0 0 L L   H L L L
+0007: C 0 1 1 1 1 1 1 0   0 L L 0 1 0 0 H L   H L L H
+0008: C 0 1 1 1 1 1 1 0   0 L L 0 0 0 0 L H   H L L L
+0009: C 0 1 1 1 1 1 1 0   0 H L 0 0 0 0 L L   H H L H
+0010: C 0 1 1 1 1 1 1 0   0 L H 0 0 0 0 L L   H H L L
+0011: C 0 1 0 0 1 1 1 0   0 L L 0 0 0 0 L L   H H L H
+0012: C 0 1 0 0 1 1 0 0   0 L L 1 0 0 0 L L   H L L L
+0013: C 0 1 0 1 1 1 0 0   1 L L 0 1 0 0 H L   H L L H
+0014: C 0 1 0 1 1 0 0 0   0 L L 0 0 0 0 L H   H L L L
+0015: C 0 1 0 1 1 0 0 0   0 L L 0 0 0 0 L H   H L L H
+0016: C 0 1 0 1 1 0 0 0   0 L L 0 0 0 0 L H   H L L L
+0017: C 0 1 0 1 1 1 0 0   0 H L 0 0 0 0 L L   L H L H
+0018: C 0 1 0 1 1 1 0 0   0 L H 0 0 0 0 L L   H H L L
+0019: C 0 1 0 1 1 1 0 0   0 L L 0 0 0 0 L L   H L L H
+0020: C 0 1 0 1 0 1 1 0   0 L L 1 0 0 0 L L   H L L L
+0021: C 0 1 0 0 0 1 1 0   0 H L 0 1 0 0 L L   H H L H
+0022: C 0 1 0 0 1 1 1 0   0 L H 0 0 0 0 L L   H H L L
+0023: C 0 1 0 1 1 1 1 0   1 L L 0 0 0 0 L L   H L L H
+0024: C 0 1 0 1 0 1 0 0   0 L L 1 0 0 0 L L   H L L L
+0025: C 0 1 X 1 0 1 0 0   0 H L 0 1 0 0 L L   L H L H
+0026: C 0 1 0 1 1 1 0 1   0 L H 0 0 0 0 L L   H H L L
+0027: C 0 1 1 1 1 1 0 1   0 L L 0 0 0 0 L L   H H L H
+0028: C 0 1 1 1 1 1 0 1   0 L L 1 0 0 0 L L   H L L L
+0029: C 0 1 0 1 1 1 0 1   0 L L 0 1 0 0 L L   H L L H
+0030: C 0 1 0 1 0 1 1 1   0 L L 0 0 0 0 L L   H L L L
+0031: C 0 1 0 1 0 1 1 1   0 H L 0 0 1 0 L L   H H L H
+0032: C 0 1 0 1 1 1 1 1   0 L H 0 0 0 0 L L   H H L L
+0033: C 0 1 1 1 1 1 1 1   0 L L 0 0 0 0 L L   H H L H
+0034: C 0 1 1 1 1 1 1 1   0 L L 1 0 0 0 L L   H L L L
+0035: C 0 1 0 1 1 1 0 1   1 L L 0 1 0 0 L L   H L L H
+0036: C 0 1 0 1 1 1 0 1   1 L L 0 0 1 0 L L   H L L L
+0037: C 0 1 0 1 0 1 0 1   0 H L 0 0 0 0 L L   L H L H
+0038: C 0 1 0 1 1 1 0 1   0 L H 0 0 0 0 L L   H H L L
+0039: C 0 1 1 1 1 1 0 1   0 L L 0 0 0 0 L L   H H L H
+0040: C 0 1 1 1 1 1 0 1   0 L L 1 0 0 0 L L   H L L L
+0041: C 0 1 0 1 1 1 0 1   0 L L 0 1 0 0 L L   H L L H
+0042: C 0 1 0 1 1 1 0 1   1 L L 0 0 1 0 L L   H L L L
+0043: C 0 1 0 1 1 1 0 1   1 L L 0 0 0 0 L L   H L L H
+0044: C 0 1 0 1 1 1 0 1   1 L L 0 0 0 0 L L   H L L L
+0045: C 0 1 0 1 1 1 0 1   1 L L 0 0 0 1 H L   H L L H
+0046: C 0 1 0 1 1 1 0 1   1 L L 0 0 0 0 L H   H L L L
+0047: C 0 1 0 1 1 1 0 1   1 L L 0 0 0 0 L L   L H L H
+0048: C 0 1 0 1 1 1 0 1   1 L L 0 0 0 0 L L   H H H L
+0049: C 0 1 X 1 1 1 0 1   0 L H 0 0 0 0 L L   H H L L
+0050: C 0 1 0 1 1 1 0 1   0 L L 0 0 0 0 L L   H L L H
+0051: C 0 1 0 1 1 1 1 1   0 L L 1 0 0 0 L L   H L L L
+0052: C 0 1 0 1 1 1 1 1   0 L L 0 1 0 0 L L   H L L H
+0053: C 0 1 0 1 1 1 1 0   0 L L 0 0 1 0 L H   H L L L
+0054: C 0 1 1 1 1 1 1 0   0 H L 0 0 0 0 L L   H H L H

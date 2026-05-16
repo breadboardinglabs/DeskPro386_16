@@ -1,0 +1,87 @@
+%SIGNAL
+PIN   2 = !ADSM 
+PIN   1 =  CLK 
+PIN   8 = !CLK16 
+PIN   3 = !DMIO 
+PIN   4 =  D_C 
+PIN   9 = !HIT 
+PIN   7 =  HLDA 
+PIN   6 = !M32 
+PIN  15 = !MCAS 
+PIN  12 = !MRAS 
+PIN  18 = !MRD 
+PIN  16 = !MRDY 
+PIN  17 = !MWE 
+PIN  14 = !NAM 
+PIN  11 = !OE 
+PIN  13 = !SWM 
+PIN   5 =  W_R 
+PIN  19 = !YY 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+MCAS.d  =>
+    !CLK16 & !HLDA & !MRAS & !MRD & !NAM
+  # CLK16 & !HLDA & !MCAS
+  # CLK16 & !HLDA & !MRDY & !MWE
+  # ADSM & !DMIO & D_C & HLDA & !MRAS & SWM
+  # ADSM & !DMIO & D_C & HLDA & !MCAS & !MRD
+
+MRAS.d  =>
+    ADSM & !HLDA & NAM & !SWM
+  # !HLDA & !MRAS & MRDY
+  # CLK16 & !HLDA & !MRAS
+  # !ADSM & !HIT & !HLDA & !M32 & !MRAS & !W_R
+  # !ADSM & D_C & !HIT & !HLDA & !M32 & !MRAS
+  # ADSM & !CLK16 & !DMIO & !D_C & HLDA & SWM
+  # ADSM & !DMIO & !D_C & HLDA & !MRAS & SWM
+  # ADSM & !DMIO & D_C & HLDA & !M32 & YY
+
+MRD.d  =>
+    CLK16 & !HLDA & !M32 & !MRAS & !NAM & !W_R
+  # CLK16 & !HLDA & !MRD
+  # !CLK16 & !HLDA & !MRD & !NAM
+  # ADSM & !DMIO & D_C & HLDA & !M32 & !MRAS & W_R
+  # ADSM & !DMIO & HLDA & !MRD
+
+MRDY.d  =>
+    !CLK16 & !HLDA & !MRAS & !NAM
+  # CLK16 & !HLDA & !MRDY
+
+MWE.d  =>
+    CLK16 & D_C & !HLDA & !M32 & !MRAS & !NAM & W_R
+  # CLK16 & !HLDA & !MWE
+  # !CLK16 & !HLDA & !MWE & !NAM
+  # ADSM & !DMIO & HLDA & !M32 & !W_R & YY
+  # ADSM & !DMIO & HLDA & !MWE
+
+NAM.d  =>
+    !ADSM & !CLK16 & !HIT & !HLDA & !M32 & !MRDY & !W_R
+  # !ADSM & !CLK16 & D_C & !HIT & !HLDA & !M32 & !MRDY
+  # ADSM & !CLK16 & !HLDA & NAM & !SWM
+  # CLK16 & !NAM
+  # ADSM & HLDA
+
+SWM.d  =>
+    !ADSM & !CLK16 & !HLDA & !M32 & MRDY & !W_R
+  # !ADSM & !CLK16 & D_C & !HLDA & !M32 & MRDY
+  # !CLK16 & !HLDA & MRAS & SWM & !YY
+  # CLK16 & MRAS & !SWM
+  # ADSM & D_C & HLDA & MRAS
+  # ADSM & !D_C & HLDA & !MRAS & !YY
+  # ADSM & !DMIO & !D_C & HLDA & !SWM
+  # ADSM & !DMIO & HLDA & MRAS & !SWM
+
+YY.d  =>
+    !ADSM & !CLK16 & HIT & !HLDA & !M32 & !MRDY & !W_R
+  # !ADSM & !CLK16 & D_C & HIT & !HLDA & !M32 & !MRDY
+  # !HLDA & !MRAS & !NAM
+  # CLK16 & !HLDA & !YY
+  # ADSM & !DMIO & D_C & HLDA & !MCAS
+  # ADSM & !DMIO & HLDA & !YY
+  # ADSM & !CLK16 & !DMIO & !D_C & HLDA & !MRAS & SWM
+
+%END

@@ -1,0 +1,156 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SADI.pld                      Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:07:06 2026
+
+  1:Name            D4-SADI Address to byte enable conversion and read latch enable logic;
+  2:PartNo          105645-001;
+  3:Revision        01;
+  4:Date            16/5/26;
+  5:Designer        Dave Henry;
+  6:Company         Breadboarding Labs;
+  7:Location        None;
+  8:Assembly        None;
+  9:Device          g16v8;
+ 10:
+ 11:/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+ 12:/*                                                                                         */
+ 13:/*******************************************************************************************/
+ 14:/*                                                                                         */
+ 15:/*******************************************************************************************/
+ 16:/*
+ 17:DESCRIPTION
+ 18:This PAL contains the logic to back drive the 386 byte enables during the non 
+ 19:CPU operations. It decodes the address inputs and drives the appropriate BEx 
+ 20:lines whenever the 386 is in a HLDA state.
+ 21:
+ 22:This PAL also contains the decoding logic to drive the read latches clock lines 
+ 23:(74ALS573 fall through latch). These clock lines have positive true outputs 
+ 24:and are enabled when the CPU executes a MRDC, IORC, or INTA command.
+ 25:The basic equation is: BxCK = BSOx * CMD * !LW_R
+ 26:
+ 27:*/
+ 28:/* Pin Map 
+ 29:                               ______________
+ 30:                              |   D4-SADI    |
+ 31:                       A1 x---|1           20|---x Vcc                      
+ 32:                       A0 x---|2           19|---x B3CK                     
+ 33:                     !BHE x---|3           18|---x B2CK                     
+ 34:                    !CX16 x---|4           17|---x B1CK                     
+ 35:                      NC2 x---|5           16|---x B0CK                     
+ 36:                     !CMD x---|6           15|---x !BE3                     
+ 37:                     LW_R x---|7           14|---x !BE2                     
+ 38:                     HLDA x---|8           13|---x !BE1                     
+ 39:                      NC1 x---|9           12|---x !BE0                     
+ 40:                      GND x---|10          11|---x TST                      
+ 41:                              |______________|
+ 42:
+ 43:*/
+ 44:
+ 45:PIN 1 = A1 ;
+ 46:PIN 2 = A0 ;
+ 47:PIN 3 = !BHE ;
+ 48:PIN 4 = !CX16 ;
+ 49:PIN 5 = NC2 ;
+ 50:PIN 6 = !CMD ;
+ 51:PIN 7 = LW_R ;
+ 52:PIN 8 = HLDA ;
+ 53:PIN 9 = NC1 ;
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SADI.pld                      Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:07:06 2026
+
+ 54:PIN 11 = TST ;
+ 55:PIN 12 = !BE0 ;
+ 56:PIN 13 = !BE1 ;
+ 57:PIN 14 = !BE2 ;
+ 58:PIN 15 = !BE3 ;
+ 59:PIN 16 = B0CK ;
+ 60:PIN 17 = B1CK ;
+ 61:PIN 18 = B2CK ;
+ 62:PIN 19 = B3CK ;
+ 63:
+ 64:
+ 65:
+ 66:BE0.OE = HLDA ;
+ 67:   
+ 68:BE0 = !A1  & !A0; 
+ 69:
+ 70:
+ 71:BE1.OE = HLDA ;
+ 72:   
+ 73:BE1 = !A1  & BHE; 
+ 74:
+ 75:
+ 76:BE2.OE = HLDA ;
+ 77:   
+ 78:BE2 = A1  & !A0; 
+ 79:
+ 80:
+ 81:BE3.OE = HLDA ;
+ 82:   
+ 83:BE3 = A1  & BHE; 
+ 84:
+ 85:
+ 86:
+ 87:
+ 88:
+ 89:
+ 90:
+ 91:B0CK.OE = !TST ;
+ 92:    
+ 93:!B0CK = !CMD  
+ 94:                 # LW_R   
+ 95:                 # A0   
+ 96:                 # A1;   
+ 97:
+ 98:
+ 99:B1CK.OE = !TST ;
+100:    
+101:!B1CK = !CMD  
+102:                 # !BHE 
+103:                 # !CX16  & !A0 
+104:                 # LW_R  
+105:                 # A1;  
+106:
+107:
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SADI.pld                      Page 3
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:07:06 2026
+
+108:B2CK.OE = !TST ;
+109:    
+110:!B2CK = !CMD  
+111:                 # !A1  
+112:                 # LW_R   
+113:                 # A0;   
+114:
+115:
+116:B3CK.OE = !TST ;
+117:    
+118:!B3CK = !CMD  
+119:                 # !BHE  
+120:                 # !A1  
+121:                 # !CX16   & !A0 
+122:                 # LW_R;   
+123:
+124:
+125:
+126:
+127:
+128:
+
+
+
+Jedec Fuse Checksum       (80e6)
+Jedec Transmit Checksum   (7bdd)

@@ -1,0 +1,76 @@
+%SIGNAL
+PIN   2 =  A0 
+PIN   1 =  A1 
+PIN  13 = !B0EN 
+PIN  14 = !B1EN 
+PIN  15 = !B2EN 
+PIN  19 = !B3EN 
+PIN  12 = !BDIRRD 
+PIN   3 = !BHE 
+PIN   4 = !CMD 
+PIN  16 = !INTA 
+PIN   8 =  LD_C 
+PIN   9 =  LM_IO 
+PIN   7 =  LW_R 
+PIN   5 = !M32 
+PIN  18 = !MRDC 
+PIN  17 = !MWTC 
+PIN  11 = !TST 
+PIN   6 = !WDEN 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+B0EN =>
+    !A0 & !A1 & !MWTC & WDEN
+  # !A0 & !A1 & !M32 & !MRDC & WDEN
+  # !A0 & !A1 & LD_C & LW_R & !WDEN
+
+B0EN.oe  =>
+    TST
+
+B1EN =>
+    !A1 & !BHE & !MWTC & WDEN
+  # !A1 & !BHE & !M32 & !MRDC & WDEN
+  # !A1 & !BHE & LD_C & LW_R & !WDEN
+
+B1EN.oe  =>
+    TST
+
+B2EN =>
+    !A0 & A1 & !MWTC & WDEN
+  # !A0 & A1 & !M32 & !MRDC & WDEN
+  # !A0 & A1 & LD_C & LW_R & !WDEN
+
+B2EN.oe  =>
+    TST
+
+B3EN =>
+    A1 & !BHE & !MWTC & WDEN
+  # A1 & !BHE & !M32 & !MRDC & WDEN
+  # A1 & !BHE & LD_C & LW_R & !WDEN
+
+B3EN.oe  =>
+    TST
+
+BDIRRD =>
+    MRDC & WDEN
+
+BDIRRD.oe  =>
+    TST
+
+INTA =>
+    !CMD & !LD_C & !LM_IO & !LW_R
+
+INTA.oe  =>
+    TST
+
+MRDC.oe  =>
+    0 
+
+MWTC.oe  =>
+    0 
+
+%END

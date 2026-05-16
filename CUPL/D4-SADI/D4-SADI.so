@@ -1,0 +1,61 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Thu May 07 16:41:39 2026
+
+LISTING FOR SIMULATION FILE: D4-SADI.si
+
+   1: NAME         D4-SADI ;
+   2: PARTNO       XXXXX ;
+   3: REV          XX ;
+   4: DATE         XX/XX/XX ;
+   5: DESIGNER     XXXXX ;
+   6: COMPANY      XXXXX ;
+   7: ASSEMBLY     XXXXX ;
+   8: LOCATION     XXXXX ;
+   9: 
+  10: ORDER:
+  11: 
+  12:    TST, %1
+  13:  , HLDA, %1
+  14:  , A1, %1
+  15:  , A0, %1
+  16:  ,!BHE, %1
+  17:  ,!CX16, %1
+  18:  ,!CMD, %1
+  19:  , LW_R, %3
+  20: 
+  21:  , !BE3, %1
+  22:  , !BE2, %1
+  23:  , !BE1, %1
+  24:  , !BE0, %1
+  25:  ,  B3CK, %1
+  26:  ,  B2CK, %1
+  27:  ,  B1CK, %1
+  28:  ,  B0CK, %1;
+  29:   
+
+==========================================
+                !                         
+        H     ! C ! L   ! ! ! ! B B B B   
+      T L     B X C W   B B B B 3 2 1 0   
+      S D A A H 1 M _   E E E E C C C C   
+      T A 1 0 E 6 D R   3 2 1 0 K K K K   
+==========================================
+0001: 0 1 0 0 0 1 0 0   H H L L L L L H 
+0002: 0 1 0 0 1 1 0 0   H H H L L L L H 
+0003: 0 1 0 1 0 1 0 0   H H L H L L H L 
+0004: 0 1 1 0 0 1 0 0   L L H H L H L L 
+0005: 0 1 1 0 1 1 0 0   H L H H L H L L 
+0006: 0 1 1 1 0 1 0 0   L H H H H L L L 
+0007: 0 0 0 0 0 0 0 0   Z Z Z Z L L H H 
+0008: 0 0 0 0 1 0 0 0   Z Z Z Z L L L H 
+0009: 0 0 0 1 0 0 0 0   Z Z Z Z L L H L 
+0010: 0 0 1 0 0 0 0 0   Z Z Z Z H H L L 
+0011: 0 0 1 0 1 0 0 0   Z Z Z Z L H L L 
+0012: 0 0 1 1 0 0 0 0   Z Z Z Z H L L L 
+0013: 0 0 0 0 0 0 1 0   Z Z Z Z L L L L 
+0014: 0 0 1 0 0 0 1 0   Z Z Z Z L L L L 
+0015: 0 0 0 0 0 0 0 1   Z Z Z Z L L L L 
+0016: 0 0 1 0 0 0 0 1   Z Z Z Z L L L L 
+0017: 1 0 1 0 0 0 0 1   Z Z Z Z Z Z Z Z 

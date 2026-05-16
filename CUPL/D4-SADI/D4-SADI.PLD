@@ -1,0 +1,114 @@
+NAME         D4-SADI ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+/* PAL16L8 */
+
+/*                                                PAL DESIGN SPECIFICATION */
+
+/* D4-SADI 105645-001                                      PAUL R. CULLEY 02/13/86 */
+
+/* Address to byte enable conversion and read latch enable logic */
+
+/* Copyright 1986 COMPAQ COMPUTER Houston, Texas */
+
+
+PIN 1 = A1 ;
+PIN 2 = A0 ;
+PIN 3 = !BHE ;
+PIN 4 = !CX16 ;
+PIN 5 = NC2 ;
+PIN 6 = !CMD ;
+PIN 7 = LW_R ;
+PIN 8 = HLDA ;
+PIN 9 = NC1 ;
+PIN 11 = TST ;
+PIN 12 = !BE0 ;
+PIN 13 = !BE1 ;
+PIN 14 = !BE2 ;
+PIN 15 = !BE3 ;
+PIN 16 = B0CK ;
+PIN 17 = B1CK ;
+PIN 18 = B2CK ;
+PIN 19 = B3CK ;
+
+
+
+BE0.OE = HLDA ;
+   
+BE0 = !A1  & !A0; 
+
+
+BEl.OE = HLDA ;
+   
+BEl = !A1  & BHE; 
+
+
+BE2.OE = HLDA ;
+   
+BE2 = A1  & !A0; 
+
+
+BE3.OE = HLDA ;
+   
+BE3 = A1  & BHE; 
+
+
+
+
+
+
+
+B0CK.OE = !TST ;
+    
+!B0CK = !CMD  
+                 # LW_R   
+                 # A0   
+                 # A1;   
+
+
+B1CK.OE = !TST ;
+    
+!B1CK = !CMD  
+                 # !BHE 
+                 # !CX16  & !A0 
+                 # LW_R  
+                 # A1;  
+
+
+B2CK.OE = !TST ;
+    
+!B2CK = !CMD  
+                 # !A1  
+                 # LW_R   
+                 # A0;   
+
+
+B3CK.OE = !TST ;
+    
+!B3CK = !CMD  
+                 # !BHE  
+                 # !A1  
+                 # !CX16   & !A0 
+                 # LW_R;   
+
+
+
+
+/*
+DESCRIPTION
+This PAL contains the logic to back drive the 386 byte enables during the non 
+CPU operations. It decodes the address inputs and drives the appropriate BEx 
+lines whenever the 386 is in a HLDA state.
+
+This PAL also contains the decoding logic to drive the read latches clock lines 
+(74ALS573 fall through latch). These clock lines have positive true outputs 
+and are enabled when the CPU executes a MRDC, IORC, or INTA command.
+The basic equation is: BxCK = BSOx * CMD * !LW_R
+
+*/

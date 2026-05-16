@@ -1,0 +1,115 @@
+Name            D4-SNCP Numeric Coprocessor error and busy logic;
+PartNo          105657-001;
+Revision        01;
+Date            16/5/26;
+Designer        Dave Henry;
+Company         Breadboarding Labs;
+Location        None;
+Assembly        None;
+Device          g16v8;
+
+/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+/*                                                                                         */
+/*******************************************************************************************/
+/*                                                                                         */
+/*******************************************************************************************/
+/*
+DESCRIPTION
+This PAL is used in the Magnum processor board to handle the error logic for
+the numeric coprocessor. It allows a greater measure of compatibility with
+the previous products. It sets up the system to generate an interrupt when 
+the error signal is recieved. It holds the interrupt until the service
+routine does a write to port F0h. It also holds busy out active until the 
+interrupt occurs or till the CPU times out from no activity. This is to
+prevent any other numeric processor instructions from being executed until 
+the error has been recognized. If the no activity timeout occurs, that means
+the CPU hung up on the 287 interface due to different design of the 386.
+
+In this case, the interrupt will have been recieved by the 386.
+In addition, the timer chip selects are broken out to the seperate selects by the PAL logic.
+
+*/
+/* Pin Map 
+                               ______________
+                              |   D4-SNCP    |
+                   !TIMCS x---|1           20|---x Vcc                      
+                   !XIOWC x---|2           19|---x !BUSYOUT                 
+                      XA0 x---|3           18|---x EN_ERR                   
+                   !ERROR x---|4           17|---x NC02                     
+                  !BUSYIN x---|5           16|---x IRQ13                    
+                     TIMO x---|6           15|---x ONESHT                   
+                   !NCPIN x---|7           14|---x !TIM1CS                  
+                   !NCPCS x---|8           13|---x !TIM2CS                  
+                   !RESET x---|9           12|---x RES287                   
+                      GND x---|10          11|---x XA3                      
+                              |______________|
+
+*/
+
+
+PIN 1 = !TIMCS ;
+PIN 2 = !XIOWC ;
+PIN 3 = XA0 ;
+PIN 4 = !ERROR ;
+PIN 5 = !BUSYIN ;
+PIN 6 = TIMO ;
+PIN 7 = !NCPIN ;
+PIN 8 = !NCPCS ;
+PIN 9 = !RESET ;
+PIN 11 = XA3 ;
+PIN 12 = RES287 ;
+PIN 13 = !TIM2CS ;
+PIN 14 = !TIM1CS ;
+PIN 15 = ONESHT ;
+PIN 16 = IRQ13 ;
+PIN 17 = NC02 ;
+PIN 18 = EN_ERR ;
+PIN 19 = !BUSYOUT ;/* The following equation is the positive true output of the equation: */
+
+
+
+/* RES287 = RESET + XIOWC * NCPCS * /XA3 * XA0  ; I/O write to F1h */
+   
+!RES287 =
+  !RESET  & !XIOWC /* NOT I/O WRITE */
+# !RESET  & !NCPCS /*  NOT port FX */
+# !RESET  &  XA3   /*  NOT address XXIXXXb */
+# !RESET  & !XA0;  /*  NOT address XXXXXOb */
+                  
+   
+BUSYOUT =
+  !RESET & NCPIN  & BUSYIN /*  coprocessor busy */
+# !RESET  & NCPIN  & ERROR  & EN_ERR & !TIMO /*  error before int ack */
+# !RESET  & !NCPIN & NCPCS  & XA3  & XIOWC /*  When not installed and NCP accessed */
+# !RESET  & !NCPIN & ONESHT & !TIMO; /*  When not installed till timeout */
+
+
+/* The following equation is the positive true output of the equation: */
+/*  IRQ13 = ERROR* /BUSYIN* EN_ERR* NCPIN   ; Int when error and enabled */
+!IRQ13 =
+         !ERROR /*  No int if no error */
+       #  BUSYIN /*  or busy */
+       # !EN_ERR /*  or not enabled for err */
+       # !NCPIN; /*  No int if not installed */
+                                   
+   
+!EN_ERR =
+    !RESET & NCPIN & !EN_ERR  &  ERROR  /*  Hold disabled till ERROR goes away */
+  # !RESET & NCPIN & !EN_ERR  &  BUSYIN /*  Hold disabled till BUSY goes away */
+  #  XIOWC  & NCPCS & !XA3     & !XA0;   /*  Disable on write to port 0F0h */
+              
+   
+!ONESHT =
+    NCPIN & !IRQ13                      /*  One shot output when IRQ (installed) */
+ # !NCPIN & !ONESHT  & !XIOWC           /*  Goes high on NCP access when not */
+ # !NCPIN  & !ONESHT  & !XA3            /*      installed */
+ # !NCPIN  & !ONESHT  & !NCPCS 
+ # !NCPIN  &  TIMO                      /*  and stays high till timeout */
+ #  RESET;                              /*  Low at reset time */
+                                    
+   
+TIM1CS = TIMCS  & !XA3;                 /*  Timer 1 at address 040h-047h, 050h-057h */
+             
+   
+TIM2CS = TIMCS  &  XA3;                 /*  Timer 2 at address 048h-04Fh, 058h-05Fh */
+ 

@@ -1,0 +1,126 @@
+Name            D4-SADI Address to byte enable conversion and read latch enable logic;
+PartNo          105645-001;
+Revision        01;
+Date            16/5/26;
+Designer        Dave Henry;
+Company         Breadboarding Labs;
+Location        None;
+Assembly        None;
+Device          g16v8;
+
+/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+/*                                                                                         */
+/*******************************************************************************************/
+/*                                                                                         */
+/*******************************************************************************************/
+/*
+DESCRIPTION
+This PAL contains the logic to back drive the 386 byte enables during the non 
+CPU operations. It decodes the address inputs and drives the appropriate BEx 
+lines whenever the 386 is in a HLDA state.
+
+This PAL also contains the decoding logic to drive the read latches clock lines 
+(74ALS573 fall through latch). These clock lines have positive true outputs 
+and are enabled when the CPU executes a MRDC, IORC, or INTA command.
+The basic equation is: BxCK = BSOx * CMD * !LW_R
+
+*/
+/* Pin Map 
+                               ______________
+                              |   D4-SADI    |
+                       A1 x---|1           20|---x Vcc                      
+                       A0 x---|2           19|---x B3CK                     
+                     !BHE x---|3           18|---x B2CK                     
+                    !CX16 x---|4           17|---x B1CK                     
+                      NC2 x---|5           16|---x B0CK                     
+                     !CMD x---|6           15|---x !BE3                     
+                     LW_R x---|7           14|---x !BE2                     
+                     HLDA x---|8           13|---x !BE1                     
+                      NC1 x---|9           12|---x !BE0                     
+                      GND x---|10          11|---x TST                      
+                              |______________|
+
+*/
+
+PIN 1 = A1 ;
+PIN 2 = A0 ;
+PIN 3 = !BHE ;
+PIN 4 = !CX16 ;
+PIN 5 = NC2 ;
+PIN 6 = !CMD ;
+PIN 7 = LW_R ;
+PIN 8 = HLDA ;
+PIN 9 = NC1 ;
+PIN 11 = TST ;
+PIN 12 = !BE0 ;
+PIN 13 = !BE1 ;
+PIN 14 = !BE2 ;
+PIN 15 = !BE3 ;
+PIN 16 = B0CK ;
+PIN 17 = B1CK ;
+PIN 18 = B2CK ;
+PIN 19 = B3CK ;
+
+
+
+BE0.OE = HLDA ;
+   
+BE0 = !A1  & !A0; 
+
+
+BE1.OE = HLDA ;
+   
+BE1 = !A1  & BHE; 
+
+
+BE2.OE = HLDA ;
+   
+BE2 = A1  & !A0; 
+
+
+BE3.OE = HLDA ;
+   
+BE3 = A1  & BHE; 
+
+
+
+
+
+
+
+B0CK.OE = !TST ;
+    
+!B0CK = !CMD  
+                 # LW_R   
+                 # A0   
+                 # A1;   
+
+
+B1CK.OE = !TST ;
+    
+!B1CK = !CMD  
+                 # !BHE 
+                 # !CX16  & !A0 
+                 # LW_R  
+                 # A1;  
+
+
+B2CK.OE = !TST ;
+    
+!B2CK = !CMD  
+                 # !A1  
+                 # LW_R   
+                 # A0;   
+
+
+B3CK.OE = !TST ;
+    
+!B3CK = !CMD  
+                 # !BHE  
+                 # !A1  
+                 # !CX16   & !A0 
+                 # LW_R;   
+
+
+
+

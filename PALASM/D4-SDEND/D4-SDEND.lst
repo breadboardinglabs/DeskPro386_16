@@ -1,0 +1,126 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SDEND.pld                     Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:25:11 2026
+
+  1:Name            D4-SDEND DataBuffer enable logic;
+  2:PartNo          109390-001;
+  3:Revision        01;
+  4:Date            16/5/26;
+  5:Designer        Dave Henry;
+  6:Company         Breadboarding Labs;
+  7:Location        None;
+  8:Assembly        None;
+  9:Device          g16v8;
+ 10:
+ 11:/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+ 12:/*                                                                                         */
+ 13:/*******************************************************************************************/
+ 14:/*                                                                                         */
+ 15:/*******************************************************************************************/
+ 16:/*
+ 17:DESCRIPTION
+ 18:This PAL developes the control signal to enable the data buffers on the system
+ 19:board.
+ 20:Rev A ensures turnon of the buffer enables for mem write after the direction 
+ 21:is active by leaving the buffer turned around during the entire write cycle.
+ 22:Rev D is for use with D3PE D4-processor board (with 387).
+ 23:*/
+ 24:/* Pin Map 
+ 25:                               ______________
+ 26:                              |   D4-SDEND   |
+ 27:                       A1 x---|1           20|---x Vcc                      
+ 28:                       A0 x---|2           19|---x !B3EN                    
+ 29:                     !BHE x---|3           18|---x !MRDC                    
+ 30:                     !CMD x---|4           17|---x !MWTC                    
+ 31:                     !M32 x---|5           16|---x !INTA                    
+ 32:                    !WDEN x---|6           15|---x !B2EN                    
+ 33:                     LW_R x---|7           14|---x !B1EN                    
+ 34:                     LD_C x---|8           13|---x !B0EN                    
+ 35:                    LM_IO x---|9           12|---x !BDIRRD                  
+ 36:                      GND x---|10          11|---x !TST                     
+ 37:                              |______________|
+ 38:
+ 39:*/
+ 40:
+ 41:
+ 42:PIN 1 = A1 ;
+ 43:PIN 2 = A0 ;
+ 44:PIN 3 = !BHE ;
+ 45:PIN 4 = !CMD ;
+ 46:PIN 5 = !M32 ;
+ 47:PIN 6 = !WDEN ;
+ 48:PIN 7 = LW_R ;
+ 49:PIN 8 = LD_C ;
+ 50:PIN 9 = LM_IO ;
+ 51:PIN 11 = !TST ;
+ 52:PIN 12 = !BDIRRD ;
+ 53:PIN 13 = !B0EN ;
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SDEND.pld                     Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:25:11 2026
+
+ 54:PIN 14 = !B1EN ;
+ 55:PIN 15 = !B2EN ;
+ 56:PIN 16 = !INTA ;
+ 57:PIN 17 = !MWTC ;
+ 58:PIN 18 = !MRDC ;
+ 59:PIN 19 = !B3EN ;
+ 60:
+ 61:                        
+ 62:            
+ 63:BDIRRD.OE = !TST ;
+ 64:   
+ 65:BDIRRD = !MRDC & !WDEN;            /* OTHER WRITE TO LOCAL MEM */
+ 66:                
+ 67:
+ 68:B0EN.OE = !TST ;
+ 69:   
+ 70:B0EN =
+ 71:  !A1 & !A0 & MWTC & !WDEN         /* OTHER WRITE TO LOCAL MEM */
+ 72:# !A1 & !A0 & MRDC & !WDEN & M32   /* OTHER READ FROM LOCAL MEM */
+ 73:# !A1 & !A0 & LD_C & LW_R & WDEN;  /* CPU WRITE TO BUS */
+ 74:    
+ 75:
+ 76:B1EN.OE = !TST ;
+ 77:   
+ 78:B1EN =
+ 79:  !A1 & BHE & MWTC & !WDEN         /* OTHER WRITE TO LOCAL MEM */
+ 80:# !A1 & BHE & MRDC & !WDEN & M32   /* OTHER READ FROM LOCAL MEM */
+ 81:# !A1 & BHE & LD_C & LW_R & WDEN;  /* CPU WRITE TO BUS */
+ 82:    
+ 83:
+ 84:B2EN.OE = !TST ;
+ 85:   
+ 86:B2EN =
+ 87:  A1 & !A0 & MWTC & !WDEN          /* OTHER WRITE TO LOCAL MEM */
+ 88:# A1 & !A0 & MRDC & !WDEN & M32    /* OTHER READ FROM LOCAL MEM */
+ 89:# A1 & !A0 & LD_C &  LW_R & WDEN;  /* CPU WRITE TO BUS */
+ 90:                    
+ 91:
+ 92:B3EN.OE = !TST ;
+ 93:   
+ 94:B3EN =
+ 95:  A1 & BHE & MWTC & !WDEN          /* OTHER WRITE TO LOCAL MEM */
+ 96:# A1 & BHE & MRDC & !WDEN & M32    /* OTHER READ FROM LOCAL MEM */
+ 97:# A1 & BHE & LD_C & LW_R  & WDEN;  /* CPU WRITE TO BUS */
+ 98:                    
+ 99:
+100:INTA.OE = !TST ;
+101:   
+102:INTA =
+103:   CMD & !LM_IO & !LW_R & !LD_C;   /* CPU INTERRUPT ACK */
+104:
+105:
+106:
+
+
+
+Jedec Fuse Checksum       (5605)
+Jedec Transmit Checksum   (2012)

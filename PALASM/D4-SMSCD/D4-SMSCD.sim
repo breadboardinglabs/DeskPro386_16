@@ -1,0 +1,60 @@
+%SIGNAL
+PIN  18 =  387I 
+PIN  19 = !ADS 
+PIN   4 =  BALE 
+PIN   8 = !BE0 
+PIN   3 = !BRDY 
+PIN   1 =  CLK 
+PIN  13 = !CLSTD 
+PIN   6 =  D_C 
+PIN  12 = !LNCP 
+PIN  15 = !LOE 
+PIN   2 = !M32 
+PIN  14 = !MYCYC 
+PIN   7 =  M_IO 
+PIN  16 = !NAB 
+PIN  11 = !OE 
+PIN   9 =  PA31 
+PIN  17 = !SHTD 
+PIN   5 =  W_R 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+LNCP =>
+    BALE & !MYCYC & !M_IO & PA31
+  # !BALE & !LNCP
+  # !LNCP & !MYCYC & !M_IO & PA31
+
+LOE.d  =>
+    BALE & LNCP & !MYCYC & !W_R
+  # BRDY & !LOE
+
+MYCYC.d  =>
+    !387I & !ADS & CLSTD & !M_IO
+  # !ADS & CLSTD & !M_IO & !PA31
+  # !ADS & CLSTD & M32 & M_IO
+  # !ADS & CLSTD & !D_C & M_IO & W_R
+  # CLSTD & !MYCYC
+
+NAB.d  =>
+    !CLSTD
+
+SHTD.d  =>
+    BALE & !BE0 & !D_C & !MYCYC & M_IO & W_R
+
+387I.oe  =>
+    0 
+
+ADS.oe  =>
+    0 
+
+CLSTD.oe  =>
+    0 
+
+LNCP.oe  =>
+    1 
+
+%END

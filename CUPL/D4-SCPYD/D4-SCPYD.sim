@@ -1,0 +1,78 @@
+%SIGNAL
+PIN   8 =  AEN2 
+PIN   1 =  BALE 
+PIN  16 = !BHE 
+PIN  13 = !COPYEN 
+PIN  14 = !COPYHL 
+PIN  15 = !DAEN 
+PIN   7 = !DAEN1 
+PIN  12 = !DAEN2 
+PIN  19 = !HLDA 
+PIN   2 = !IO16 
+PIN   6 = !IORC 
+PIN   5 = !IOWX 
+PIN  18 = !LM16 
+PIN   9 = !M16 
+PIN   4 = !MRDC 
+PIN   3 = !MWTC 
+PIN  17 =  XA0 
+PIN  11 =  oe 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+BHE =>
+    !DAEN1 & XA0
+  # AEN2
+
+BHE.oe  =>
+    !DAEN
+
+COPYEN =>
+    !BHE & DAEN & LM16 & !MWTC & XA0
+  # !BHE & DAEN & IO16 & !IOWX & XA0
+  # !BHE & DAEN & LM16 & !MRDC & XA0
+  # !BHE & DAEN & IO16 & !IORC & XA0
+  # !COPYHL & !DAEN1 & !LM16 & !MRDC & XA0
+  # !DAEN1 & !IORC & !LM16 & XA0
+
+COPYHL =>
+    !BHE & DAEN & LM16 & !MWTC & XA0
+  # !BHE & DAEN & IO16 & !IOWX & XA0
+  # !DAEN1 & !LM16 & !MRDC & XA0
+  # !COPYEN & !COPYHL
+
+DAEN =>
+    !DAEN1 & !HLDA
+  # AEN2 & !HLDA
+
+DAEN2 =>
+    AEN2 & !HLDA
+
+LM16.d  =>
+    !M16
+
+!XA0 =>
+    AEN2
+
+XA0.oe  =>
+    AEN2 & !HLDA
+
+COPYEN.oe  =>
+    1 
+
+COPYHL.oe  =>
+    1 
+
+DAEN.oe  =>
+    1 
+
+DAEN2.oe  =>
+    1 
+
+HLDA.oe  =>
+    0 
+
+%END

@@ -1,0 +1,72 @@
+NAME         D4-SMSCD ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+/* PAL16R4 */
+
+/*                                                PAL DESIGN SPECIFICATION */
+
+/* D4-SMSCD 108397-001                                     PAUL R. CULLEY 01/12/87 */
+
+/* Miscellaneous garbage logic */
+
+/* Copyright 1986, 1987 COMPAQ COMPUTER Houston, Texas */
+
+
+PIN 1 = CLK ;
+PIN 2 = !M32 ;
+PIN 3 = !BRDY ;
+PIN 4 = BALE ;
+PIN 5 = W_R ;
+PIN 6 = D_C ;
+PIN 7 = M_IO ;
+PIN 8 = !BE0 ;
+PIN 9 = PA31 ;
+PIN 11 = !OE ;
+PIN 12 = !LNCP ;
+PIN 13 = !CLSTD ;
+PIN 14 = !MYCYC ;
+PIN 15 = !LOE ;
+PIN 16 = !NAB ;
+PIN 17 = !SHTD ;
+PIN 18 = 387I ;
+PIN 19 = !ADS ;
+                     
+              
+ 
+LOE.D =
+  MYCYC &  BALE  & !W_R  & !LNCP           /*  GOES ACTIVE AT ALE */
+# LOE   & !BRDY;                           /*  HOLD THROUGH TILL BRDY ACTIVE */
+                        
+SHTD.D =
+  MYCYC  & BALE & M_IO & !D_C & W_R & BE0; /*  DECODED SHUTDOWN OPCODE */
+    
+MYCYC.D =
+  !CLSTD  & ADS  & !M_IO  & !387I          /*  WHEN NO 387 AND 1/0 */
+# !CLSTD  & ADS  & !M_IO  & !PA31          /*  OR NOT NCP 1/0 CYCLE */
+# !CLSTD  & ADS  & M_IO   & !M32           /*  OR NOT 32 BIT MEMORY CYCLE */
+# !CLSTD  & ADS  & M_IO   & !D_C  & W_R    /*  OR HALT/SHUTDOWN CYCLE */
+# !CLSTD  & MYCYC;                         /*  HOLD TILL NAB */
+                     
+NAB.D = CLSTD;                             /*  NEXT ADDRESS BUS */
+                         
+
+LNCP =
+  MYCYC &  BALE & PA31 & !M_IO             /*  NUMERIC COPROCESSOR OP */
+# LNCP  & !BALE                             /*  HOLD TILL NEXT ALE OR HOLD */
+# MYCYC &  PA31 & !M_IO & LNCP;             /*  DEGLITCH */
+           
+
+/*
+DESCRIPTION
+Rev D of this PAL is for the upgraded D3PE D4-processor board (with 387) and
+is a new design.
+This PAL contains the equations for the signal MYCYC (BUS state machine cycle),
+SHTD <decoded shutdown status), LNCP (numeric processor access status), and
+LOE (latch output enable). It also is the F/F for the NAB signal.
+*/

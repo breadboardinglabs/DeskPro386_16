@@ -1,0 +1,119 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-RRAS.pld                      Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:02:31 2026
+
+  1:Name            D4-RRAS D4 PAGE RAM BOARD RAS decode logic;
+  2:PartNo          l08054-001;
+  3:Revision        01;
+  4:Date            16/5/26;
+  5:Designer        Dave Henry;
+  6:Company         Breadboarding Labs;
+  7:Location        None;
+  8:Assembly        None;
+  9:Device          g16v8;
+ 10:
+ 11:/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+ 12:/*                                                                                         */
+ 13:/*******************************************************************************************/
+ 14:/*                                                                                         */
+ 15:/*******************************************************************************************/
+ 16:/*
+ 17:DESCRIPTION
+ 18:*/
+ 19:/* Pin Map 
+ 20:                               ______________
+ 21:                              |   D4-RRAS    |
+ 22:                      A31 x---|1           20|---x Vcc                      
+ 23:                      A23 x---|2           19|---x !RS1                     
+ 24:                      A22 x---|3           18|---x !ROM                     
+ 25:                      A21 x---|4           17|---x !PARWR                   
+ 26:                      A20 x---|5           16|---x !PARRD                   
+ 27:                      A19 x---|6           15|---x !WE0                     
+ 28:                      A18 x---|7           14|---x !MRD                     
+ 29:                      A17 x---|8           13|---x !MWE                     
+ 30:                     FA20 x---|9           12|---x !RS0                     
+ 31:                      GND x---|10          11|---x !RFSH                    
+ 32:                              |______________|
+ 33:
+ 34:*/
+ 35:
+ 36:
+ 37:PIN 1 = A31 ;
+ 38:PIN 2 = A23 ;
+ 39:PIN 3 = A22 ;
+ 40:PIN 4 = A21 ;
+ 41:PIN 5 = A20 ;
+ 42:PIN 6 = A19 ;
+ 43:PIN 7 = A18 ;
+ 44:PIN 8 = A17 ;
+ 45:PIN 9 = FA20 ;
+ 46:PIN 11 = !RFSH ;
+ 47:PIN 12 = !RS0 ;
+ 48:PIN 13 = !MWE ;
+ 49:PIN 14 = !MRD ;
+ 50:PIN 15 = !WE0 ;
+ 51:PIN 16 = !PARRD ;
+ 52:PIN 17 = !PARWR ;
+ 53:PIN 18 = !ROM ;
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-RRAS.pld                      Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:02:31 2026
+
+ 54:PIN 19 = !RS1 ;
+ 55:
+ 56:                       
+ 57:          
+ 58:
+ 59: 
+ 60:RS0 =
+ 61:  !A31 & !A23 & !A22 & !A21 & !A20  & !A19                 /* 00000000H 512K */
+ 62:# !A31 & !A23 & !A22 & !A21 & !FA20 & !A19                 /* 00100000H 512K */
+ 63:# !A31 & !A23 & !A22 & !A21 & !A20  &  A19 & !A18 & !A17   /* 00080000H 128K */
+ 64:# !A31 & !A23 & !A22 & !A21 & !A20  &  A19 &  A18 &  A17   /* 000E0000H 128K */
+ 65:# !A31 &  A23 &  A22 &  A21 &  A20                         /* 00F00000H 1024K */
+ 66:#  RFSH;                                                   /* REFRESH */
+ 67:                                                  
+ 68: 
+ 69:RS1 =
+ 70: !A31 & !A23 & !A22 & !A21 & A20 & FA20                    /* 00100000H 1024K */
+ 71:# RFSH;                                                    /* REFRESH */
+ 72:                                                 
+ 73: 
+ 74:PARWR =
+ 75: MWE & A31 & A23 & A22 & !A21 & !A20 & !A19 & !A18 & !A17; /* 80COOOOOH 128K */
+ 76:      
+ 77: 
+ 78:PARRD =
+ 79: MRD & A31 & A23 & A22 & !A21 & !A20 & !A19 & !A18 & !A17; /* 80C00000H 128K */
+ 80:      
+ 81: 
+ 82:WE0 =
+ 83:  MWE & !A31 & !A23 & !A22 & !A21 & !A19                                /* 00000000H 512K */
+ 84:# MWE & !A31 & !A23 & !A22 & !A21 & !A20 &  A19  & !A18 & !A17          /* 00080000H 128K */
+ 85:# MWE & !A31 & !A23 & !A22 & !A21 & !A20 &  A19  &  A18 &  A17  & !ROM  /* 000E0000H 128K */
+ 86:# MWE & !A31 &  A23 &  A22 &  A21 &  A20 & !A19  &  A18                 /* 00F40000H 256K */
+ 87:# MWE & !A31 &  A23 &  A22 &  A21 &  A20 &  A19  & !A18                 /* 00FB0000H 256K */
+ 88:# MWE & !A31 &  A23 &  A22 &  A21 &  A20 &  A19  &  A18 & !A17          /* 00FC0000H 128K */
+ 89:# MWE & !A31 &  A23 &  A22 &  A21 &  A20 &  A19  &  A18 &  A17  & !ROM; /* 00FE0000H 128K */
+ 90: 
+ 91:
+ 92:/*
+ 93:DESCRIPTION
+ 94:This-PAL is used in the D4 (386) memory board to decode the RAS signals
+ 95:and the parity read and write logic.
+ 96:
+ 97:*/
+ 98:
+ 99:
+
+
+
+Jedec Fuse Checksum       (4479)
+Jedec Transmit Checksum   (09a6)

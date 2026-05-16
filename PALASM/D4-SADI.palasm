@@ -4,11 +4,11 @@ Address to byte enable conversion and read latch enable logic
 Copyright 1986 COMPAQ COMPUTER Houston, Texas
 
 A1    A0   /BHE  /CX16  NC2  /CMD   LW-R  HLDA  NC1  GND
-TST  /BE0  /BEl  /BE2  /BE3   B0CK  B1CK  B2CK  B3CK VCC
+TST  /BE0  /BE1  /BE2  /BE3   B0CK  B1CK  B2CK  B3CK VCC
 
 IF (HLDA) BEO = /A1 * /A0
 
-IF (HLDA) BEl = /A1 * BHE
+IF (HLDA) BE1 = /A1 * BHE
 
 IF (HLDA) BE2 = A1 * /A0
 
@@ -21,7 +21,7 @@ IF (/TST) /B0CK  =  /CMD
 
 IF (/TST) /B1CK  =  /CMD
                  + /BHE
-                 + /CXl6 * /A0
+                 + /CX16 * /A0
                  +  LW-R
                  +  A1
 
@@ -38,7 +38,7 @@ IF (/TST) /B3CK  =  /CMD
 
 FUNCTION TABLE
 
-TST   HLDA A1   A0 /BHE  /CX16 /CMD  /LW-R
+TST   HLDA A1   A0 /BHE  /CX16 /CMD   LW-R
 /BE3 /BE2 /BE1 /BE0 B3CK  B2CK  B1CK  B0CK
 ;  H       C   L           B B B B 
 ;T L     B X C W   B B B B 3 2 1 0 
@@ -57,7 +57,7 @@ TST   HLDA A1   A0 /BHE  /CX16 /CMD  /LW-R
  L L H L L L L L   Z Z Z Z H H L L
  L L H L H L L L   Z Z Z Z L H L L
  L L H H L L L L   Z Z Z Z H L L L
- L L l l l L H L   Z Z Z Z l L l L
+ L L L L L L H L   Z Z Z Z L L L L
  L L H L L L H L   Z Z Z Z L L L L
  L L L L L L L H   Z Z Z Z L L L L
  L L H L L L L H   Z Z Z Z L L L L

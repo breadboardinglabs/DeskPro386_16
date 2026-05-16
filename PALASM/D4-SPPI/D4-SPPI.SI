@@ -1,0 +1,64 @@
+Name            D4-SPPI Peripheral interface decode logic;
+PartNo          105659-001;
+Revision        01;
+Date            16/05/26;
+Designer        Dave Henry;
+Company         Breadboarding Labs;
+Location        None;
+Assembly        None;
+
+/********************************************************************/
+/*                                                                  */
+/********************************************************************/
+/* Target Device Types: ATF16V8 - Device g16v8                      */
+/********************************************************************/
+
+
+ORDER:
+ 
+
+     !XIORC, %1
+   , !XIOWC, %1
+   , !INTA, %1
+   ,  XA9, %1
+   ,  XA8, %1
+   ,  XA4, %1
+   ,  XA3, %1
+   ,  XA0, %1
+   , !PPICS, %1
+   ,  RESCMOS, %3
+
+   , !NMICLK, %1
+   ,  CMOSAWR, %1
+   , !CMOSWR, %1
+   , !CMOSRD, %1
+   , !KEYCS, %1
+   , !PBWR, %1
+   , !PBRD, %1
+   , !CIORD;
+
+
+VECTORS:
+
+/*
+                   R   N C C C 
+ X X             P E   M M M M K     C 
+ I I I           P S   I O O O E P P I 
+ O O N X X X X X I C   C S S S Y B B 0 
+ R W T A A A A A C M   L A W R C W R R 
+ C C A 9 8 4 3 0 S O   K W R D S R D D */
+
+ 1 1 1 1 1 1 0 1 1 1   H H H H H H H H
+ 1 1 1 0 0 0 0 0 0 0   H L H H L H H H /* 8042 SELECT */
+ 1 1 0 1 1 1 0 1 1 0   H L H H H H H L /* BUFFER ENABLE ON INTA */
+ 1 0 1 0 0 1 0 0 0 0   L H H H H H H H /* CMOS ADDRESS WRITE */
+ 1 1 1 0 0 1 0 0 0 0   H L H H H H H H /* CMOS ADDRESS WRITE */
+ 1 0 1 0 0 1 0 1 0 0   H L L H H H H H /* CMOS WRITE */
+ 0 1 1 0 0 1 0 1 0 0   H L H L H H H L /* CMOS READ */
+ 0 1 1 0 0 0 0 1 0 0   H L H H H H L L /* PORT B READ */
+ 0 1 1 0 0 0 0 1 1 0   H L H H H H H L /* BUFFER ENABLE */
+ 0 1 1 1 0 0 0 1 1 0   H L H H H H H H /* BUFFER DISABLE */
+ 0 1 1 0 1 0 0 1 1 0   H L H H H H H H /* BUFFER DISABLE */
+ 1 0 1 0 0 0 0 1 0 0   H L H H H L H H /* PORT B WRITE (NO BUF ENABLE) */
+ 1 0 1 0 0 0 1 1 0 0   H L H H H H H H
+ 1 0 1 0 0 1 1 1 0 0   H L H H H H H H

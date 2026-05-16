@@ -1,0 +1,210 @@
+
+*******************************************************************************
+                                    D4-RM32
+*******************************************************************************
+
+CUPL(WM)        5.0a Serial# MW-10400000
+Device          g16v8ma  Library DLIB-h-40-8
+Created         Thu May 07 16:37:10 2026
+Name            D4-RM32 
+Partno          XXXXX 
+Revision        XX 
+Date            XX/XX/XX 
+Designer        XXXXX 
+Company         XXXXX 
+Assembly        XXXXX 
+Location        XXXXX 
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+M32A =>
+    !A18 & !A19 & !A20 & !A21 & !A22 & !A23 & !A31
+  # !A18 & !A19 & !A21 & !A22 & !A23 & !A31 & !FA20
+  # 512K & A18 & !A19 & !A20 & !A21 & !A22 & !A23 & !A31
+  # 640K & !A17 & !A18 & A19 & !A20 & !A21 & !A22 & !A23 & !A31
+  # A17 & A18 & A19 & !A20 & !A21 & !A22 & !A23 & !A31 & ROM
+  # 1M & A20 & !A21 & !A22 & !A23 & !A31
+  # 8M & !A21 & !A22 & A23 & !A31
+
+M32A.oe  =>
+    !A21 & !A22
+
+M32B =>
+    8M & !A21 & A22 & !A23 & !A31
+  # !A17 & !A18 & !A19 & !A20 & !A21 & A22 & A23 & A31
+
+M32B.oe  =>
+    !A21 & A22
+
+M32C =>
+    !512K & A18 & !A19 & A20 & A21 & A22 & A23 & !A31
+  # !640K & !A17 & !A18 & A19 & A20 & A21 & A22 & A23 & !A31
+  # A17 & !A18 & A19 & A20 & A21 & A22 & A23 & !A31
+  # A18 & A19 & A20 & A21 & A22 & A23 & !A31
+  # 8M & A21 & A22 & !A23 & !A31
+  # 2M & A21 & !A22 & !A23 & !A31
+
+M32C.oe  =>
+    A21
+
+1M.oe  =>
+    0 
+
+512K.oe  =>
+    0 
+
+640K.oe  =>
+    0 
+
+8M.oe  =>
+    0 
+
+ROM.oe  =>
+    0 
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+ !  1M                          17       V        -       -       -     
+ !  2M                          11       V        -       -       -     
+ !  512K                        15       V        -       -       -     
+ !  640K                        16       V        -       -       -     
+ !  8M                          18       V        -       -       -     
+    A17                         8        V        -       -       -     
+    A18                         7        V        -       -       -     
+    A19                         6        V        -       -       -     
+    A20                         5        V        -       -       -     
+    A21                         4        V        -       -       -     
+    A22                         3        V        -       -       -     
+    A23                         2        V        -       -       -     
+    A31                         1        V        -       -       -     
+    FA20                        9        V        -       -       -     
+ !  M32A                        12       V        7       7       1     
+    M32A                oe      12       X        1       1       1     
+ !  M32B                        13       V        2       7       1     
+    M32B                oe      13       X        1       1       1     
+ !  M32C                        19       V        6       7       1     
+    M32C                oe      19       X        1       1       1     
+ !  ROM                         14       V        -       -       -     
+    1M                  oe      17       D        1       1       0     
+    512K                oe      15       D        1       1       0     
+    640K                oe      16       D        1       1       0     
+    8M                  oe      18       D        1       1       0     
+    ROM                 oe      14       D        1       1       0     
+
+
+LEGEND    D : default variable         F : field      G : group
+          I : intermediate variable    N : node       M : extended node
+          U : undefined                V : variable   X : extended variable
+          T : function
+
+
+===============================================================================
+                                   Fuse Plot
+===============================================================================
+
+Syn   02192 - Ac0   02193 - 
+
+Pin #19  02048  Pol x  02120  Ac1 - 
+ 00000 --------x----------------------- 
+ 00032 x--xx---x---x----xx-x----------- 
+ 00064 x--xx---x---x-x-x----x---x------ 
+ 00096 x--xx---x---x---x----x--x------- 
+ 00128 x--xx---x---x---x---x----------- 
+ 00160 -x-xx--xx----------------------- 
+ 00192 -x-x-x--x----------------------x 
+ 00224 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #18  02049  Pol x  02121  Ac1 - 
+ 00256 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00288 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00320 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00352 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00384 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00416 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00448 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00480 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #17  02050  Pol x  02122  Ac1 - 
+ 00512 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00544 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00576 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00608 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00640 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00672 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00736 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #16  02051  Pol x  02123  Ac1 - 
+ 00768 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00800 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00832 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00864 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00896 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00928 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00992 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #15  02052  Pol x  02124  Ac1 - 
+ 01024 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01056 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01088 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01120 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01152 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01184 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01216 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01248 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #14  02053  Pol x  02125  Ac1 - 
+ 01280 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01312 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01344 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01376 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01408 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01440 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01472 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01504 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #13  02054  Pol x  02126  Ac1 - 
+ 01536 ----x----x---------------------- 
+ 01568 -x-xx--x-x---------------------- 
+ 01600 x-x-x----x---x---x---x---x------ 
+ 01632 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01664 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01696 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01728 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01760 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #12  02055  Pol x  02127  Ac1 - 
+ 01792 -----x---x---------------------- 
+ 01824 -x-x-x---x---x---x---x---------- 
+ 01856 -x-x-x---x-------x---x-------x-- 
+ 01888 -x-x-x---x---x---x-xx----------- 
+ 01920 -x-x-x---x---x-xx----x---x------ 
+ 01952 -x-x-x---x---x--x---x--xx------- 
+ 01984 -x-x-x---x-xx------------------- 
+ 02016 x--x-x-x-x---------------------- 
+
+
+LEGEND    X : fuse not blown 
+          - : fuse blown 
+
+===============================================================================
+                                 Chip Diagram
+===============================================================================
+
+                               ______________
+                              |   D4-RM32    |
+                      A31 x---|1           20|---x Vcc                      
+                      A23 x---|2           19|---x !M32C                    
+                      A22 x---|3           18|---x !8M                      
+                      A21 x---|4           17|---x !1M                      
+                      A20 x---|5           16|---x !640K                    
+                      A19 x---|6           15|---x !512K                    
+                      A18 x---|7           14|---x !ROM                     
+                      A17 x---|8           13|---x !M32B                    
+                     FA20 x---|9           12|---x !M32A                    
+                      GND x---|10          11|---x !2M                      
+                              |______________|
+

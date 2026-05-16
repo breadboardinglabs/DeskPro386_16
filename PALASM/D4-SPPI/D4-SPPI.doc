@@ -1,0 +1,215 @@
+
+*******************************************************************************
+                                    D4-SPPI
+*******************************************************************************
+
+CUPL(WM)        5.0a Serial# MW-10400000
+Device          g16v8ma  Library DLIB-h-40-8
+Created         Sat May 16 17:05:51 2026
+Name            D4-SPPI Peripheral interface decode logic
+Partno          105659-001
+Revision        01
+Date            16/5/26
+Designer        Dave Henry
+Company         Breadboarding Labs
+Assembly        None
+Location        None
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+CIORD =>
+    !XA8 & !XA9 & XIORC
+  # INTA
+
+!CMOSAWR =>
+    !NMICLK & !RESCMOS
+  # !RESCMOS & !XIOWC
+
+CMOSRD =>
+    PPICS & XA0 & !XA3 & XA4 & XIORC
+
+CMOSWR =>
+    PPICS & XA0 & !XA3 & XA4 & XIOWC
+
+KEYCS =>
+    PPICS & !XA0 & !XA3 & !XA4
+
+NMICLK =>
+    PPICS & !XA0 & !XA3 & XA4 & XIOWC
+
+PBRD =>
+    PPICS & XA0 & !XA3 & !XA4 & XIORC
+
+PBWR =>
+    PPICS & XA0 & !XA3 & !XA4 & XIOWC
+
+CIORD.oe  =>
+    1 
+
+CMOSAWR.oe  =>
+    1 
+
+CMOSRD.oe  =>
+    1 
+
+CMOSWR.oe  =>
+    1 
+
+KEYCS.oe  =>
+    1 
+
+NMICLK.oe  =>
+    1 
+
+PBRD.oe  =>
+    1 
+
+PBWR.oe  =>
+    1 
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+ !  CIORD                       17       V        2       7       1     
+    CMOSAWR                     19       V        2       7       1     
+ !  CMOSRD                      15       V        1       7       1     
+ !  CMOSWR                      12       V        1       7       1     
+ !  INTA                        9        V        -       -       -     
+ !  KEYCS                       16       V        1       7       1     
+ !  NMICLK                      13       V        1       7       1     
+ !  PBRD                        18       V        1       7       1     
+ !  PBWR                        14       V        1       7       1     
+ !  PPICS                       2        V        -       -       -     
+    RESCMOS                     11       V        -       -       -     
+    XA0                         6        V        -       -       -     
+    XA3                         4        V        -       -       -     
+    XA4                         1        V        -       -       -     
+    XA8                         7        V        -       -       -     
+    XA9                         5        V        -       -       -     
+ !  XIORC                       3        V        -       -       -     
+ !  XIOWC                       8        V        -       -       -     
+    CIORD               oe      17       D        1       1       0     
+    CMOSAWR             oe      19       D        1       1       0     
+    CMOSRD              oe      15       D        1       1       0     
+    CMOSWR              oe      12       D        1       1       0     
+    KEYCS               oe      16       D        1       1       0     
+    NMICLK              oe      13       D        1       1       0     
+    PBRD                oe      18       D        1       1       0     
+    PBWR                oe      14       D        1       1       0     
+
+
+LEGEND    D : default variable         F : field      G : group
+          I : intermediate variable    N : node       M : extended node
+          U : undefined                V : variable   X : extended variable
+          T : function
+
+
+===============================================================================
+                                   Fuse Plot
+===============================================================================
+
+Syn   02192 - Ac0   02193 - 
+
+Pin #19  02048  Pol x  02120  Ac1 - 
+ 00000 -------------------------------- 
+ 00032 --------------------------x----x 
+ 00064 ------------------------x------x 
+ 00096 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00128 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00160 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00192 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00224 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #18  02049  Pol x  02121  Ac1 - 
+ 00256 -------------------------------- 
+ 00288 -x-x-x---x------x--------------- 
+ 00320 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00352 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00384 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00416 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00448 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00480 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #17  02050  Pol x  02122  Ac1 - 
+ 00512 -------------------------------- 
+ 00544 -----x-------x-------x---------- 
+ 00576 -----------------------------x-- 
+ 00608 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00640 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00672 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00736 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #16  02051  Pol x  02123  Ac1 - 
+ 00768 -------------------------------- 
+ 00800 -x-x-----x-------x-------------- 
+ 00832 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00864 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00896 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00928 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00992 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #15  02052  Pol x  02124  Ac1 - 
+ 01024 -------------------------------- 
+ 01056 -xx--x---x------x--------------- 
+ 01088 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01120 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01152 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01184 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01216 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01248 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #14  02053  Pol x  02125  Ac1 - 
+ 01280 -------------------------------- 
+ 01312 -x-x-----x------x--------x------ 
+ 01344 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01376 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01408 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01440 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01472 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01504 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #13  02054  Pol x  02126  Ac1 - 
+ 01536 -------------------------------- 
+ 01568 -xx------x-------x-------x------ 
+ 01600 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01632 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01664 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01696 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01728 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01760 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #12  02055  Pol x  02127  Ac1 - 
+ 01792 -------------------------------- 
+ 01824 -xx------x------x--------x------ 
+ 01856 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01888 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01920 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01952 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01984 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+
+
+LEGEND    X : fuse not blown 
+          - : fuse blown 
+
+===============================================================================
+                                 Chip Diagram
+===============================================================================
+
+                               ______________
+                              |   D4-SPPI    |
+                      XA4 x---|1           20|---x Vcc                      
+                   !PPICS x---|2           19|---x CMOSAWR                  
+                   !XIORC x---|3           18|---x !PBRD                    
+                      XA3 x---|4           17|---x !CIORD                   
+                      XA9 x---|5           16|---x !KEYCS                   
+                      XA0 x---|6           15|---x !CMOSRD                  
+                      XA8 x---|7           14|---x !PBWR                    
+                   !XIOWC x---|8           13|---x !NMICLK                  
+                    !INTA x---|9           12|---x !CMOSWR                  
+                      GND x---|10          11|---x RESCMOS                  
+                              |______________|
+

@@ -1,0 +1,123 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Sat May 16 15:39:18 2026
+
+LISTING FOR SIMULATION FILE: D4-SADOD.si
+
+   1: Name            D4-SADOD Bus enable to address converter and cycle end logic;
+   2: PartNo          108393-001;
+   3: Revision        01;
+   4: Date            16/05/26;
+                              ^
+[0025sa] Please note: inconsistent header information
+
+   5: Designer        Dave Henry;
+   6: Company         Breadboarding Labs;
+   7: Location        None;
+   8: Assembly        None;
+   9: 
+  10: /********************************************************************/
+  11: /*                                                                  */
+  12: /********************************************************************/
+  13: /* Target Device Types: ATF22V10 - Device p22v10                    */
+  14: /********************************************************************/
+  15: 
+  16: 
+  17: ORDER:
+  18:  
+  19: 
+  20:    CALE, %1
+  21:  , BHLDA, %1
+  22:  , !RST, %1
+  23:  , !BE3, %1
+  24:  , !BE2, %1
+  25:  , !BE1, %1
+  26:  , !BE0, %1
+  27:  ,  LM_IO, %1
+  28:  ,  ALE, %1
+  29:  ,  T00, %1
+  30:  ,  T10, %1
+  31:  , !LM16, %1
+  32:  , !IO16, %1
+  33:  , !CMD, %3
+  34: 
+  35:  , !DCMD, %1
+  36:  , !CLAST, %3
+  37:  ,  A1, %1
+  38:  ,  A0, %1
+  39:  , !BHE, %1
+  40:  , !ALST, %1
+  41:  , !CLSTD, %1
+  42:  , !CX16;
+  43: 
+
+========================================================
+                                      !           !     
+        B           L       ! !     ! C         ! C !   
+      C H ! ! ! ! ! M       L I !   D L       ! A L C   
+      A L R B B B B _ A T T M O C   C A       B L S X   
+      L D S E E E E I L 0 1 1 1 M   M S   A A H S T 1   
+      E A T 3 2 1 0 O E 0 0 6 6 D   D T   1 0 E T D 6   
+========================================================
+0001: C 0 0 1 1 1 1 1 1 1 0 1 1 1   H L   H H H H L H
+0002: C 0 0 1 1 1 1 1 0 1 0 1 1 0   L L   H H H H L H
+0003: C 0 1 0 0 0 0 1 0 0 0 1 1 1   H L   L L L H H H
+0004: C 0 1 0 0 0 0 1 1 1 1 1 1 1   H H   L H L H H H
+0005: C 0 1 0 0 0 0 1 1 1 1 1 1 1   H H   H L L H H H
+0006: C 0 1 0 0 0 0 1 1 0 0 1 1 1   H H   H H L L H H
+0007: 0 0 1 0 0 0 0 1 0 1 1 1 1 1   H L   H H L L L H
+0008: C 0 1 1 0 0 0 1 0 1 1 1 1 1   H L   L L L H H H
+0009: C 0 1 1 0 0 0 1 1 1 1 1 1 1   H H   L H L H H H
+0010: C 0 1 1 0 0 0 1 1 0 0 1 1 1   H H   H L H L H H
+0011: 0 0 1 1 0 0 0 1 0 1 1 1 1 1   H L   H L H L L H
+0012: C 0 1 0 0 0 1 1 0 1 1 1 1 1   H L   L H L H H H
+0013: C 0 1 0 0 0 1 1 1 1 1 1 1 1   H H   H L L H H H
+0014: C 0 1 0 0 0 1 1 1 0 0 1 1 1   H H   H H L L H H
+0015: 0 0 1 0 0 0 1 1 0 1 1 1 1 1   H L   H H L L L H
+0016: C 0 1 1 1 0 0 1 0 1 1 1 1 1   H L   L L L H H H
+0017: C 0 1 1 1 0 0 1 1 0 0 1 1 1   H H   L H L L H H
+0018: 0 0 1 1 1 0 0 1 0 1 1 1 1 1   H L   L H L L L H
+0019: C 0 1 1 0 0 1 1 0 1 1 1 1 1   H L   L H L H H H
+0020: C 0 1 1 0 0 1 1 1 0 0 1 1 1   H H   H L H L H H
+0021: 0 0 1 1 0 0 1 1 0 1 1 1 1 1   H L   H L H L L H
+0022: C 0 1 0 0 1 1 1 0 1 1 1 1 1   H L   H L L H H H
+0023: C 0 1 0 0 1 1 1 1 0 0 1 1 1   H H   H H L L H H
+0024: 0 0 1 0 0 1 1 1 0 1 1 1 1 1   H L   H H L L L H
+0025: C 0 1 1 1 1 0 1 1 1 1 1 1 1   H L   L L H L L H
+0026: C 0 1 1 1 0 1 1 1 1 1 1 1 1   H L   L H L L L H
+0027: C 0 1 1 0 1 1 1 1 1 1 1 1 1   H L   H L H L L H
+0028: C 0 1 0 1 1 1 1 0 1 1 1 1 1   H L   H H L L L H
+0029: C 0 1 0 0 0 0 1 0 1 0 0 1 1   H L   L L L H H L
+0030: 0 0 1 0 0 0 0 1 0 0 0 0 1 1   H L   L L L H H L
+0031: 0 0 1 0 0 0 0 1 1 0 0 0 1 1   H H   L L L H H H
+0032: 0 0 1 0 0 0 0 1 0 1 0 0 1 1   H H   L L L H H L
+0033: C 0 1 0 0 0 0 1 0 0 0 0 1 1   H H   H L L H H L
+0034: 0 0 1 0 0 0 0 1 1 1 1 0 1 1   H L   H L L H L L
+0035: C 0 1 1 0 0 0 0 0 1 1 1 0 1   H L   L L L H H L
+0036: 0 0 1 1 0 0 0 0 1 1 1 1 0 1   H H   L L L H H L
+0037: 0 0 1 1 0 0 0 0 0 1 1 1 0 1   H H   L L L H H L
+0038: C 0 1 1 0 0 0 0 0 0 0 1 0 1   H H   H L H L H L
+0039: 0 0 1 1 0 0 0 0 0 1 1 1 0 1   H L   H L H L L L
+0040: C 0 1 0 0 0 1 0 0 1 1 0 0 1   H L   L H L H H L
+0041: 0 0 1 0 0 0 1 0 1 1 1 0 0 1   H H   L H L H H L
+0042: 0 0 1 0 0 0 1 0 0 1 1 0 0 1   H H   L H L H H L
+0043: C 0 1 0 0 0 1 0 0 0 0 0 0 1   H H   H L L H H L
+0044: 0 0 1 0 0 0 1 0 1 1 1 0 0 1   H L   H L L H L L
+0045: C 0 1 1 1 0 0 1 1 1 1 0 1 1   H L   L L L H L L
+0046: 0 0 1 1 1 0 0 1 0 1 1 0 1 1   H L   L L L H L L
+0047: C 0 1 1 0 0 1 1 0 1 1 0 1 1   H L   L H L H H L
+0048: 0 0 1 1 0 0 1 1 1 1 1 0 1 1   H H   L H L H H L
+0049: 0 0 1 1 0 0 1 1 0 1 1 0 1 1   H H   L H L H H L
+0050: C 0 1 1 0 0 1 1 0 0 0 0 1 1   H H   H L H L H L
+0051: 0 0 1 1 0 0 1 1 1 1 1 0 1 1   H L   H L H L L L
+0052: C 0 1 0 0 1 1 1 1 1 1 0 1 1   H L   H L L H L L
+0053: C 0 1 1 1 1 0 1 1 1 1 0 1 1   H L   L L H L L L
+0054: C 0 1 1 1 0 1 1 1 1 1 0 1 1   H L   L H L L L L
+0055: C 0 1 1 0 1 1 1 1 1 1 0 1 1   H L   H L H L L L
+0056: C 0 1 0 1 1 1 0 1 1 1 0 0 1   H L   H H L L L L
+0057: 0 0 1 0 1 1 1 0 0 1 1 0 0 1   H L   H H L L L L
+0058: 0 0 1 0 1 1 1 0 0 0 0 1 0 1   H L   H H L L H L
+0059: C 0 1 1 1 0 0 0 0 0 1 1 0 1   H L   L L L H L L
+0060: 0 0 1 1 1 0 0 0 1 0 1 1 0 1   H L   L L L H L L
+0061: 0 1 1 1 1 0 0 0 1 0 0 1 0 1   H H   Z Z Z Z H H

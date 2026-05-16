@@ -1,0 +1,77 @@
+%SIGNAL
+PIN   1 =  BALE 
+PIN   8 =  LA17 
+PIN   7 =  LA18 
+PIN   6 =  LA19 
+PIN   5 =  LA20 
+PIN   4 =  LA21 
+PIN   3 =  LA22 
+PIN   2 =  LA23 
+PIN  18 = !LOWEN 
+PIN  15 = !M16E 
+PIN  14 = !M32 
+PIN  11 = !MRDC 
+PIN  13 = !RFSH 
+PIN  16 = !ROM 
+PIN  19 = !ROM20E 
+PIN  17 = !ROMEN 
+PIN  12 = !ROMIOE 
+PIN   9 =  SA16 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+LOWEN =>
+    BALE & !LA20 & !LA21 & !LA22 & !LA23
+  # !LA20 & !LA21 & !LA22 & !LA23 & !LOWEN
+  # !BALE & !LOWEN
+  # !RFSH
+
+M16E =>
+    LA17 & LA18 & LA19 & !LA20 & !LA21 & !LA22 & !LA23
+  # LA17 & LA18 & LA19 & LA20 & LA21 & LA22 & LA23
+  # !M32
+
+ROM =>
+    BALE & LA17 & LA18 & LA19 & !LA20 & !LA21 & !LA22 & !LA23
+  # BALE & LA17 & LA18 & LA19 & LA20 & LA21 & LA22 & LA23
+  # LA17 & LA18 & LA19 & !LA20 & !LA21 & !LA22 & !LA23 & !ROM
+  # LA17 & LA18 & LA19 & LA20 & LA21 & LA22 & LA23 & !ROM
+  # !BALE & !ROM
+
+ROM20E =>
+    !MRDC & !ROM & !SA16
+
+ROMEN =>
+    !MRDC & !ROM
+
+ROMIOE =>
+    !MRDC & !ROM & SA16
+
+LOWEN.oe  =>
+    1 
+
+M16E.oe  =>
+    1 
+
+M32.oe  =>
+    0 
+
+RFSH.oe  =>
+    0 
+
+ROM.oe  =>
+    1 
+
+ROM20E.oe  =>
+    1 
+
+ROMEN.oe  =>
+    1 
+
+ROMIOE.oe  =>
+    1 
+
+%END

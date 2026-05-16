@@ -1,0 +1,162 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SCMDD.pld                     Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:11:55 2026
+
+  1:Name            D4-SCMDD Command encode and decode logic;
+  2:PartNo          108394-001;
+  3:Revision        01;
+  4:Date            16/5/26;
+  5:Designer        Dave Henry;
+  6:Company         Breadboarding Labs;
+  7:Location        None;
+  8:Assembly        None;
+  9:Device          g16v8;
+ 10:
+ 11:/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+ 12:/*                                                                                         */
+ 13:/*******************************************************************************************/
+ 14:/*                                                                                         */
+ 15:/*******************************************************************************************/
+ 16:/*
+ 17:DESCRIPTION
+ 18:This PAL decodes the processor status lines and generates the normal command
+ 19:output signals. These signals are floated during non processor commands.
+ 20:
+ 21:In addition, the PAL decodes the non processor operations and feeds them to 
+ 22:the cpu status bus during HOLDA.
+ 23:
+ 24:Rev A of the PAL adds the input DCMD* and OE*. DCMD* is used to provide a 
+ 25:short data hold time for read operations by extending MRDC and IORC by one 
+ 26:PAL delay (10 ns). OE* is added to disable all outputs for testing.
+ 27:Rev D of the PAL removes INTA and adds MHLDA for use in the DP3E D4-processor
+ 28:board (with 387).
+ 29:
+ 30:; HLDA M_IO D_C W_R
+ 31:;  L    L    L   L    ; CPU INTERRUPT ACK
+ 32:;  L    L    L   H    ; CPU NEVER PRODUCES THIS CODE
+ 33:;  L    L    H   L    ; CPU I/O READ
+ 34:;  L    L    H   H    ; CPU I/O WRITE
+ 35:;  L    H    L   L    ; CPU MEMORY CODE READ
+ 36:;  L    H    L   H    ; CPU HALT OR SHUTDOWN
+ 37:;  L    H    H   L    ; CPU MEMORY DATA READ
+ 38:;  L    H    H   H    ; CPU MEMORY DATA WRITE
+ 39:;  H    L    L   L    ; NON CPU REFRESH WRITE (SHOULD NOT HAPPEN)
+ 40:;  H    L    L   H    ; NON CPU REFRESH READ
+ 41:;  H    L    H   L    ; NON CPU MEMORY WRITE
+ 42:;  H    L    H   H    ; NON CPU MEMORY READ
+ 43:;  H    H    L   X    ; NON CPU REFRESH CYCLE (BEFORE OR AFTER)
+ 44:;  H    H    H   X    ; NON CPU NO CYCLE PRESENT
+ 45:*/
+ 46:
+ 47:/* Pin Map 
+ 48:                               ______________
+ 49:                              |   D4-SCMDD   |
+ 50:                     !CMD x---|1           20|---x Vcc                      
+ 51:                    !DCMD x---|2           19|---x W_R                      
+ 52:                    LM_IO x---|3           18|---x D_C                      
+ 53:                     LW_R x---|4           17|---x M_IO                     
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SCMDD.pld                     Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:11:55 2026
+
+ 54:                     LD_C x---|5           16|---x MHLDA                    
+ 55:                    !RFSH x---|6           15|---x !IORC                    
+ 56:                   !BHLDA x---|7           14|---x !MWTC                    
+ 57:                     NCI1 x---|8           13|---x !MRDC                    
+ 58:                     NCI2 x---|9           12|---x !IOWC                    
+ 59:                      GND x---|10          11|---x !OE                      
+ 60:                              |______________|
+ 61:
+ 62:*/
+ 63:
+ 64:
+ 65:PIN 1 = !CMD ;
+ 66:PIN 2 = !DCMD ;
+ 67:PIN 3 = LM_IO ;
+ 68:PIN 4 = LW_R ;
+ 69:PIN 5 = LD_C ;
+ 70:PIN 6 = !RFSH ;
+ 71:PIN 7 = !BHLDA ;
+ 72:PIN 8 = NCI1 ;
+ 73:PIN 9 = NCI2 ;
+ 74:PIN 11 = !OE ;
+ 75:PIN 12 = !IOWC ;
+ 76:PIN 13 = !MRDC ;
+ 77:PIN 14 = !MWTC ;
+ 78:PIN 15 = !IORC ;
+ 79:PIN 16 =  MHLDA ;
+ 80:PIN 17 =  M_IO ;
+ 81:PIN 18 =  D_C ;
+ 82:PIN 19 =  W_R ;
+ 83:
+ 84:
+ 85:
+ 86:/*  MRDC.oe = OE ; MRDC will be an input when .oe=0 SI file needs 1/0 */
+ 87:MRDC.oe = !BHLDA&OE ;
+ 88:    
+ 89:MRDC =
+ 90:  CMD & LM_IO  & !LW_R         /*  PROCESSOR MEMORY READ */
+ 91:# DCMD  & MRDC;                /*  SHORT READ HOLD */
+ 92:                   
+ 93:
+ 94:/* MWTC.oe = OE ; MWTC will be an input when .oe=0 SI file needs 1/0 */
+ 95:MWTC.oe = !BHLDA&OE ; 
+ 96:    
+ 97:MWTC =
+ 98:  CMD & LM_IO  & LW_R  & LD_C; /* PROCESSOR MEMORY WRITE */
+ 99:     
+100:
+101:IORC.oe = !BHLDA&OE ;
+102:    
+103:IORC =
+104:  CMD & !LM_IO & !LW_R  & LD_C /* PROCESSOR I/O READ */
+105:# DCMD  &  IORC;               /* SHORT READ HOLD */
+106:                   
+107:
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SCMDD.pld                     Page 3
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:11:55 2026
+
+108:IOWC.oe = !BHLDA&OE ;
+109:    
+110:IOWC =
+111:  CMD & !LM_IO & LW_R  & LD_C; /* PROCESSOR I/O WRITE */
+112:    
+113:
+114:M_IO.oe = BHLDA&OE ;
+115:    
+116:!M_IO =
+117:  MWTC  # MRDC;                /* NON CPU MEMORV OPERATION */
+118:  
+119:D_C.oe = BHLDA&OE ;
+120:     
+121:D_C = !RFSH;                   /* NON CPU REFRESH OPERATION */
+122:         
+123:W_R.oe = BHLDA&OE ;
+124:    
+125:W_R = !MWTC;                   /* NON CPU WRITE OPERATION */
+126:          
+127: 
+128:!MHLDA =
+129:  !BHLDA                      /* SAME A BHLDA EXCEPT */
+130:# !MHLDA  & !M_IO;            /* WHEN GOING HOLD, WAIT FOR M_IO TO GO HIGH */
+131:
+132:
+133:
+134:
+
+
+
+Jedec Fuse Checksum       (556a)
+Jedec Transmit Checksum   (231a)

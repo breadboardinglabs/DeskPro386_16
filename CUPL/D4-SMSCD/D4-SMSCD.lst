@@ -1,0 +1,94 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SMSCD.pld                     Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:45:53 2026
+
+  1:NAME         D4-SMSCD ;
+  2:PARTNO       XXXXX ;
+  3:REV          XX ;
+  4:DATE         XX/XX/XX ;
+  5:DESIGNER     XXXXX ;
+  6:COMPANY      XXXXX ;
+  7:ASSEMBLY     XXXXX ;
+  8:LOCATION     XXXXX ;
+  9:
+ 10:/* PAL16R4 */
+ 11:
+ 12:/*                                                PAL DESIGN SPECIFICATION */
+ 13:
+ 14:/* D4-SMSCD 108397-001                                     PAUL R. CULLEY 01/12/87 */
+ 15:
+ 16:/* Miscellaneous garbage logic */
+ 17:
+ 18:/* Copyright 1986, 1987 COMPAQ COMPUTER Houston, Texas */
+ 19:
+ 20:
+ 21:PIN 1 = CLK ;
+ 22:PIN 2 = !M32 ;
+ 23:PIN 3 = !BRDY ;
+ 24:PIN 4 = BALE ;
+ 25:PIN 5 = W_R ;
+ 26:PIN 6 = D_C ;
+ 27:PIN 7 = M_IO ;
+ 28:PIN 8 = !BE0 ;
+ 29:PIN 9 = PA31 ;
+ 30:PIN 11 = !OE ;
+ 31:PIN 12 = !LNCP ;
+ 32:PIN 13 = !CLSTD ;
+ 33:PIN 14 = !MYCYC ;
+ 34:PIN 15 = !LOE ;
+ 35:PIN 16 = !NAB ;
+ 36:PIN 17 = !SHTD ;
+ 37:PIN 18 = 387I ;
+ 38:PIN 19 = !ADS ;
+ 39:                     
+ 40:              
+ 41: 
+ 42:LOE.D =
+ 43:  MYCYC &  BALE  & !W_R  & !LNCP           /*  GOES ACTIVE AT ALE */
+ 44:# LOE   & !BRDY;                           /*  HOLD THROUGH TILL BRDY ACTIVE */
+ 45:                        
+ 46:SHTD.D =
+ 47:  MYCYC  & BALE & M_IO & !D_C & W_R & BE0; /*  DECODED SHUTDOWN OPCODE */
+ 48:    
+ 49:MYCYC.D =
+ 50:  !CLSTD  & ADS  & !M_IO  & !387I          /*  WHEN NO 387 AND 1/0 */
+ 51:# !CLSTD  & ADS  & !M_IO  & !PA31          /*  OR NOT NCP 1/0 CYCLE */
+ 52:# !CLSTD  & ADS  & M_IO   & !M32           /*  OR NOT 32 BIT MEMORY CYCLE */
+ 53:# !CLSTD  & ADS  & M_IO   & !D_C  & W_R    /*  OR HALT/SHUTDOWN CYCLE */
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SMSCD.pld                     Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:45:53 2026
+
+ 54:# !CLSTD  & MYCYC;                         /*  HOLD TILL NAB */
+ 55:                     
+ 56:NAB.D = CLSTD;                             /*  NEXT ADDRESS BUS */
+ 57:                         
+ 58:
+ 59:LNCP =
+ 60:  MYCYC &  BALE & PA31 & !M_IO             /*  NUMERIC COPROCESSOR OP */
+ 61:# LNCP  & !BALE                             /*  HOLD TILL NEXT ALE OR HOLD */
+ 62:# MYCYC &  PA31 & !M_IO & LNCP;             /*  DEGLITCH */
+ 63:           
+ 64:
+ 65:/*
+ 66:DESCRIPTION
+ 67:Rev D of this PAL is for the upgraded D3PE D4-processor board (with 387) and
+ 68:is a new design.
+ 69:This PAL contains the equations for the signal MYCYC (BUS state machine cycle),
+ 70:SHTD <decoded shutdown status), LNCP (numeric processor access status), and
+ 71:LOE (latch output enable). It also is the F/F for the NAB signal.
+ 72:*/
+ 73:
+ 74:
+
+
+
+Jedec Fuse Checksum       (373f)
+Jedec Transmit Checksum   (dcfa)

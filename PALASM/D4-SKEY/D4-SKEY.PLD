@@ -1,0 +1,75 @@
+NAME         D4-SKEY ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+/* PAL16R4 */
+
+/*                                                 PAL DESIGN SPECIFICATION */
+
+/* D4-SKEY 108360-001                                          JOHN THAYER 9/18/86 */
+
+/* 8042 A20 LINE FIX PAL */
+
+/* COPYRIGHT COMPAQ COMPUTER HOUSTON, TEXAS 1986 */
+
+
+PIN 1 = CLK ;
+PIN 2 = !RST ;
+PIN 3 = A2 ;
+PIN 4 = !CS ;
+PIN 5 = D4_D6 ;
+PIN 6 = D7 ;
+PIN 7 = D5 ;
+PIN 8 = D3 ;
+PIN 9 = D2 ;
+PIN 11 = !OC ;
+PIN 12 = D1 ;
+PIN 13 = D0 ;
+PIN 14 = !Q0 ;
+PIN 15 = !Q1 ;
+PIN 16 = A20 ;
+PIN 17 = !WC8042 ;
+PIN 18 = !FF_OR_D1 ;
+PIN 19 = !WC ;
+         
+         
+
+
+ 
+Q0.D = !RST  & WC  & /* Q0 FOLLOWS WC, CLEARED ON RESET */
+CS;               
+ 
+Q1.D = /*  SET IF IN STATE 00 OR 10 AND D1 COMMAND TO PORT 64H */
+!RST                                  & !Q0  & CS  & WC  & A2  & D7  & D4_D6  & !D5 & !D3 & !D2 & !D1 & /*  KEEP SET IF STATE 11 */
+D0 
+        # !RST  & Q0  & /*  IF STATE 10, KEEP SET TILL CS * WC */
+Q1 
+        # !RST  & !Q0  & Ql  & !CS 
+    # !RST  & !Q0  & Q1  & !WC; 
+    
+ 
+!A20.D = /*  INVERSE OF A20 FUNCTION */
+/*  CLEAR IF STATE 10 AND 60 WRITE AND D1 IS LOW */
+!RST                  & Q1  & !Q0  & !A2  & CS  & WC  & /*  OTHERWISE FEED BACK */
+!D1 
+                # !RST  & Q0   & !A20 
+        # !RST  & !Q1  & !A20 
+        # !RST  & !CS  & !A20 
+        # !RST  & !WC  & !A20 
+        # !RST  & A2   & !A20; 
+        
+ 
+FF_OR_D1 = D7 & D4_D6 & D5 & D3 & D2 & D1 & D0 
+         # D7 & D4_D6 & !D5 & !D3 & !D2 & !D1 & D0; 
+         
+ 
+WC8042.D = /*  NO D1 WRITE YET: DON'T FILTER IF WRITE IS TO 60H  */
+!RST          & !Q0 & !Ql  & CS  & WC  & /*  DONT FILTER IF WRITE IS TO 64H AND NOT <D1> OR <FF> */
+!A2  
+                 # !RST  & !Q0  & CS  & WC  & A2  & !FF_OR_D1; 
+

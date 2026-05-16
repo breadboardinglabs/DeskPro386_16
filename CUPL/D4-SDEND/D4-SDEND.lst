@@ -1,0 +1,113 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SDEND.pld                     Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:44:51 2026
+
+  1:NAME         D4-SDEND ;
+  2:PARTNO       XXXXX ;
+  3:REV          XX ;
+  4:DATE         XX/XX/XX ;
+  5:DESIGNER     XXXXX ;
+  6:COMPANY      XXXXX ;
+  7:ASSEMBLY     XXXXX ;
+  8:LOCATION     XXXXX ;
+  9:
+ 10:/* PAL16L8 */
+ 11:
+ 12:/*                                                PAL DESIGN SPECIFICATION */
+ 13:
+ 14:/* D4-SDEND 109390-001                                     PAUL R. CULLEY 12/09/80 */
+ 15:
+ 16:/* DataBuffer enable logic  */
+ 17:
+ 18:/* Copyright COMPAQ COMPUTER Houston, Texas 1986 */
+ 19:
+ 20:
+ 21:PIN 1 = A1 ;
+ 22:PIN 2 = A0 ;
+ 23:PIN 3 = !BHE ;
+ 24:PIN 4 = !CMD ;
+ 25:PIN 5 = !M32 ;
+ 26:PIN 6 = !WDEN ;
+ 27:PIN 7 = LW_R ;
+ 28:PIN 8 = LD_C ;
+ 29:PIN 9 = LM_IO ;
+ 30:PIN 11 = !TST ;
+ 31:PIN 12 = !BDIRRD ;
+ 32:PIN 13 = !B0EN ;
+ 33:PIN 14 = !B1EN ;
+ 34:PIN 15 = !B2EN ;
+ 35:PIN 16 = !INTA ;
+ 36:PIN 17 = !MWTC ;
+ 37:PIN 18 = !MRDC ;
+ 38:PIN 19 = !B3EN ;
+ 39:
+ 40:                        
+ 41:            
+ 42:BDIRRD.OE = !TST ;
+ 43:   
+ 44:BDIRRD = !MRDC & !WDEN;            /* OTHER WRITE TO LOCAL MEM */
+ 45:                
+ 46:
+ 47:B0EN.OE = !TST ;
+ 48:   
+ 49:B0EN =
+ 50:  !A1 & !A0 & MWTC & !WDEN         /* OTHER WRITE TO LOCAL MEM */
+ 51:# !A1 & !A0 & MRDC & !WDEN & M32   /* OTHER READ FROM LOCAL MEM */
+ 52:# !A1 & !A0 & LD_C & LW_R & WDEN;  /* CPU WRITE TO BUS */
+ 53:    
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SDEND.pld                     Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:44:51 2026
+
+ 54:
+ 55:B1EN.OE = !TST ;
+ 56:   
+ 57:B1EN =
+ 58:  !A1 & BHE & MWTC & !WDEN         /* OTHER WRITE TO LOCAL MEM */
+ 59:# !A1 & BHE & MRDC & !WDEN & M32   /* OTHER READ FROM LOCAL MEM */
+ 60:# !A1 & BHE & LD_C & LW_R & WDEN;  /* CPU WRITE TO BUS */
+ 61:    
+ 62:
+ 63:B2EN.OE = !TST ;
+ 64:   
+ 65:B2EN =
+ 66:  A1 & !A0 & MWTC & !WDEN          /* OTHER WRITE TO LOCAL MEM */
+ 67:# A1 & !A0 & MRDC & !WDEN & M32    /* OTHER READ FROM LOCAL MEM */
+ 68:# A1 & !A0 & LD_C &  LW_R & WDEN;  /* CPU WRITE TO BUS */
+ 69:                    
+ 70:
+ 71:B3EN.OE = !TST ;
+ 72:   
+ 73:B3EN =
+ 74:  A1 & BHE & MWTC & !WDEN          /* OTHER WRITE TO LOCAL MEM */
+ 75:# A1 & BHE & MRDC & !WDEN & M32    /* OTHER READ FROM LOCAL MEM */
+ 76:# A1 & BHE & LD_C & LW_R  & WDEN;  /* CPU WRITE TO BUS */
+ 77:                    
+ 78:
+ 79:INTA.OE = !TST ;
+ 80:   
+ 81:INTA =
+ 82:   CMD & !LM_IO & !LW_R & !LD_C;   /* CPU INTERRUPT ACK */
+ 83:
+ 84:/*
+ 85:DESCRIPTION
+ 86:This PAL developes the control signal to enable the data buffers on the system
+ 87:board.
+ 88:Rev A ensures turnon of the buffer enables for mem write after the direction 
+ 89:is active by leaving the buffer turned around during the entire write cycle.
+ 90:Rev D is for use with D3PE D4-processor board (with 387).
+ 91:*/
+ 92:
+ 93:
+
+
+
+Jedec Fuse Checksum       (5323)
+Jedec Transmit Checksum   (12de)

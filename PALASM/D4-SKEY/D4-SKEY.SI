@@ -1,0 +1,45 @@
+NAME         D4-SKEY ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+
+ORDER:
+ 
+  !OC
+ , CLK
+ , RST
+ , CS
+ , WC
+ , A2
+ , D4_D6
+ , D7
+ , D5
+ , D3
+ , D2
+ , D1
+ , D0
+
+, Q1
+ , Q0
+ , FF_OR_D1
+ , A20
+ , WC8042
+
+/*                                      */
+/*                                 F   W */
+/*             D                   F   C */
+/*             4                   O   8 */
+/*   C R       _                   R A 0 */
+/* O L S C W A D D D D D D D   Q Q D 2 4 */
+/* C K T S C 2 6 7 5 3 2 1 0   1 0 1 0 2 */
+;
+VECTORS:
+~----------------- /* ----- */
+
+ /*  PDF Text needs to be manually entered. */
+

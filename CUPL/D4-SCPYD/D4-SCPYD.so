@@ -1,0 +1,63 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Thu May 07 16:44:11 2026
+
+LISTING FOR SIMULATION FILE: D4-SCPYD.si
+
+   1: NAME         D4-SCPYD ;
+   2: PARTNO       XXXXX ;
+   3: REV          XX ;
+   4: DATE         XX/XX/XX ;
+   5: DESIGNER     XXXXX ;
+   6: COMPANY      XXXXX ;
+   7: ASSEMBLY     XXXXX ;
+   8: LOCATION     XXXXX ;
+   9: 
+  10: 
+  11: ORDER:
+  12:     oe,%1
+  13:  , !M16, %1
+  14:  , !IO16, %1
+  15:  , !MRDC, %1
+  16:  , !MWTC, %1
+  17:  , !IORC, %1
+  18:  , !IOWX, %1
+  19:  , !DAEN1, %1
+  20:  , !AEN2, %1
+  21:  ,  BALE, %1
+  22:  , !HLDA, %3
+  23:  
+  24:  , !BHE, %1
+  25:  ,  XA0, %3
+  26:  
+  27:  , !COPYEN, %1
+  28:  , !COPYHL, %1
+  29:  , !DAEN, %1
+  30:  , !LM16, %1
+  31:  , !DAEN2;
+  32: 
+
+================================================
+                                    ! !         
+                    !               C C     !   
+          ! ! ! ! ! D !   !         O O ! ! D   
+        ! I M M I I A A B H   !     P P D L A   
+        M O R W O O E E A L   B X   Y Y A M E   
+      o 1 1 D T R W N N L D   H A   E H E 1 N   
+      e 6 6 C C C X 1 2 E A   E 0   N L N 6 2   
+================================================
+0001: 0 1 1 1 1 1 1 1 1 0 1   1 0   H H H N H
+0002: 0 0 1 1 1 0 1 1 1 C 1   0 1   L H H L H
+0003: 0 0 1 0 1 1 1 0 1 0 0   L 1   L L L L H
+0004: 0 0 1 1 1 0 1 0 1 0 0   L 1   L L L L H
+0005: 0 0 1 1 1 1 1 0 1 0 0   H 0   H H L L H
+0006: 0 1 1 1 1 1 1 1 0 0 0   L L   H H L L L
+0007: 0 0 0 0 0 0 0 1 1 C 1   0 1   H H H L H
+0008: 0 1 1 1 1 1 1 1 1 C 1   0 1   H H H H H
+0009: 0 1 1 0 1 1 1 1 1 C 1   0 1   L H H H H
+0010: 0 1 1 1 0 1 1 1 1 0 1   0 1   L L H H H
+0011: 0 1 1 1 1 1 1 1 1 0 1   1 1   H H H H H
+0012: 0 0 1 1 1 1 1 0 0 C 1   Z Z   H H H L H
+0013: 0 0 1 1 1 1 1 0 0 0 1   Z Z   H H H L H
+0014: 0 1 1 1 1 1 1 0 0 0 1   Z Z   H H H L H

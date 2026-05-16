@@ -1,0 +1,227 @@
+
+*******************************************************************************
+                                    D4-SADI
+*******************************************************************************
+
+CUPL(WM)        5.0a Serial# MW-10400000
+Device          g16v8ma  Library DLIB-h-40-8
+Created         Sat May 16 16:07:06 2026
+Name            D4-SADI Address to byte enable conversion and read latch enable logic
+Partno          105645-001
+Revision        01
+Date            16/5/26
+Designer        Dave Henry
+Company         Breadboarding Labs
+Assembly        None
+Location        None
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+!B0CK =>
+    !CMD
+  # LW_R
+  # A0
+  # A1
+
+B0CK.oe  =>
+    !TST
+
+!B1CK =>
+    !CMD
+  # !BHE
+  # !A0 & !CX16
+  # LW_R
+  # A1
+
+B1CK.oe  =>
+    !TST
+
+!B2CK =>
+    !CMD
+  # !A1
+  # LW_R
+  # A0
+
+B2CK.oe  =>
+    !TST
+
+!B3CK =>
+    !CMD
+  # !BHE
+  # !A1
+  # !A0 & !CX16
+  # LW_R
+
+B3CK.oe  =>
+    !TST
+
+BE0 =>
+    !A0 & !A1
+
+BE0.oe  =>
+    HLDA
+
+BE1 =>
+    !A1 & BHE
+
+BE1.oe  =>
+    HLDA
+
+BE2 =>
+    !A0 & A1
+
+BE2.oe  =>
+    HLDA
+
+BE3 =>
+    A1 & BHE
+
+BE3.oe  =>
+    HLDA
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+    A0                          2        V        -       -       -     
+    A1                          1        V        -       -       -     
+    B0CK                        16       V        4       7       1     
+    B0CK                oe      16       X        1       1       1     
+    B1CK                        17       V        5       7       1     
+    B1CK                oe      17       X        1       1       1     
+    B2CK                        18       V        4       7       1     
+    B2CK                oe      18       X        1       1       1     
+    B3CK                        19       V        5       7       1     
+    B3CK                oe      19       X        1       1       1     
+ !  BE0                         12       V        1       7       1     
+    BE0                 oe      12       X        1       1       1     
+ !  BE1                         13       V        1       7       1     
+    BE1                 oe      13       X        1       1       1     
+ !  BE2                         14       V        1       7       1     
+    BE2                 oe      14       X        1       1       1     
+ !  BE3                         15       V        1       7       1     
+    BE3                 oe      15       X        1       1       1     
+ !  BHE                         3        V        -       -       -     
+ !  CMD                         6        V        -       -       -     
+ !  CX16                        4        V        -       -       -     
+    HLDA                        8        V        -       -       -     
+    LW_R                        7        V        -       -       -     
+    NC1                         9        V        -       -       -     
+    NC2                         5        V        -       -       -     
+    TST                         11       V        -       -       -     
+
+
+LEGEND    D : default variable         F : field      G : group
+          I : intermediate variable    N : node       M : extended node
+          U : undefined                V : variable   X : extended variable
+          T : function
+
+
+===============================================================================
+                                   Fuse Plot
+===============================================================================
+
+Syn   02192 - Ac0   02193 - 
+
+Pin #19  02048  Pol x  02120  Ac1 - 
+ 00000 -------------------------------x 
+ 00032 ----------------x--------------- 
+ 00064 ----x--------------------------- 
+ 00096 ---x---------------------------- 
+ 00128 -x------x----------------------- 
+ 00160 --------------------x----------- 
+ 00192 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00224 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #18  02049  Pol x  02121  Ac1 - 
+ 00256 -------------------------------x 
+ 00288 ----------------x--------------- 
+ 00320 ---x---------------------------- 
+ 00352 --------------------x----------- 
+ 00384 x------------------------------- 
+ 00416 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00448 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00480 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #17  02050  Pol x  02122  Ac1 - 
+ 00512 -------------------------------x 
+ 00544 ----------------x--------------- 
+ 00576 ----x--------------------------- 
+ 00608 -x------x----------------------- 
+ 00640 --------------------x----------- 
+ 00672 --x----------------------------- 
+ 00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00736 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #16  02051  Pol x  02123  Ac1 - 
+ 00768 -------------------------------x 
+ 00800 ----------------x--------------- 
+ 00832 --------------------x----------- 
+ 00864 x------------------------------- 
+ 00896 --x----------------------------- 
+ 00928 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00992 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #15  02052  Pol x  02124  Ac1 - 
+ 01024 ------------------------x------- 
+ 01056 --x--x-------------------------- 
+ 01088 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01120 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01152 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01184 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01216 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01248 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #14  02053  Pol x  02125  Ac1 - 
+ 01280 ------------------------x------- 
+ 01312 -xx----------------------------- 
+ 01344 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01376 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01408 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01440 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01472 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01504 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #13  02054  Pol x  02126  Ac1 - 
+ 01536 ------------------------x------- 
+ 01568 ---x-x-------------------------- 
+ 01600 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01632 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01664 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01696 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01728 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01760 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #12  02055  Pol x  02127  Ac1 - 
+ 01792 ------------------------x------- 
+ 01824 -x-x---------------------------- 
+ 01856 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01888 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01920 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01952 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01984 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+
+
+LEGEND    X : fuse not blown 
+          - : fuse blown 
+
+===============================================================================
+                                 Chip Diagram
+===============================================================================
+
+                               ______________
+                              |   D4-SADI    |
+                       A1 x---|1           20|---x Vcc                      
+                       A0 x---|2           19|---x B3CK                     
+                     !BHE x---|3           18|---x B2CK                     
+                    !CX16 x---|4           17|---x B1CK                     
+                      NC2 x---|5           16|---x B0CK                     
+                     !CMD x---|6           15|---x !BE3                     
+                     LW_R x---|7           14|---x !BE2                     
+                     HLDA x---|8           13|---x !BE1                     
+                      NC1 x---|9           12|---x !BE0                     
+                      GND x---|10          11|---x TST                      
+                              |______________|
+

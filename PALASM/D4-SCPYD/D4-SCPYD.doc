@@ -1,0 +1,217 @@
+
+*******************************************************************************
+                                   D4-SCPYD
+*******************************************************************************
+
+CUPL(WM)        5.0a Serial# MW-10400000
+Device          g16v8ms  Library DLIB-h-40-11
+Created         Sat May 16 16:21:09 2026
+Name            D4-SCPYD Copy buffer control logic and DMA low address logic
+Partno          108395-OO1
+Revision        01
+Date            16/5/26
+Designer        Dave Henry
+Company         Breadboarding Labs
+Assembly        None
+Location        None
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+BHE =>
+    DAEN1 & XA0
+  # AEN2
+
+BHE.oe  =>
+    DAEN
+
+COPYEN =>
+    BHE & !DAEN & !LM16 & MWTC & XA0
+  # BHE & !DAEN & !IO16 & IOWX & XA0
+  # BHE & !DAEN & !LM16 & MRDC & XA0
+  # BHE & !DAEN & !IO16 & IORC & XA0
+  # COPYHL & DAEN1 & LM16 & MRDC & XA0
+  # DAEN1 & IORC & LM16 & XA0
+
+COPYHL =>
+    BHE & !DAEN & !LM16 & MWTC & XA0
+  # BHE & !DAEN & !IO16 & IOWX & XA0
+  # DAEN1 & LM16 & MRDC & XA0
+  # COPYEN & COPYHL
+
+DAEN =>
+    DAEN1 & HLDA
+  # AEN2 & HLDA
+
+DAEN2 =>
+    AEN2 & HLDA
+
+LM16.d  =>
+    M16
+
+!XA0 =>
+    AEN2
+
+XA0.oe  =>
+    AEN2 & HLDA
+
+COPYEN.oe  =>
+    1 
+
+COPYHL.oe  =>
+    1 
+
+DAEN.oe  =>
+    1 
+
+DAEN2.oe  =>
+    1 
+
+HLDA.oe  =>
+    0 
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+    AEN2                        8        V        -       -       -     
+    BALE                        1        V        -       -       -     
+ !  BHE                         16       V        2       7       1     
+    BHE                 oe      16       X        1       1       1     
+ !  COPYEN                      13       V        6       7       1     
+ !  COPYHL                      14       V        4       7       1     
+ !  DAEN                        15       V        2       7       1     
+ !  DAEN1                       7        V        -       -       -     
+ !  DAEN2                       12       V        1       7       1     
+ !  HLDA                        19       V        -       -       -     
+ !  IO16                        2        V        -       -       -     
+ !  IORC                        6        V        -       -       -     
+ !  IOWX                        5        V        -       -       -     
+ !  LM16                        18       V        -       -       -     
+ !  LM16                d       18       X        1       8       1     
+ !  M16                         9        V        -       -       -     
+ !  MRDC                        4        V        -       -       -     
+ !  MWTC                        3        V        -       -       -     
+    XA0                         17       V        1       7       1     
+    XA0                 oe      17       X        1       1       1     
+    oe                          11       V        -       -       -     
+    COPYEN              oe      13       D        1       1       0     
+    COPYHL              oe      14       D        1       1       0     
+    DAEN                oe      15       D        1       1       0     
+    DAEN2               oe      12       D        1       1       0     
+    HLDA                oe      19       D        1       1       0     
+
+
+LEGEND    D : default variable         F : field      G : group
+          I : intermediate variable    N : node       M : extended node
+          U : undefined                V : variable   X : extended variable
+          T : function
+
+
+===============================================================================
+                                   Fuse Plot
+===============================================================================
+
+Syn   02192 x Ac0   02193 - 
+
+Pin #19  02048  Pol x  02120  Ac1 - 
+ 00000 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00032 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00064 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00096 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00128 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00160 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00192 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00224 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #18  02049  Pol x  02121  Ac1 x 
+ 00256 -----------------------------x-- 
+ 00288 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00320 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00352 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00384 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00416 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00448 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00480 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #17  02050  Pol x  02122  Ac1 - 
+ 00512 ---x--------------------x------- 
+ 00544 ------------------------x------- 
+ 00576 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00608 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00640 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00672 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00736 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #16  02051  Pol x  02123  Ac1 - 
+ 00768 -------------------x------------ 
+ 00800 ----------x----------x---------- 
+ 00832 ------------------------x------- 
+ 00864 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00896 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00928 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00992 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #15  02052  Pol x  02124  Ac1 - 
+ 01024 -------------------------------- 
+ 01056 ---x-----------------x---------- 
+ 01088 ---x--------------------x------- 
+ 01120 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01152 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01184 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01216 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01248 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #14  02053  Pol x  02125  Ac1 - 
+ 01280 -------------------------------- 
+ 01312 -----xx---x----x--x------------- 
+ 01344 x---------x--x-x--x------------- 
+ 01376 -------x-xx----------x---------- 
+ 01408 -----------------------x---x---- 
+ 01440 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01472 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01504 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #13  02054  Pol x  02126  Ac1 - 
+ 01536 -------------------------------- 
+ 01568 -----xx---x----x--x------------- 
+ 01600 x---------x--x-x--x------------- 
+ 01632 ------x--xx----x--x------------- 
+ 01664 x---------x----x-xx------------- 
+ 01696 -------x-xx----------x-x-------- 
+ 01728 -------x--x------x---x---------- 
+ 01760 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #12  02055  Pol x  02127  Ac1 - 
+ 01792 -------------------------------- 
+ 01824 ---x--------------------x------- 
+ 01856 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01888 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01920 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01952 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01984 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+
+
+LEGEND    X : fuse not blown 
+          - : fuse blown 
+
+===============================================================================
+                                 Chip Diagram
+===============================================================================
+
+                               ______________
+                              |   D4-SCPYD   |
+                     BALE x---|1           20|---x Vcc                      
+                    !IO16 x---|2           19|---x !HLDA                    
+                    !MWTC x---|3           18|---x !LM16                    
+                    !MRDC x---|4           17|---x XA0                      
+                    !IOWX x---|5           16|---x !BHE                     
+                    !IORC x---|6           15|---x !DAEN                    
+                   !DAEN1 x---|7           14|---x !COPYHL                  
+                     AEN2 x---|8           13|---x !COPYEN                  
+                     !M16 x---|9           12|---x !DAEN2                   
+                      GND x---|10          11|---x oe                       
+                              |______________|
+

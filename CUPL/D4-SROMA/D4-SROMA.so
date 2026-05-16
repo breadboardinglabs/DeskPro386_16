@@ -1,0 +1,82 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Thu May 07 16:48:16 2026
+
+LISTING FOR SIMULATION FILE: D4-SROMA.si
+
+   1: NAME         D4-SROMA ;
+   2: PARTNO       XXXXX ;
+   3: REV          XX ;
+   4: DATE         XX/XX/XX ;
+   5: DESIGNER     XXXXX ;
+   6: COMPANY      XXXXX ;
+   7: ASSEMBLY     XXXXX ;
+   8: LOCATION     XXXXX ;
+   9: 
+  10: 
+  11: ORDER:
+  12:  
+  13:     BALE, %1
+  14:   , LA23, %1
+  15:   , LA22, %1
+  16:   , LA21, %1
+  17:   , LA20, %1
+  18:   , LA19, %1
+  19:   , LA18, %1
+  20:   , LA17, %1
+  21:   , SA16, %1
+  22:   ,!MRDC, %1
+  23:   ,!RFSH, %1
+  24:   ,!M32, %3
+  25: 
+  26:   ,!ROM, %1
+  27:   ,!ROMIOE, %1
+  28:   ,!ROM20E, %1
+  29:   ,!ROMEN, %1
+  30:   ,!M16E, %1
+  31:   ,!LOWEN;
+  32: 
+  33: /*
+  34:                              R R 
+  35:                              O O R   L 
+  36:  B L L L L L L L S M R       M M O M O 
+  37:  A A A A A A A A A R F M   R 1 2 M 1 W 
+  38:  L 2 2 2 2 1 1 1 1 D S 3   O O O E 6 E 
+  39:  E 3 2 1 0 9 8 7 6 C H 2   M E E N E N */
+  40: 
+
+==============================================
+                                  ! !         
+                                  R R !   !   
+                        ! !       O O R ! L   
+      B L L L L L L L S M R !   ! M M O M O   
+      A A A A A A A A A R F M   R I 2 M 1 W   
+      L 2 2 2 2 1 1 1 1 D S 3   O O 0 E 6 E   
+      E 3 2 1 0 9 8 7 6 C H 2   M E E N E N   
+==============================================
+0001: 1 0 0 0 0 0 0 0 0 1 1 0   H H H H L L
+0002: 0 0 0 0 0 0 0 0 0 1 1 1   H H H H H L
+0003: 0 0 0 0 0 1 1 1 0 1 1 1   H H H H L L
+0004: 1 0 0 0 0 1 1 1 0 1 1 1   L H H H L L
+0005: 0 0 0 0 0 0 0 0 0 0 1 1   L H L L H L
+0006: 1 0 0 0 0 0 0 0 0 1 1 1   H H H H H L
+0007: 0 0 0 0 0 0 0 0 0 1 1 1   H H H H H L
+0008: 0 1 1 1 1 1 1 1 1 1 1 1   H H H H L L
+0009: 1 1 1 1 1 1 1 1 1 1 1 1   L H H H L H
+0010: 0 1 1 1 1 0 0 0 1 0 1 1   L L H L H H
+0011: 1 0 0 0 0 0 0 0 1 1 1 1   H H H H H L
+0012: 1 1 0 0 0 1 1 1 1 1 1 1   H H H H H H
+0013: 1 0 1 0 0 1 1 1 1 1 1 1   H H H H H H
+0014: 1 0 0 1 0 1 1 1 1 1 1 1   H H H H H H
+0015: 1 0 0 0 1 1 1 1 1 1 1 1   H H H H H H
+0016: 1 0 0 0 0 0 1 1 1 1 1 1   H H H H H L
+0017: 1 0 0 0 0 1 0 1 1 1 1 1   H H H H H L
+0018: 1 0 0 0 0 1 1 0 1 1 1 1   H H H H H L
+0019: 1 0 1 1 1 1 1 1 1 1 1 1   H H H H H H
+0020: 1 1 0 1 1 1 1 1 1 1 1 1   H H H H H H
+0021: 1 1 1 0 1 1 1 1 1 1 1 1   H H H H H H
+0022: 1 1 1 1 0 1 1 1 1 1 1 1   H H H H H H
+0023: 1 1 1 1 1 0 1 1 1 1 1 1   H H H H H H
+0024: 1 1 1 1 1 1 0 1 1 1 0 1   H H H H H L
+0025: 1 1 1 1 1 1 1 0 1 1 1 1   H H H H H H

@@ -1,0 +1,70 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Sat May 16 16:07:06 2026
+
+LISTING FOR SIMULATION FILE: D4-SADI.si
+
+   1: Name            D4-SADI Address to byte enable conversion and read latch enable logic;
+   2: PartNo          105645-001;
+   3: Revision        01;
+   4: Date            16/05/26;
+                              ^
+[0025sa] Please note: inconsistent header information
+
+   5: Designer        Dave Henry;
+   6: Company         Breadboarding Labs;
+   7: Location        None;
+   8: Assembly        None;
+   9: 
+  10: /********************************************************************/
+  11: /*                                                                  */
+  12: /********************************************************************/
+  13: /* Target Device Types: ATF16V8 - Device g16v8                      */
+  14: /********************************************************************/
+  15: 
+  16: ORDER:
+  17: 
+  18:    TST, %1
+  19:  , HLDA, %1
+  20:  , A1, %1
+  21:  , A0, %1
+  22:  ,!BHE, %1
+  23:  ,!CX16, %1
+  24:  ,!CMD, %1
+  25:  , LW_R, %3
+  26: 
+  27:  , !BE3, %1
+  28:  , !BE2, %1
+  29:  , !BE1, %1
+  30:  , !BE0, %1
+  31:  ,  B3CK, %1
+  32:  ,  B2CK, %1
+  33:  ,  B1CK, %1
+  34:  ,  B0CK, %1;
+  35:   
+
+==========================================
+                !                         
+        H     ! C ! L   ! ! ! ! B B B B   
+      T L     B X C W   B B B B 3 2 1 0   
+      S D A A H 1 M _   E E E E C C C C   
+      T A 1 0 E 6 D R   3 2 1 0 K K K K   
+==========================================
+0001: 0 1 0 0 0 1 0 0   H H L L L L L H 
+0002: 0 1 0 0 1 1 0 0   H H H L L L L H 
+0003: 0 1 0 1 0 1 0 0   H H L H L L H L 
+0004: 0 1 1 0 0 1 0 0   L L H H L H L L 
+0005: 0 1 1 0 1 1 0 0   H L H H L H L L 
+0006: 0 1 1 1 0 1 0 0   L H H H H L L L 
+0007: 0 0 0 0 0 0 0 0   Z Z Z Z L L H H 
+0008: 0 0 0 0 1 0 0 0   Z Z Z Z L L L H 
+0009: 0 0 0 1 0 0 0 0   Z Z Z Z L L H L 
+0010: 0 0 1 0 0 0 0 0   Z Z Z Z H H L L 
+0011: 0 0 1 0 1 0 0 0   Z Z Z Z L H L L 
+0012: 0 0 1 1 0 0 0 0   Z Z Z Z H L L L 
+0013: 0 0 0 0 0 0 1 0   Z Z Z Z L L L L 
+0014: 0 0 1 0 0 0 1 0   Z Z Z Z L L L L 
+0015: 0 0 0 0 0 0 0 1   Z Z Z Z L L L L 
+0016: 0 0 1 0 0 0 0 1   Z Z Z Z L L L L 
+0017: 1 0 1 0 0 0 0 1   Z Z Z Z Z Z Z Z 

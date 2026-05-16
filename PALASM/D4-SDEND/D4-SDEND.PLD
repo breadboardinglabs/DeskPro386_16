@@ -1,0 +1,104 @@
+Name            D4-SDEND DataBuffer enable logic;
+PartNo          109390-001;
+Revision        01;
+Date            16/5/26;
+Designer        Dave Henry;
+Company         Breadboarding Labs;
+Location        None;
+Assembly        None;
+Device          g16v8;
+
+/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+/*                                                                                         */
+/*******************************************************************************************/
+/*                                                                                         */
+/*******************************************************************************************/
+/*
+DESCRIPTION
+This PAL developes the control signal to enable the data buffers on the system
+board.
+Rev A ensures turnon of the buffer enables for mem write after the direction 
+is active by leaving the buffer turned around during the entire write cycle.
+Rev D is for use with D3PE D4-processor board (with 387).
+*/
+/* Pin Map 
+                               ______________
+                              |   D4-SDEND   |
+                       A1 x---|1           20|---x Vcc                      
+                       A0 x---|2           19|---x !B3EN                    
+                     !BHE x---|3           18|---x !MRDC                    
+                     !CMD x---|4           17|---x !MWTC                    
+                     !M32 x---|5           16|---x !INTA                    
+                    !WDEN x---|6           15|---x !B2EN                    
+                     LW_R x---|7           14|---x !B1EN                    
+                     LD_C x---|8           13|---x !B0EN                    
+                    LM_IO x---|9           12|---x !BDIRRD                  
+                      GND x---|10          11|---x !TST                     
+                              |______________|
+
+*/
+
+
+PIN 1 = A1 ;
+PIN 2 = A0 ;
+PIN 3 = !BHE ;
+PIN 4 = !CMD ;
+PIN 5 = !M32 ;
+PIN 6 = !WDEN ;
+PIN 7 = LW_R ;
+PIN 8 = LD_C ;
+PIN 9 = LM_IO ;
+PIN 11 = !TST ;
+PIN 12 = !BDIRRD ;
+PIN 13 = !B0EN ;
+PIN 14 = !B1EN ;
+PIN 15 = !B2EN ;
+PIN 16 = !INTA ;
+PIN 17 = !MWTC ;
+PIN 18 = !MRDC ;
+PIN 19 = !B3EN ;
+
+                        
+            
+BDIRRD.OE = !TST ;
+   
+BDIRRD = !MRDC & !WDEN;            /* OTHER WRITE TO LOCAL MEM */
+                
+
+B0EN.OE = !TST ;
+   
+B0EN =
+  !A1 & !A0 & MWTC & !WDEN         /* OTHER WRITE TO LOCAL MEM */
+# !A1 & !A0 & MRDC & !WDEN & M32   /* OTHER READ FROM LOCAL MEM */
+# !A1 & !A0 & LD_C & LW_R & WDEN;  /* CPU WRITE TO BUS */
+    
+
+B1EN.OE = !TST ;
+   
+B1EN =
+  !A1 & BHE & MWTC & !WDEN         /* OTHER WRITE TO LOCAL MEM */
+# !A1 & BHE & MRDC & !WDEN & M32   /* OTHER READ FROM LOCAL MEM */
+# !A1 & BHE & LD_C & LW_R & WDEN;  /* CPU WRITE TO BUS */
+    
+
+B2EN.OE = !TST ;
+   
+B2EN =
+  A1 & !A0 & MWTC & !WDEN          /* OTHER WRITE TO LOCAL MEM */
+# A1 & !A0 & MRDC & !WDEN & M32    /* OTHER READ FROM LOCAL MEM */
+# A1 & !A0 & LD_C &  LW_R & WDEN;  /* CPU WRITE TO BUS */
+                    
+
+B3EN.OE = !TST ;
+   
+B3EN =
+  A1 & BHE & MWTC & !WDEN          /* OTHER WRITE TO LOCAL MEM */
+# A1 & BHE & MRDC & !WDEN & M32    /* OTHER READ FROM LOCAL MEM */
+# A1 & BHE & LD_C & LW_R  & WDEN;  /* CPU WRITE TO BUS */
+                    
+
+INTA.OE = !TST ;
+   
+INTA =
+   CMD & !LM_IO & !LW_R & !LD_C;   /* CPU INTERRUPT ACK */
+

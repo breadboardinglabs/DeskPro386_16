@@ -1,0 +1,72 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Sat May 16 16:02:31 2026
+
+LISTING FOR SIMULATION FILE: D4-RRAS.si
+
+   1: Name            D4-RRAS D4 PAGE RAM BOARD RAS decode logic;
+   2: PartNo          l08054-001;
+   3: Revision        01;
+   4: Date            16/05/26;
+                              ^
+[0025sa] Please note: inconsistent header information
+
+   5: Designer        Dave Henry;
+   6: Company         Breadboarding Labs;
+   7: Location        None;
+   8: Assembly        None;
+   9: 
+  10: /********************************************************************/
+  11: /*                                                                  */
+  12: /********************************************************************/
+  13: /* Target Device Types: ATF16V8 - Device g16v8                      */
+  14: /********************************************************************/
+  15: 
+  16: 
+  17: ORDER:
+  18:  
+  19:    A31, %1
+  20:  , A23, %1
+  21:  , A22, %1
+  22:  , A21, %1
+  23:  , A20, %1
+  24:  , A19, %1
+  25:  , A18, %1
+  26:  , A17, %1
+  27:  , FA20, %1
+  28:  , !ROM, %3
+  29:  
+  30:  , !MWE, %1
+  31:  , !MRD, %1
+  32:  , !RFSH, %3
+  33: 
+  34:  , !RS0, %1
+  35:  , !RS1, %1
+  36:  , !PARWR, %1
+  37:  , !PARRD, %1
+  38:  , !WE0;
+  39: 
+  40: 
+
+================================================
+                                        ! !     
+                                !       P P     
+                      F !   ! ! R   ! ! A A !   
+      A A A A A A A A A R   M M F   R R R R W   
+      3 2 2 2 2 1 1 1 2 O   W R S   S S W R E   
+      1 3 2 1 0 9 8 7 0 M   E D H   0 1 R D 0   
+================================================
+0001: 0 0 0 0 1 0 0 0 0 0   0 1 1   L H H H L
+0002: 0 0 0 0 0 1 0 0 1 0   0 1 1   L H H H L
+0003: 0 0 0 0 0 1 1 1 1 0   0 1 1   L H H H H
+0004: 0 0 0 0 0 1 1 1 1 1   0 1 1   L H H H L
+0005: 0 1 1 1 1 0 1 0 1 0   0 1 1   L H H H L
+0006: 0 1 1 1 1 1 0 0 1 0   0 1 1   L H H H L
+0007: 0 1 1 1 1 1 1 0 1 0   0 1 1   L H H H L
+0008: 0 1 1 1 1 1 1 1 1 0   0 1 1   L H H H H
+0009: 0 1 1 1 1 1 1 1 1 1   0 1 1   L H H H L
+0010: 0 0 0 0 1 0 0 0 1 0   1 1 1   H L H H H
+0011: 1 1 1 0 0 0 0 0 1 0   0 1 1   H H L H H
+0012: 1 1 1 0 0 0 0 0 1 0   1 0 1   H H H L H
+0013: 1 1 1 1 1 1 1 1 1 0   1 1 0   L L H H H

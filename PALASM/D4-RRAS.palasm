@@ -15,8 +15,8 @@ RS0 =
  +/A31*  A23*  A22*  A21*  A20                          ;00F00000H 1024K
  + RFSH                                                 ;REFRESH
 
-RSl =
-  /A31* /A23* /A22* /A21* A20* FA20                     ;00l00000H l024K
+RS1 =
+  /A31* /A23* /A22* /A21* A20* FA20                     ;00100000H 1024K
   + RFSH                                                ;REFRESH
 
 PARWR =
@@ -46,7 +46,7 @@ A31 A23 A22 A21 A20 A19 A18 A17 FA20 /ROM /MWE /MRD /RFSH
 ;1 3 2 1 0 9 8 7 0 M   E D H   0 1 R D 0
 -------------------------------------------------------------------------
  L L L L L L L L H L   L H H   L H H H L       000000H 512K
- L L L L H L L L L L   L H H   L H H H L       l00000H 512K
+ L L L L H L L L L L   L H H   L H H H L       100000H 512K
  L L L L L H L L H L   L H H   L H H H L       080000H 128K
  L L L L L H H H H L   L H H   L H H H H       0E0000H 128K
  L L L L L H H H H H   L H H   L H H H L       0E0000H 128K

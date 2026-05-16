@@ -1,0 +1,217 @@
+
+*******************************************************************************
+                                   D4-SCMDD
+*******************************************************************************
+
+CUPL(WM)        5.0a Serial# MW-10400000
+Device          g16v8ma  Library DLIB-h-40-8
+Created         Thu May 07 16:43:29 2026
+Name            D4-SCMDD 
+Partno          XXXXX 
+Revision        XX 
+Date            XX/XX/XX 
+Designer        XXXXX 
+Company         XXXXX 
+Assembly        XXXXX 
+Location        XXXXX 
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+D_C =>
+    !RFSH
+
+D_C.oe  =>
+    BHLDA & OE
+
+IORC =>
+    CMD & LD_C & !LM_IO & !LW_R
+  # DCMD & IORC
+
+IORC.oe  =>
+    !BHLDA & OE
+
+IOWC =>
+    CMD & LD_C & !LM_IO & LW_R
+
+IOWC.oe  =>
+    !BHLDA & OE
+
+!MHLDA =>
+    !BHLDA
+  # !MHLDA & !M_IO
+
+MRDC =>
+    CMD & LM_IO & !LW_R
+  # DCMD & MRDC
+
+MRDC.oe  =>
+    !BHLDA & OE
+
+MWTC =>
+    CMD & LD_C & LM_IO & LW_R
+
+MWTC.oe  =>
+    !BHLDA & OE
+
+!M_IO =>
+    MWTC
+  # MRDC
+
+M_IO.oe  =>
+    BHLDA & OE
+
+W_R =>
+    !MWTC
+
+W_R.oe  =>
+    BHLDA & OE
+
+MHLDA.oe  =>
+    1 
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+ !  BHLDA                       7        V        -       -       -     
+ !  CMD                         1        V        -       -       -     
+ !  DCMD                        2        V        -       -       -     
+    D_C                         18       V        1       7       1     
+    D_C                 oe      18       X        1       1       1     
+ !  IORC                        15       V        2       7       1     
+    IORC                oe      15       X        1       1       1     
+ !  IOWC                        12       V        1       7       1     
+    IOWC                oe      12       X        1       1       1     
+    LD_C                        5        V        -       -       -     
+    LM_IO                       3        V        -       -       -     
+    LW_R                        4        V        -       -       -     
+    MHLDA                       16       V        2       7       1     
+ !  MRDC                        13       V        2       7       1     
+    MRDC                oe      13       X        1       1       1     
+ !  MWTC                        14       V        1       7       1     
+    MWTC                oe      14       X        1       1       1     
+    M_IO                        17       V        2       7       1     
+    M_IO                oe      17       X        1       1       1     
+    NCI1                        8        V        -       -       -     
+    NCI2                        9        V        -       -       -     
+ !  OE                          11       V        -       -       -     
+ !  RFSH                        6        V        -       -       -     
+    W_R                         19       V        1       7       1     
+    W_R                 oe      19       X        1       1       1     
+    MHLDA               oe      16       D        1       1       0     
+
+
+LEGEND    D : default variable         F : field      G : group
+          I : intermediate variable    N : node       M : extended node
+          U : undefined                V : variable   X : extended variable
+          T : function
+
+
+===============================================================================
+                                   Fuse Plot
+===============================================================================
+
+Syn   02192 - Ac0   02193 - 
+
+Pin #19  02048  Pol -  02120  Ac1 - 
+ 00000 ---------------------x---------x 
+ 00032 ----------------------x--------- 
+ 00064 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00096 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00128 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00160 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00192 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00224 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #18  02049  Pol -  02121  Ac1 - 
+ 00256 ---------------------x---------x 
+ 00288 ----------------x--------------- 
+ 00320 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00352 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00384 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00416 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00448 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00480 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #17  02050  Pol x  02122  Ac1 - 
+ 00512 ---------------------x---------x 
+ 00544 -----------------------x-------- 
+ 00576 ---------------------------x---- 
+ 00608 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00640 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00672 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00736 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #16  02051  Pol x  02123  Ac1 - 
+ 00768 -------------------------------- 
+ 00800 --------------------x----------- 
+ 00832 -----------x---x---------------- 
+ 00864 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00896 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00928 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00992 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #15  02052  Pol x  02124  Ac1 - 
+ 01024 --------------------x----------x 
+ 01056 ---x-x---x--x------------------- 
+ 01088 -x-----------------x------------ 
+ 01120 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01152 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01184 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01216 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01248 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #14  02053  Pol x  02125  Ac1 - 
+ 01280 --------------------x----------x 
+ 01312 ---xx---x---x------------------- 
+ 01344 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01376 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01408 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01440 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01472 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01504 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #13  02054  Pol x  02126  Ac1 - 
+ 01536 --------------------x----------x 
+ 01568 ---xx----x---------------------- 
+ 01600 -x-------------------------x---- 
+ 01632 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01664 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01696 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01728 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01760 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #12  02055  Pol x  02127  Ac1 - 
+ 01792 --------------------x----------x 
+ 01824 ---x-x--x---x------------------- 
+ 01856 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01888 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01920 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01952 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01984 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+
+
+LEGEND    X : fuse not blown 
+          - : fuse blown 
+
+===============================================================================
+                                 Chip Diagram
+===============================================================================
+
+                               ______________
+                              |   D4-SCMDD   |
+                     !CMD x---|1           20|---x Vcc                      
+                    !DCMD x---|2           19|---x W_R                      
+                    LM_IO x---|3           18|---x D_C                      
+                     LW_R x---|4           17|---x M_IO                     
+                     LD_C x---|5           16|---x MHLDA                    
+                    !RFSH x---|6           15|---x !IORC                    
+                   !BHLDA x---|7           14|---x !MWTC                    
+                     NCI1 x---|8           13|---x !MRDC                    
+                     NCI2 x---|9           12|---x !IOWC                    
+                      GND x---|10          11|---x !OE                      
+                              |______________|
+

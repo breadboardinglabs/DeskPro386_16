@@ -1,0 +1,109 @@
+%SIGNAL
+PIN  18 =  A0 
+PIN  17 =  A1 
+PIN   2 =  ALE 
+PIN  20 = !ALST 
+PIN   6 = !BE0 
+PIN   5 = !BE1 
+PIN   4 = !BE2 
+PIN   3 = !BE3 
+PIN  19 = !BHE 
+PIN  13 =  BHLDA 
+PIN   1 =  CALE 
+PIN  15 = !CLAST 
+PIN  16 = !CLSTD 
+PIN  14 = !CMD 
+PIN  21 = !CX16 
+PIN  22 = !DCMD 
+PIN  11 = !IO16 
+PIN  10 = !LM16 
+PIN   7 =  LM_IO 
+PIN  23 = !RST 
+PIN   8 =  T00 
+PIN   9 =  T10 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+!A0.d  =>
+    !BE0 & !CLAST & RST
+  # BE1 & !BE2 & !CLAST & RST
+  # A0 & !BE2 & CLAST & RST
+  # CLAST & !CX16 & RST
+
+A0.oe  =>
+    !BHLDA
+
+!A1.d  =>
+    BE2 & BE3 & RST
+  # !A0 & !A1 & CLAST & CX16 & RST
+  # !BE1 & !CLAST & RST
+
+A1.oe  =>
+    !BHLDA
+
+ALST.d  =>
+    BE2 & CLAST & CX16 & RST
+  # BE0 & BE2 & !CLAST & RST
+  # BE1 & BE3 & !CLAST & RST
+  # A0 & BE3 & CLAST & RST
+  # !A0 & A1 & CLAST & CX16 & RST
+  # BE3 & CLAST & !CX16 & RST
+
+ALST.oe  =>
+    !BHLDA
+
+BHE.d  =>
+    !A0 & CLAST & CX16 & RST
+  # !BE1 & !CLAST & RST
+  # !BE3 & RST
+
+BHE.oe  =>
+    !BHLDA
+
+CLAST =>
+    !ALST & T00
+  # BE2 & !LM16 & LM_IO & T00
+  # A1 & !LM16 & LM_IO & T00
+  # ALST & BE2 & !IO16 & !LM_IO & T10
+  # A1 & ALST & !IO16 & !LM_IO & T10
+  # !RST
+  # !ALE & !CLAST
+
+CLAST.oe  =>
+    1 
+
+CLSTD =>
+    !ALST & T00
+  # BE2 & !LM16 & LM_IO & T00
+  # A1 & !LM16 & LM_IO & T00
+  # ALST & BE2 & !IO16 & !LM_IO & T10
+  # A1 & ALST & !IO16 & !LM_IO & T10
+  # !RST
+
+CLSTD.oe  =>
+    1 
+
+CX16 =>
+    !LM16 & LM_IO & RST & T00
+  # !IO16 & !LM_IO & RST & T10
+  # !ALE & !CX16 & RST
+
+CX16.oe  =>
+    1 
+
+DCMD =>
+    !CMD
+
+DCMD.oe  =>
+    1 
+
+CMD.oe  =>
+    0 
+
+RST.oe  =>
+    0 
+
+%END

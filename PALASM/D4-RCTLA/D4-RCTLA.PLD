@@ -1,0 +1,134 @@
+Name            D4-RCTLA D4 PAGE RAM BOARD Control logic;
+PartNo          108352-001;
+Revision        01;
+Date            16/5/26;
+Designer        Dave Henry;
+Company         Breadboarding Labs;
+Location        None;
+Assembly        None;
+Device          g16v8;
+
+/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+/*                                                                                         */
+/*******************************************************************************************/
+/*                                                                                         */
+/*******************************************************************************************/
+/*
+DESCRIPTION
+This PAL is used in the D4 (386) memory board to control the DRAM subsystem.
+The RAS and CAS master strobes are generated, and the CPU next address and
+READY signals are provided.
+Rev A of this PAL changes the DMA state machine to prevent spurious RAM cycles
+after refresh or DMA cycles.
+*/
+/* Pin Map 
+                               ______________
+                              |   D4-RCTLA   |
+                      CLK x---|1           20|---x Vcc                      
+                    !ADSM x---|2           19|---x !YY                      
+                    !DMIO x---|3           18|---x !MRD                     
+                      D_C x---|4           17|---x !MWE                     
+                      W_R x---|5           16|---x !MRDY                    
+                     !M32 x---|6           15|---x !MCAS                    
+                     HLDA x---|7           14|---x !NAM                     
+                   !CLK16 x---|8           13|---x !SWM                     
+                     !HIT x---|9           12|---x !MRAS                    
+                      GND x---|10          11|---x !OE                      
+                              |______________|
+
+*/
+
+PIN 1 = CLK ;
+PIN 2 = !ADSM ;
+PIN 3 = !DMIO ;
+PIN 4 = D_C ;
+PIN 5 = W_R ;
+PIN 6 = !M32 ;
+PIN 7 = HLDA ;
+PIN 8 = !CLK16 ;
+PIN 9 = !HIT ;
+PIN 11 = !OE ;
+PIN 12 = !MRAS ;
+PIN 13 = !SWM ;
+PIN 14 = !NAM ;
+PIN 15 = !MCAS ;
+PIN 16 = !MRDY ;
+PIN 17 = !MWE ;
+PIN 18 = !MRD ;
+PIN 19 = !YY ;
+             
+             
+
+ 
+SWM.D =
+  !HLDA & CLK16 & ADSM & !MRDY & !W_R & M32                                  /* CPU IDLE TO MEMORY */
+# !HLDA   & CLK16 & ADSM & !MRDY & D_C  & M32                                /* CPU IDLE TO MEMORY */
+# !HLDA   & CLK16 & YY & !MRAS   & !SWM                                      /* AFTER A MISS */
+# !CLK16 & SWM  & !MRAS                                                      /* CLK16 SYNC */
+# HLDA  & !ADSM  & D_C  & !MRAS                                              /* DMA */
+# HLDA  & !ADSM  & !D_C & MRAS  & YY                                         /* REFRESH START */
+# HLDA  & !ADSM  & !D_C & SWM  & DMIO                                        /* REFRESH HOLD */
+# HLDA  & !ADSM  & DMIO  & SWM & !MRAS;                                      /* REFRESH END */
+               
+ 
+YY.D =
+  !HLDA & CLK16  & ADSM & MRDY & !W_R & M32 & !HIT                           /* CPU PIPE TO MEMORY MISS */
+# !HLDA & CLK16  & ADSM & MRDY & D_C  & M32 & !HIT                           /* CPU PIPE TO MEMORY MISS */
+# !HLDA & NAM         & MRAS                                                 /* OR WHEN LATCH NEEDS CLOSED */
+# !HLDA & !CLK16 & YY                                                        /* CLK16 SYNC */
+# HLDA  & D_C  & MCAS   & DMIO & !ADSM                                       /* DMA */
+# HLDA  & YY         & DMIO   & !ADSM                                        /* DMA,REFRESH HOLD TO END */
+# HLDA  & !D_C & MRAS   & DMIO & !ADSM & !SWM & CLK16;                       /* REFRESH */
+  
+
+ 
+NAM.D =
+  !HLDA & CLK16  &  ADSM &  MRDY & !W_R  & M32 & HIT                         /* CPU PIPE TO MEMORY HIT */
+# !HLDA & CLK16  &  ADSM &  MRDY &  D_C  & M32 & HIT                         /* CPU PIPE TO MEMORY HIT */
+# !HLDA & CLK16  &  SWM  & !ADSM & !NAM                                      /* AFTER AN IDLE OR MISS */
+#        !CLK16  &  NAM                                                      /* CLK16 SYNC */
+#  HLDA          & !ADSM;                                                    /* DURING REFRESH AND DMA */
+                                  
+
+ 
+MRDY.D =
+  !HLDA   & CLK16 & NAM & MRAS                                               /* AFTER NA WILL BE READY */
+# !HLDA  & !CLK16 & MRDY;                                                    /* CLK16 SYNC */
+                            
+ 
+MRAS.D =
+  !HLDA & SWM &  !ADSM  & !NAM                                               /* OUT OF A MISS OR IDLE OPERATION */
+# !HLDA & MRAS & !MRDY                                                       /* TILL MRDY */
+# !HLDA & MRAS & !CLK16                                                      /*  AND TILL CLK16 UNLESS */
+# !HLDA & MRAS &  ADSM  & !W_R & M32  & HIT                                  /* CPU PIPE HIT */
+# !HLDA & MRAS &  ADSM  &  D_C  & M32  & HIT                                 /* CPU PIPE HIT */
+#  HLDA & DMIO & !ADSM  & !D_C & !SWM & CLK16                                /* REFRESH */
+#  HLDA & DMIO & !ADSM  & !D_C & !SWM & MRAS                                 /* REFRESH HOLD */
+#  HLDA & DMIO & !ADSM  &  D_C  & M32  & !YY;                                /* DMA */
+            
+ 
+MCAS.D =
+  !HLDA  &  CLK16 & NAM  & MRD   & MRAS                                      /* AFTER NA WILL BE CAS FOR READ */
+# !HLDA  & !CLK16 & MCAS                                                     /* CLK16 SYNC */
+# !HLDA  & !CLK16 & MRDY & MWE                                               /* AFTER START OF MRDY IS WRITE CAS */
+#  HLDA  & !ADSM  & D_C  & DMIO  & MRAS & !SWM                               /* DMA START */
+#  HLDA  & !ADSM  & D_C  & DMIO  & MCAS & MRD;                               /* DMA READ HOLD TILL END */
+          
+ 
+MWE.D =
+  !HLDA  & !CLK16 & NAM  & D_C   & W_R & M32 & MRAS                          /* CPU WRITE TO MEMORY */
+# !HLDA  & !CLK16 & MWE                                                      /* CLK16 SYNC */
+# !HLDA  &  CLK16 & MWE  & NAM 
+# HLDA   & !W_R   & DMIO & !ADSM & M32 & !YY                                 /* DMA WRITE */
+# HLDA   &  MWE   & DMIO & !ADSM;                                            /* DMA WRITE HOLD */
+                     
+ 
+MRD.D =
+  !HLDA & !CLK16 & NAM  & !W_R & M32 & MRAS                                  /* CPU READ FROM MEMORY */
+# !HLDA & !CLK16 & MRD                                                       /* CLK16 SYNC */
+# !HLDA &  CLK16 & MRD  &  NAM 
+#  HLDA &  W_R   & DMIO &  D_C & !ADSM & M32 & MRAS                          /* DMA READ (NOT REFRESH) */
+#  HLDA &  MRD   & DMIO & !ADSM;                                             /* DMA READ HOLD */
+                     
+
+

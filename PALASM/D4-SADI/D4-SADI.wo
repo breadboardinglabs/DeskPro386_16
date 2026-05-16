@@ -1,0 +1,55 @@
+#WAVEFORM
+#H Name            D4-SADI Address to byte enable conversion and read latch enable logic;
+#H PartNo          105645-001;
+#H Revision        01;
+#H Date            16/05/26;
+#E 0025 
+
+#H Designer        Dave Henry;
+#H Company         Breadboarding Labs;
+#H Location        None;
+#H Assembly        None;
+#H 
+#H /********************************************************************/
+#H /*                                                                  */
+#H /********************************************************************/
+#H /* Target Device Types: ATF16V8 - Device g16v8                      */
+#H /********************************************************************/
+#H 
+#H ORDER:
+#H 
+#H    TST, %1
+#H  , HLDA, %1
+#H  , A1, %1
+#H  , A0, %1
+#H  ,!BHE, %1
+#H  ,!CX16, %1
+#H  ,!CMD, %1
+#H  , LW_R, %3
+#H 
+#H  , !BE3, %1
+#H  , !BE2, %1
+#H  , !BE1, %1
+#H  , !BE0, %1
+#H  ,  B3CK, %1
+#H  ,  B2CK, %1
+#H  ,  B1CK, %1
+#H  ,  B0CK, %1;
+#H   
+#V 0001 01000100HHLLLLLH
+#V 0002 01001100HHHLLLLH
+#V 0003 01010100HHLHLLHL
+#V 0004 01100100LLHHLHLL
+#V 0005 01101100HLHHLHLL
+#V 0006 01110100LHHHHLLL
+#V 0007 00000000ZZZZLLHH
+#V 0008 00001000ZZZZLLLH
+#V 0009 00010000ZZZZLLHL
+#V 0010 00100000ZZZZHHLL
+#V 0011 00101000ZZZZLHLL
+#V 0012 00110000ZZZZHLLL
+#V 0013 00000010ZZZZLLLL
+#V 0014 00100010ZZZZLLLL
+#V 0015 00000001ZZZZLLLL
+#V 0016 00100001ZZZZLLLL
+#V 0017 10100001ZZZZZZZZ

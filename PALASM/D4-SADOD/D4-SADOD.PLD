@@ -1,0 +1,143 @@
+Name            D4-SADOD Bus enable to address converter and cycle end logic;
+PartNo          108393-001;
+Revision        01;
+Date            16/5/26;
+Designer        Dave Henry;
+Company         Breadboarding Labs;
+Location        None;
+Assembly        None;
+Device          p22v10;
+
+/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+/*                                                                                         */
+/*******************************************************************************************/
+/*                                                                                         */
+/*******************************************************************************************/
+/*
+DESCRIPTION
+This PAL converts the CPUs bus enable lines to address lines and cycles from 
+one to the next when multiple cycles are required. It also determines_when 
+the last cycle is in progress to develop the Cycle LAST signal. 
+Rev A of this device changes the CX16* equation to go away on ALE. The input 
+T01 is changed to T10 and IO16* is changed to LM_IO as part of an overall 
+change to delay the sampling of IO16* by one clock. Rev A can be used in any 
+D4-PROCESSOR from rev X5 up.
+Rev D is for the D4-Processor Enhanced (397 version)
+
+*/
+
+/* Pin Map 
+                               ______________
+                              |   D4-SADOD   |
+                     CALE x---|1           24|---x Vcc                      
+                      ALE x---|2           23|---x !RST                     
+                     !BE3 x---|3           22|---x !DCMD                    
+                     !BE2 x---|4           21|---x !CX16                    
+                     !BE1 x---|5           20|---x !ALST                    
+                     !BE0 x---|6           19|---x !BHE                     
+                    LM_IO x---|7           18|---x A0                       
+                      T00 x---|8           17|---x A1                       
+                      T10 x---|9           16|---x !CLSTD                   
+                    !LM16 x---|10          15|---x !CLAST                   
+                    !IO16 x---|11          14|---x !CMD                     
+                      GND x---|12          13|---x BHLDA                    
+                              |______________|
+
+*/
+
+/*******************************************************************************************/
+
+/* Inputs Note GAL20V10 Pin 23 and 14 are also inputs. Only Pins 15-22 can be Outputs */
+
+
+
+PIN 1 = CALE ;
+PIN 2 = ALE ;
+PIN 3 = !BE3 ;
+PIN 4 = !BE2 ;
+PIN 5 = !BE1 ;
+PIN 6 = !BE0 ;
+PIN 7 = LM_IO ;
+PIN 8 = T00 ;
+PIN 9 = T10 ;
+PIN 10 = !LM16 ;
+PIN 11 = !IO16 ;
+PIN 13 = BHLDA ;
+PIN 14 = !CMD ;
+PIN 15 = !CLAST ;
+PIN 16 = !CLSTD ;
+PIN 17 = A1 ;
+PIN 18 = A0 ;
+PIN 19 = !BHE ;
+PIN 20 = !ALST ;
+PIN 21 = !CX16 ;
+PIN 22 = !DCMD ;
+PIN 23 = !RST ;/* The following 4 outputs are clocked by ALE, output only when /HLDA is true */
+
+                      
+                 
+
+  
+!A1.D =
+        !RST & !BE3 & !BE2 
+      # !RST & !A1 & !A0  & !CX16 & !CLAST 
+      # !RST & BE1 & CLAST;         
+
+A1.oe = !BHLDA;
+  
+!A0.D =
+        !RST & BE0 & CLAST         
+      # !RST & BE2 & !BE1 & CLAST   
+      # !RST & BE2 & A0 & !CLAST    
+      # !RST & CX16 & !CLAST;       
+A0.oe = !BHLDA;
+
+  
+BHE.D =
+        !RST & !A0 & !CX16 & !CLAST 
+      # !RST & BE1 & CLAST         
+      # !RST & BE3; 
+BHE.oe = !BHLDA;
+
+ 
+ALST.D =
+        !RST & !CX16  & !BE2   & !CLAST 
+      # !RST & !BE2   & !BE0   & CLAST  
+      # !RST & !BE3   & !BE1   & CLAST  
+      # !RST & !BE3   & A0     & !CLAST 
+      # !RST & !CX16  & A1     & !A0  & !CLAST 
+      # !RST & CX16   & !BE3   & !CLAST;        /* Cycle LAST PRESET input for internal F/F (Cleared by rising edge of ALE)  */
+ALST.oe = !BHLDA;                                /* This is pulsed only once to set F/F and generate the NAB* signal */
+ 
+
+ 
+CLSTD =
+         ALST  &  T00                            /* Active during the last cycle of set */
+      #  LM_IO  & LM16 & T00 & !BE2 
+      #  LM_IO  & LM16 & T00 & A1  
+      # !LM_IO & IO16 & T10 & !BE2 & !ALST 
+      # !LM_IO & IO16 & T10 & A1  & !ALST  
+      #  RST;                                    /* and during RESET */
+CLSTD.oe = 'b'1;                               
+ 
+CLAST =
+         ALST   & T00                             /* Active during the last cycle of set */
+      #  LM_IO  & LM16 & T00 & !BE2 
+      #  LM_IO  & LM16 & T00 & A1  
+      # !LM_IO & IO16 & T10 & !BE2 & !ALST 
+      # !LM_IO & IO16 & T10 & A1 & !ALST   
+      #  RST                                      /* and during RESET */
+      #  CLAST  &  !ALE;                          /* HOLDS ACTIVE TILL ALE */
+CLAST.oe = 'b'1;                      
+  
+CX16 = 
+  !RST &  LM_IO &  T00 & LM16  /* CPU MEM OP */
+# !RST & !LM_IO &  T10 & IO16  /* CPU I/O OP */                  
+# !RST & !ALE          & CX16; /* CPU HOLD */
+CX16.oe = 'b'1;            
+ 
+DCMD = CMD; /*  DELAYED COMMAND */
+DCMD.oe = 'b'1;                                 
+
+
+

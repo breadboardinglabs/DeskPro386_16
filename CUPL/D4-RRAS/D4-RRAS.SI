@@ -1,0 +1,59 @@
+NAME         D4-RRAS ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+
+ORDER:
+ 
+   A31, %1
+ , A23, %1
+ , A22, %1
+ , A21, %1
+ , A20, %1
+ , A19, %1
+ , A18, %1
+ , A17, %1
+ , FA20, %1
+ , !ROM, %3
+ 
+ , !MWE, %1
+ , !MRD, %1
+ , !RFSH, %3
+
+ , !RS0, %1
+ , !RS1, %1
+ , !PARWR, %1
+ , !PARRD, %1
+ , !WE0;
+
+
+VECTORS:
+
+/*
+                                   / / 
+                         /         P P 
+                 F /   / / R   / / A A / 
+ A A A A A A A A A R   M M F   R R R R W 
+ 3 2 2 2 2 1 1 1 2 0   W R S   S S W R E 
+ 1 3 2 1 0 9 8 7 0 M   E D H   0 1 R D 0 
+
+ 0 0 0 0 0 0 0 0 1 0   0 1 1   L H H H L /* 000000H 512K */
+ 0 0 0 0 1 0 0 0 0 0   0 1 1   L H H H L /* 100000H 512K */
+ 0 0 0 0 0 1 0 0 1 0   0 1 1   L H H H L /* 080000H 128K */
+ 0 0 0 0 0 1 1 1 1 0   0 1 1   L H H H H /* 0E0000H 128K */
+ 0 0 0 0 0 1 1 1 1 1   0 1 1   L H H H L /* 0E0000H 128K */
+ 0 1 1 1 1 0 1 0 1 0   0 1 1   L H H H L /* F40000H 256K */
+ 0 1 1 1 1 1 0 0 1 0   0 1 1   L H H H L /* F80000H 256K */
+ 0 1 1 1 1 1 1 0 1 0   0 1 1   L H H H L /* FC0000H 128K */
+ 0 1 1 1 1 1 1 1 1 0   0 1 1   L H H H H /* FE0000H 128K */
+ 0 1 1 1 1 1 1 1 1 1   0 1 1   L H H H L /* FE0000H 128K */
+ 0 0 0 0 1 0 0 0 1 0   1 1 1   H L H H H /* 100000H 1024K */
+ 1 1 1 0 0 0 0 0 1 0   0 1 1   H H L H H /* 80C00000H 128K */
+ 1 1 1 0 0 0 0 0 1 0   1 0 1   H H H L H /* 80C00000H 128K */
+ 1 1 1 1 1 1 1 1 1 0   1 1 0   L L H H H /* REFRESH */
+

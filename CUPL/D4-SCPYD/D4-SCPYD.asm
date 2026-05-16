@@ -1,0 +1,72 @@
+PAL16L8                                               PAL DESIGN SPECIFICATION
+D4-SCPYD 108395-OO1                                     PAUL R. CULLEY 12/17/86
+Copy buffer control logic and DMA low address logic 
+Copyright 1986 COMPAQ COMPUTER Houston, Texas
+
+/M16  /IO16  /MWTC   /MRDC   /IOWX /IORC /DAEN1 AEN2 BALE GND
+/HLDA /DAEN2 /COPYEN /COPYHL /DAEN /BHE   XA0  /LM16 NC0l VCC
+
+COPYEN  = /DAEN* BHE * XA0 * /LM16* MWTC      ;CPU write MEM
+        + /DAEN* BHE * XA0 * /IO16* IOWX      ;CPU write I/O
+        + /DAEN* BHE * XA0 * /LM16* MRDC      ;CPU read MEM
+        + /DAEN* BHE * XA0 * /IO16* IORC      ;CPU read I/O
+        + DAEN1 * COPYHL * XA0 * LM16 * MRDC  ;DMA byte mem read high of 16
+        + DAEN1 * XA0 * LM16 * IORC           ;DMA byte mem write high of 16
+
+COPYHL  = /DAEN * BHE * XA0 * /LM16 * MWTC    ;mem write
+        + /DAEN * BHE * XA0 * /IO16 * IOWX    ;I/O write
+        + DAEN1 * XA0 * LM16 * MRDC           ;DMA byte mem read high of 16
+        + COPYHL * COPYEN                     ; Short holdover for write
+
+DAEN    = DAEN1 * HLDA
+        + AEN2 * HLDA
+        
+                                              ;If word type of DMA, enable out 
+IF (AEN2 * HLDA) /XA0 = AEN2                  ; (Pin is low for word DMA)
+
+                                              ;If DMA, enable output
+IF (DAEN) BHE = XA0 * DAEN1                   ; If byte type, is inverted XA0
+              + AEN2                          ;If word type, is active
+
+LM16 = M16 * BALE                             ;Enable M16 input
+     + LM16 * /BALE                           ;Latch term
+     + LM16 * M16                             ;Deglitch term
+
+DAEN2 = AEN2 * HLDA                           ;TIGHTEN UP ON HLDA
+
+FUNCTION TABLE
+/M16 /IO16 /MRDC /MWTC /IORC /IOWX /DAEN1 /AEN2 BALE /HLDA
+/BHE XA0 /COPYEN /COPYHL /DAEN /LM16 /DAEN2
+
+;                          C C
+;            D     /       O O     D
+;  I M M I I A A B H       P P D L A 
+;M O R W O O E E A L  B X  Y Y A M E 
+;1 1 D T R W N N L D  H A  E H E 1 N 
+;6 6 C C C X 1 2 E A  E 0  N L N 6 2
+---------------------------------------------------~----------------------
+ H H H H H H H H L H  H L  H H H X H ; INACTIVE
+ L H H H L H H H H H  L H  L H H L H ; IORC
+ L H L H H H L H L L  L H  L L L L H ; MRDC
+ L H H H L H L H L L  L H  L L L L H ; IORC
+ L H H H H H L H L L  H L  H H L L H ; DAEN INACTIVE
+ H H H H H H H L L L  L L  H H L L L ; DAEN2
+ L L L L L L H H H H  L H  H H H L H
+ H H H H H H H H H H  L H  H H H H H ; INACTIVE
+ H H L H H H H H H H  L H  L H H H H ; MRDC PROC
+ H H H L H H H H L H  L H  L L H H H ; MWTC PROC
+ H H H H H H H H L H  H H  H H H H H ;
+ H H H H H L H H L H  L H  L L H H H ; IOWC PROC
+ L H H H H H L L H H  Z Z  H H H L H
+ L H H H H H L L L H  Z Z  H H H L H
+ H H H H H H L L L H  Z Z  H H H L H
+---------------------------------------------------~----------------------
+
+DESCRIPTION
+This PAL implements the logic to enable the copy buffer (high to low halves 
+of the 16 bit bus). It also drives the A0 and BHE lines as appropriate during
+DMA.
+Rev A changes the COPYHL enable during byte DMA operations to the high half of 
+the bus. The timing is made earlier by changing to IORC from MWTC. 
+Rev D changes the polarity of the AEN2 signal for logic reduction on the D3PE 
+D4-PROCESSOR board (with 80387).

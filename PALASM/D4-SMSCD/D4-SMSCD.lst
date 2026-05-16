@@ -1,0 +1,107 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SMSCD.pld                     Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:44:01 2026
+
+  1:Name            D4-SMSCD Miscellaneous garbage logic;
+  2:PartNo          108397-001;
+  3:Revision        01;
+  4:Date            16/5/26;
+  5:Designer        Dave Henry;
+  6:Company         Breadboarding Labs;
+  7:Location        None;
+  8:Assembly        None;
+  9:Device          g16v8;
+ 10:
+ 11:/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+ 12:/*                                                                                         */
+ 13:/*******************************************************************************************/
+ 14:/*                                                                                         */
+ 15:/*******************************************************************************************/
+ 16:/*
+ 17:DESCRIPTION
+ 18:Rev D of this PAL is for the upgraded D3PE D4-processor board (with 387) and
+ 19:is a new design.
+ 20:This PAL contains the equations for the signal MYCYC (BUS state machine cycle),
+ 21:SHTD <decoded shutdown status), LNCP (numeric processor access status), and
+ 22:LOE (latch output enable). It also is the F/F for the NAB signal.
+ 23:*/
+ 24:/* Pin Map 
+ 25:                               ______________
+ 26:                              |   D4-SMSCD   |
+ 27:                      CLK x---|1           20|---x Vcc                      
+ 28:                     !M32 x---|2           19|---x !ADS                     
+ 29:                    !BRDY x---|3           18|---x 387I                     
+ 30:                     BALE x---|4           17|---x !SHTD                    
+ 31:                      W_R x---|5           16|---x !NAB                     
+ 32:                      D_C x---|6           15|---x !LOE                     
+ 33:                     M_IO x---|7           14|---x !MYCYC                   
+ 34:                     !BE0 x---|8           13|---x !CLSTD                   
+ 35:                     PA31 x---|9           12|---x !LNCP                    
+ 36:                      GND x---|10          11|---x !OE                      
+ 37:                              |______________|
+ 38:
+ 39:*/
+ 40:
+ 41:
+ 42:
+ 43:PIN 1 = CLK ;
+ 44:PIN 2 = !M32 ;
+ 45:PIN 3 = !BRDY ;
+ 46:PIN 4 = BALE ;
+ 47:PIN 5 = W_R ;
+ 48:PIN 6 = D_C ;
+ 49:PIN 7 = M_IO ;
+ 50:PIN 8 = !BE0 ;
+ 51:PIN 9 = PA31 ;
+ 52:PIN 11 = !OE ;
+ 53:PIN 12 = !LNCP ;
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SMSCD.pld                     Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:44:01 2026
+
+ 54:PIN 13 = !CLSTD ;
+ 55:PIN 14 = !MYCYC ;
+ 56:PIN 15 = !LOE ;
+ 57:PIN 16 = !NAB ;
+ 58:PIN 17 = !SHTD ;
+ 59:PIN 18 = 387I ;
+ 60:PIN 19 = !ADS ;
+ 61:                     
+ 62:              
+ 63: 
+ 64:LOE.D =
+ 65:  MYCYC &  BALE  & !W_R  & !LNCP           /*  GOES ACTIVE AT ALE */
+ 66:# LOE   & !BRDY;                           /*  HOLD THROUGH TILL BRDY ACTIVE */
+ 67:                        
+ 68:SHTD.D =
+ 69:  MYCYC  & BALE & M_IO & !D_C & W_R & BE0; /*  DECODED SHUTDOWN OPCODE */
+ 70:    
+ 71:MYCYC.D =
+ 72:  !CLSTD  & ADS  & !M_IO  & !387I          /*  WHEN NO 387 AND 1/0 */
+ 73:# !CLSTD  & ADS  & !M_IO  & !PA31          /*  OR NOT NCP 1/0 CYCLE */
+ 74:# !CLSTD  & ADS  & M_IO   & !M32           /*  OR NOT 32 BIT MEMORY CYCLE */
+ 75:# !CLSTD  & ADS  & M_IO   & !D_C  & W_R    /*  OR HALT/SHUTDOWN CYCLE */
+ 76:# !CLSTD  & MYCYC;                         /*  HOLD TILL NAB */
+ 77:                     
+ 78:NAB.D = CLSTD;                             /*  NEXT ADDRESS BUS */
+ 79:                         
+ 80:
+ 81:LNCP =
+ 82:  MYCYC &  BALE & PA31 & !M_IO             /*  NUMERIC COPROCESSOR OP */
+ 83:# LNCP  & !BALE                             /*  HOLD TILL NEXT ALE OR HOLD */
+ 84:# MYCYC &  PA31 & !M_IO & LNCP;             /*  DEGLITCH */
+ 85:           
+ 86:
+ 87:
+
+
+
+Jedec Fuse Checksum       (3a81)
+Jedec Transmit Checksum   (ec0c)

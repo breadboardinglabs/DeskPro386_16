@@ -1,0 +1,123 @@
+NAME         D4-SADOD ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+/* PAL20R4 */
+
+/*                                                PAL DESIGN SPECIFICATION */
+
+/* D4-SADOD 108393-001                                     PAUL R. CULLEY 01/09/87 */
+
+/* Bus enable to address converter and cycle end logic */
+
+/* COPYRIGHT 1986, 1987 COMPAQ COMPUTER HOUSTON, TEXAS */
+
+
+PIN 1 = CALE ;
+PIN 2 = ALE ;
+PIN 3 = !BE3 ;
+PIN 4 = !BE2 ;
+PIN 5 = !BE1 ;
+PIN 6 = !BE0 ;
+PIN 7 = LM_IO ;
+PIN 8 = T00 ;
+PIN 9 = T10 ;
+PIN 10 = !LM16 ;
+PIN 11 = !IO16 ;
+PIN 13 = BHLDA ;
+PIN 14 = !CMD ;
+PIN 15 = !CLAST ;
+PIN 16 = !CLSTD ;
+PIN 17 = A1 ;
+PIN 18 = A0 ;
+PIN 19 = !BHE ;
+PIN 20 = !ALST ;
+PIN 21 = !CX16 ;
+PIN 22 = !DCMD ;
+PIN 23 = !RST ;/* The following 4 outputs are clocked by ALE, output only when /HLDA is true */
+
+                      
+                 
+
+  
+!A1.D =
+        !RST & !BE3 & !BE2 
+      # !RST & !A1 & !A0  & !CX16 & !CLAST 
+      # !RST & BE1 & CLAST;         
+
+A1.oe = !BHLDA;
+  
+!A0.D =
+        !RST & BE0 & CLAST         
+      # !RST & BE2 & !BE1 & CLAST   
+      # !RST & BE2 & A0 & !CLAST    
+      # !RST & CX16 & !CLAST;       
+A0.oe = !BHLDA;
+
+  
+BHE.D =
+        !RST & !A0 & !CX16 & !CLAST 
+      # !RST & BE1 & CLAST         
+      # !RST & BE3; 
+BHE.oe = !BHLDA;
+
+ 
+ALST.D =
+        !RST & !CX16  & !BE2   & !CLAST 
+      # !RST & !BE2   & !BE0   & CLAST  
+      # !RST & !BE3   & !BE1   & CLAST  
+      # !RST & !BE3   & A0     & !CLAST 
+      # !RST & !CX16  & A1     & !A0  & !CLAST 
+      # !RST & CX16   & !BE3   & !CLAST;        /* Cycle LAST PRESET input for internal F/F (Cleared by rising edge of ALE)  */
+ALST.oe = !BHLDA;                                /* This is pulsed only once to set F/F and generate the NAB* signal */
+ 
+
+ 
+CLSTD =
+         ALST  &  T00                            /* Active during the last cycle of set */
+      #  LM_IO  & LM16 & T00 & !BE2 
+      #  LM_IO  & LM16 & T00 & A1  
+      # !LM_IO & IO16 & T10 & !BE2 & !ALST 
+      # !LM_IO & IO16 & T10 & A1  & !ALST  
+      #  RST;                                    /* and during RESET */
+CLSTD.oe = 'b'1;                               
+ 
+CLAST =
+         ALST   & T00                             /* Active during the last cycle of set */
+      #  LM_IO  & LM16 & T00 & !BE2 
+      #  LM_IO  & LM16 & T00 & A1  
+      # !LM_IO & IO16 & T10 & !BE2 & !ALST 
+      # !LM_IO & IO16 & T10 & A1 & !ALST   
+      #  RST                                      /* and during RESET */
+      #  CLAST  &  !ALE;                          /* HOLDS ACTIVE TILL ALE */
+CLAST.oe = 'b'1;                      
+  
+CX16 = 
+  !RST &  LM_IO &  T00 & LM16  /* CPU MEM OP */
+# !RST & !LM_IO &  T10 & IO16  /* CPU I/O OP */                  
+# !RST & !ALE          & CX16; /* CPU HOLD */
+CX16.oe = 'b'1;            
+ 
+DCMD = CMD; /*  DELAYED COMMAND */
+DCMD.oe = 'b'1;                                 
+
+
+
+/*
+DESCRIPTION
+This PAL converts the CPUs bus enable lines to address lines and cycles from 
+one to the next when multiple cycles are required. It also determines_when 
+the last cycle is in progress to develop the Cycle LAST signal. 
+Rev A of this device changes the CX16* equation to go away on ALE. The input 
+T01 is changed to T10 and IO16* is changed to LM_IO as part of an overall 
+change to delay the sampling of IO16* by one clock. Rev A can be used in any 
+D4-PROCESSOR from rev X5 up.
+Rev D is for the D4-Processor Enhanced (397 version)
+-----------------------------------------------------------------------------
+
+*/

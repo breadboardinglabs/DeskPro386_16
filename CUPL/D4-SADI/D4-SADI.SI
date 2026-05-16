@@ -1,0 +1,60 @@
+NAME         D4-SADI ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+ORDER:
+
+   TST, %1
+ , HLDA, %1
+ , A1, %1
+ , A0, %1
+ ,!BHE, %1
+ ,!CX16, %1
+ ,!CMD, %1
+ , LW_R, %3
+
+ , !BE3, %1
+ , !BE2, %1
+ , !BE1, %1
+ , !BE0, %1
+ ,  B3CK, %1
+ ,  B2CK, %1
+ ,  B1CK, %1
+ ,  B0CK, %1;
+  
+VECTORS:
+$TRACE 1;
+/*
+   H       C   L           B B B B
+ T L     B X C W   B B B B 3 2 1 0
+ S D A A H 1 M _   E E E E C C C C
+ T A 1 0 E 6 D R   3 2 1 0 K K K K */
+
+ 0 1 0 0 0 1 0 0   H H L L L L L H
+ 0 1 0 0 1 1 0 0   H H H L L L L H
+ 0 1 0 1 0 1 0 0   H H L H L L H L
+ 0 1 1 0 0 1 0 0   L L H H L H L L
+ 0 1 1 0 1 1 0 0   H L H H L H L L
+ 0 1 1 1 0 1 0 0   L H H H H L L L
+ 0 0 0 0 0 0 0 0   Z Z Z Z L L H H
+ 0 0 0 0 1 0 0 0   Z Z Z Z L L L H
+ 0 0 0 1 0 0 0 0   Z Z Z Z L L H L
+ 0 0 1 0 0 0 0 0   Z Z Z Z H H L L
+ 0 0 1 0 1 0 0 0   Z Z Z Z L H L L
+ 0 0 1 1 0 0 0 0   Z Z Z Z H L L L
+ 0 0 0 0 0 0 1 0   Z Z Z Z L L L L
+ 0 0 1 0 0 0 1 0   Z Z Z Z L L L L
+ 0 0 0 0 0 0 0 1   Z Z Z Z L L L L
+ 0 0 1 0 0 0 0 1   Z Z Z Z L L L L
+ 1 0 1 0 0 0 0 1   Z Z Z Z Z Z Z Z
+/*
+;  H       C   L           B B B B
+;T L     B X C W   B B B B 3 2 1 0
+;S D A A H 1 M _   E E E E C C C C
+;T A 1 0 E 6 D R   3 2 1 0 K K K K
+*/

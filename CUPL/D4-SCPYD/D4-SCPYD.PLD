@@ -1,0 +1,104 @@
+NAME         D4-SCPYD ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+/* PAL16L8 */
+
+/*                                                PAL DESIGN SPECIFICATION */
+
+/* D4-SCPYD 108395-OO1                                     PAUL R. CULLEY 12/17/86 */
+
+/* Copy buffer control logic and DMA low address logic
+   Note that changes were required to LM16 to avoid Unstable Output errors in the simulation
+   !LM16 changed to registered with BALE as the clock and Pin 11 defined as oe output enable active low
+   !HLDA moved to pin 19   */
+
+/* Copyright 1986 COMPAQ COMPUTER Houston, Texas */
+
+
+/* PIN 1 = !M16 ; */
+PIN 1 = BALE ;
+PIN 2 = !IO16 ;
+PIN 3 = !MWTC ;
+PIN 4 = !MRDC ;
+PIN 5 = !IOWX ;
+PIN 6 = !IORC ;
+PIN 7 = !DAEN1 ;
+PIN 8 = AEN2 ;
+PIN 9 = !M16 ;
+/* PIN 9 = BALE ; */
+/* PIN 11 = !HLDA ; */
+PIN 11 =  oe ;
+PIN 12 = !DAEN2 ;
+PIN 13 = !COPYEN ;
+PIN 14 = !COPYHL ;
+PIN 15 = !DAEN ;
+PIN 16 = !BHE ;
+PIN 17 = XA0 ;
+PIN 18 = !LM16 ;
+PIN 19 = !HLDA ;
+               
+            
+
+  
+COPYEN =
+  !DAEN  & BHE     & XA0  & !LM16 & MWTC  /* CPU write MEM */
+# !DAEN  & BHE     & XA0  & !IO16 & IOWX  /* CPU write I/O */
+# !DAEN  & BHE     & XA0  & !LM16 & MRDC  /* CPU read MEM */
+# !DAEN  & BHE     & XA0  & !IO16 & IORC  /* CPU read I/O */
+#  DAEN1 & COPYHL  & XA0  &  LM16 & MRDC  /* DMA byte mem read high of 16 */
+#  DAEN1           & XA0  &  LM16 & IORC; /* DMA byte mem write high of 16 */
+            
+  
+COPYHL = 
+  !DAEN  & BHE  & XA0  & !LM16  & MWTC    /* mem write */
+# !DAEN  & BHE  & XA0  & !IO16  & IOWX    /* I/O write */
+#  DAEN1        & XA0  &  LM16  & MRDC    /* DMA byte mem read high of 16 */
+#  COPYHL  & COPYEN;                      /*  Short holdover for write */
+                      
+    
+DAEN =
+  DAEN1  & HLDA 
+# AEN2   & HLDA;                          /* If word type of DMA, enable out  */
+ 
+        
+                                              
+XA0.OE = AEN2 & HLDA;
+     
+!XA0 = AEN2;                              /*  (Pin is low for word DMA) */
+
+/* If DMA, enable output */
+BHE.OE = DAEN ;
+   
+BHE =
+  XA0  & DAEN1                             /*  If byte type, is inverted XA0 */
+# AEN2;                                    /* If word type, is active */
+                           
+
+LM16.d = M16;                              /* use BALE to latch M16 to avoid unstable output error on LM16 in simulation */
+
+/* The Latch term below causes simulations to fail due to Unstable Outputs, converted to registered pin
+LM16 =
+  M16  &  BALE                             Enable M16 input 
+# LM16 & !BALE                             Latch term **** Doesn't work reliably!
+# LM16 &  M16;                             Deglitch term */
+                              
+ 
+DAEN2 = AEN2  &  HLDA;                     /* TIGHTEN UP ON HLDA */
+                            
+
+/*
+DESCRIPTION
+This PAL implements the logic to enable the copy buffer (high to low halves 
+of the 16 bit bus). It also drives the A0 and BHE lines as appropriate during
+DMA.
+Rev A changes the COPYHL enable during byte DMA operations to the high half of 
+the bus. The timing is made earlier by changing to IORC from MWTC. 
+Rev D changes the polarity of the AEN2 signal for logic reduction on the D3PE 
+D4-PROCESSOR board (with 80387).
+*/

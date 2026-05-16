@@ -1,0 +1,184 @@
+
+*******************************************************************************
+                                    D4-RRAS
+*******************************************************************************
+
+CUPL(WM)        5.0a Serial# MW-10400000
+Device          g16v8s  Library DLIB-h-40-9
+Created         Sat May 16 16:02:31 2026
+Name            D4-RRAS D4 PAGE RAM BOARD RAS decode logic
+Partno          l08054-001
+Revision        01
+Date            16/5/26
+Designer        Dave Henry
+Company         Breadboarding Labs
+Assembly        None
+Location        None
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+PARRD =>
+    !A17 & !A18 & !A19 & !A20 & !A21 & A22 & A23 & A31 & MRD
+
+PARWR =>
+    !A17 & !A18 & !A19 & !A20 & !A21 & A22 & A23 & A31 & MWE
+
+RS0 =>
+    !A19 & !A20 & !A21 & !A22 & !A23 & !A31
+  # !A19 & !A21 & !A22 & !A23 & !A31 & !FA20
+  # !A17 & !A18 & A19 & !A20 & !A21 & !A22 & !A23 & !A31
+  # A17 & A18 & A19 & !A20 & !A21 & !A22 & !A23 & !A31
+  # A20 & A21 & A22 & A23 & !A31
+  # RFSH
+
+RS1 =>
+    A20 & !A21 & !A22 & !A23 & !A31 & FA20
+  # RFSH
+
+WE0 =>
+    !A19 & !A21 & !A22 & !A23 & !A31 & MWE
+  # !A17 & !A18 & A19 & !A20 & !A21 & !A22 & !A23 & !A31 & MWE
+  # A17 & A18 & A19 & !A20 & !A21 & !A22 & !A23 & !A31 & MWE & !ROM
+  # A18 & !A19 & A20 & A21 & A22 & A23 & !A31 & MWE
+  # !A18 & A19 & A20 & A21 & A22 & A23 & !A31 & MWE
+  # !A17 & A18 & A19 & A20 & A21 & A22 & A23 & !A31 & MWE
+  # A17 & A18 & A19 & A20 & A21 & A22 & A23 & !A31 & MWE & !ROM
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+    A17                         8        V        -       -       -     
+    A18                         7        V        -       -       -     
+    A19                         6        V        -       -       -     
+    A20                         5        V        -       -       -     
+    A21                         4        V        -       -       -     
+    A22                         3        V        -       -       -     
+    A23                         2        V        -       -       -     
+    A31                         1        V        -       -       -     
+    FA20                        9        V        -       -       -     
+ !  MRD                         14       V        -       -       -     
+ !  MWE                         13       V        -       -       -     
+ !  PARRD                       16       V        1       8       1     
+ !  PARWR                       17       V        1       8       1     
+ !  RFSH                        11       V        -       -       -     
+ !  ROM                         18       V        -       -       -     
+ !  RS0                         12       V        6       8       1     
+ !  RS1                         19       V        2       8       1     
+ !  WE0                         15       V        7       8       1     
+
+
+LEGEND    D : default variable         F : field      G : group
+          I : intermediate variable    N : node       M : extended node
+          U : undefined                V : variable   X : extended variable
+          T : function
+
+
+===============================================================================
+                                   Fuse Plot
+===============================================================================
+
+Syn   02192 - Ac0   02193 x 
+
+Pin #19  02048  Pol x  02120  Ac1 x 
+ 00000 -x-x-x---x--x---------------x--- 
+ 00032 -------------------------------x 
+ 00064 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00096 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00128 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00160 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00192 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00224 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #18  02049  Pol x  02121  Ac1 - 
+ 00256 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00288 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00320 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00352 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00384 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00416 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00448 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00480 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #17  02050  Pol x  02122  Ac1 x 
+ 00512 x-x-x----x---x---x---x-x-x------ 
+ 00544 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00576 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00608 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00640 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00672 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00736 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #16  02051  Pol x  02123  Ac1 x 
+ 00768 x-x-x----x---x---x-x-x---x------ 
+ 00800 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00832 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00864 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00896 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00928 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00992 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #15  02052  Pol x  02124  Ac1 x 
+ 01024 -x-x-x---x-------x-----x-------- 
+ 01056 -x-x-x---x---x--x----x-x-x------ 
+ 01088 -x-x-x---xx--x--x---x--xx------- 
+ 01120 x--xx---x---x----x--x--x-------- 
+ 01152 x--xx---x---x---x----x-x-------- 
+ 01184 x--xx---x---x---x---x--x-x------ 
+ 01216 x--xx---x-x-x---x---x--xx------- 
+ 01248 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #14  02053  Pol x  02125  Ac1 - 
+ 01280 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01312 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01344 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01376 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01408 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01440 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01472 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01504 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #13  02054  Pol x  02126  Ac1 - 
+ 01536 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01568 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01600 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01632 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01664 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01696 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01728 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01760 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #12  02055  Pol x  02127  Ac1 x 
+ 01792 -x-x-x---x---x---x-------------- 
+ 01824 -x-x-x---x-------x-----------x-- 
+ 01856 -x-x-x---x---x--x----x---x------ 
+ 01888 -x-x-x---x---x--x---x---x------- 
+ 01920 x--xx---x---x------------------- 
+ 01952 -------------------------------x 
+ 01984 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+
+
+LEGEND    X : fuse not blown 
+          - : fuse blown 
+
+===============================================================================
+                                 Chip Diagram
+===============================================================================
+
+                               ______________
+                              |   D4-RRAS    |
+                      A31 x---|1           20|---x Vcc                      
+                      A23 x---|2           19|---x !RS1                     
+                      A22 x---|3           18|---x !ROM                     
+                      A21 x---|4           17|---x !PARWR                   
+                      A20 x---|5           16|---x !PARRD                   
+                      A19 x---|6           15|---x !WE0                     
+                      A18 x---|7           14|---x !MRD                     
+                      A17 x---|8           13|---x !MWE                     
+                     FA20 x---|9           12|---x !RS0                     
+                      GND x---|10          11|---x !RFSH                    
+                              |______________|
+

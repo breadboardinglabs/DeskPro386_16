@@ -1,0 +1,149 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SCMDD.pld                     Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:43:29 2026
+
+  1:NAME         D4-SCMDD ;
+  2:PARTNO       XXXXX ;
+  3:REV          XX ;
+  4:DATE         XX/XX/XX ;
+  5:DESIGNER     XXXXX ;
+  6:COMPANY      XXXXX ;
+  7:ASSEMBLY     XXXXX ;
+  8:LOCATION     XXXXX ;
+  9:
+ 10:/* PAL16L8 */
+ 11:
+ 12:/*                                                PAL DESIGN SPECIFICATION */
+ 13:
+ 14:/* D4-SCMDD  108394-001                                 PAUL R. CULLEY    01/09/87 */
+ 15:
+ 16:/* Command encode and decode logic */
+ 17:
+ 18:/* Copyright 1986,1987 COMPAQ COMPUTER Houston, Texas */
+ 19:
+ 20:
+ 21:PIN 1 = !CMD ;
+ 22:PIN 2 = !DCMD ;
+ 23:PIN 3 = LM_IO ;
+ 24:PIN 4 = LW_R ;
+ 25:PIN 5 = LD_C ;
+ 26:PIN 6 = !RFSH ;
+ 27:PIN 7 = !BHLDA ;
+ 28:PIN 8 = NCI1 ;
+ 29:PIN 9 = NCI2 ;
+ 30:PIN 11 = !OE ;
+ 31:PIN 12 = !IOWC ;
+ 32:PIN 13 = !MRDC ;
+ 33:PIN 14 = !MWTC ;
+ 34:PIN 15 = !IORC ;
+ 35:PIN 16 =  MHLDA ;
+ 36:PIN 17 =  M_IO ;
+ 37:PIN 18 =  D_C ;
+ 38:PIN 19 =  W_R ;
+ 39:
+ 40:
+ 41:
+ 42:/*  MRDC.oe = OE ; MRDC will be an input when .oe=0 SI file needs 1/0 */
+ 43:MRDC.oe = !BHLDA&OE ;
+ 44:    
+ 45:MRDC =
+ 46:  CMD & LM_IO  & !LW_R         /*  PROCESSOR MEMORY READ */
+ 47:# DCMD  & MRDC;                /*  SHORT READ HOLD */
+ 48:                   
+ 49:
+ 50:/* MWTC.oe = OE ; MWTC will be an input when .oe=0 SI file needs 1/0 */
+ 51:MWTC.oe = !BHLDA&OE ; 
+ 52:    
+ 53:MWTC =
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SCMDD.pld                     Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:43:29 2026
+
+ 54:  CMD & LM_IO  & LW_R  & LD_C; /* PROCESSOR MEMORY WRITE */
+ 55:     
+ 56:
+ 57:IORC.oe = !BHLDA&OE ;
+ 58:    
+ 59:IORC =
+ 60:  CMD & !LM_IO & !LW_R  & LD_C /* PROCESSOR I/O READ */
+ 61:# DCMD  &  IORC;               /* SHORT READ HOLD */
+ 62:                   
+ 63:
+ 64:IOWC.oe = !BHLDA&OE ;
+ 65:    
+ 66:IOWC =
+ 67:  CMD & !LM_IO & LW_R  & LD_C; /* PROCESSOR I/O WRITE */
+ 68:    
+ 69:
+ 70:M_IO.oe = BHLDA&OE ;
+ 71:    
+ 72:!M_IO =
+ 73:  MWTC  # MRDC;                /* NON CPU MEMORV OPERATION */
+ 74:  
+ 75:D_C.oe = BHLDA&OE ;
+ 76:     
+ 77:D_C = !RFSH;                   /* NON CPU REFRESH OPERATION */
+ 78:         
+ 79:W_R.oe = BHLDA&OE ;
+ 80:    
+ 81:W_R = !MWTC;                   /* NON CPU WRITE OPERATION */
+ 82:          
+ 83: 
+ 84:!MHLDA =
+ 85:  !BHLDA                      /* SAME A BHLDA EXCEPT */
+ 86:# !MHLDA  & !M_IO;            /* WHEN GOING HOLD, WAIT FOR M_IO TO GO HIGH */
+ 87:
+ 88:
+ 89:/*
+ 90:DESCRIPTION
+ 91:This PAL decodes the processor status lines and generates the normal command
+ 92:output signals. These signals are floated during non processor commands.
+ 93:
+ 94:In addition, the PAL decodes the non processor operations and feeds them to 
+ 95:the cpu status bus during HOLDA.
+ 96:
+ 97:Rev A of the PAL adds the input DCMD* and OE*. DCMD* is used to provide a 
+ 98:short data hold time for read operations by extending MRDC and IORC by one 
+ 99:PAL delay (10 ns). OE* is added to disable all outputs for testing.
+100:Rev D of the PAL removes INTA and adds MHLDA for use in the DP3E D4-processor
+101:board (with 387).
+102:
+103:; HLDA M_IO D_C W_R
+104:;  L    L    L   L    ; CPU INTERRUPT ACK
+105:;  L    L    L   H    ; CPU NEVER PRODUCES THIS CODE
+106:;  L    L    H   L    ; CPU I/O READ
+107:;  L    L    H   H    ; CPU I/O WRITE
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SCMDD.pld                     Page 3
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:43:29 2026
+
+108:;  L    H    L   L    ; CPU MEMORY CODE READ
+109:;  L    H    L   H    ; CPU HALT OR SHUTDOWN
+110:;  L    H    H   L    ; CPU MEMORY DATA READ
+111:;  L    H    H   H    ; CPU MEMORY DATA WRITE
+112:;  H    L    L   L    ; NON CPU REFRESH WRITE (SHOULD NOT HAPPEN)
+113:;  H    L    L   H    ; NON CPU REFRESH READ
+114:;  H    L    H   L    ; NON CPU MEMORY WRITE
+115:;  H    L    H   H    ; NON CPU MEMORY READ
+116:;  H    H    L   X    ; NON CPU REFRESH CYCLE (BEFORE OR AFTER)
+117:;  H    H    H   X    ; NON CPU NO CYCLE PRESENT
+118:
+119:*/
+120:
+121:
+
+
+
+Jedec Fuse Checksum       (52e8)
+Jedec Transmit Checksum   (1321)

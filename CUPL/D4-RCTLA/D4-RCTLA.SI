@@ -1,0 +1,117 @@
+NAME         D4-RCTLA ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+
+ORDER:
+ 
+    CLK, %1
+ , !CLK16, %1
+ , !OE, %1
+ , !ADSM, %1
+ , !DMIO, %1
+ ,  D_C, %1
+ ,  W_R, %1
+ , !M32, %1
+ ,  HLDA, %1
+ , !HIT, %3
+
+ , !MRAS, %1
+ , !SWM, %1
+ , !MCAS, %1
+ , !NAM, %1
+ , !MRDY, %1
+ , !MWE, %1
+ , !MRD, %1
+ , !YY;
+
+
+VECTORS:
+
+/*
+ C C   / /             /   /   /  
+ L L   A D     / H /   M / M / M / / 
+ K K / D M D W M L H   R S C N R M M / 
+ 3 l O S I - - 3 D I   A W A A D W R Y 
+ 2 6 E M 0 C R 2 A T   S M S M Y E D Y */
+
+ C 0 0 0 1 1 1 1 1 1   H H H H H H H H /* RESET */
+ C 1 0 0 1 0 0 0 0 0   H H H H H H H H
+ C 0 0 0 1 0 0 0 0 0   H L H H H H H H /* MEM READ INITIAL */
+ C 1 0 1 1 0 0 0 0 0   L L H H H H H H
+ C 0 0 1 1 0 0 0 0 0   L H H L H H H H
+ C 1 0 1 1 0 0 0 0 0   L H H L H H L L
+ C 0 0 1 1 0 0 0 0 1   L H L H L H L L
+ C 1 0 0 1 0 0 0 0 0   L H L H L H L L
+ C 0 0 0 1 0 0 0 0 0   L H H L H H H H /* READ HIT STARTS */
+ C 1 0 1 1 0 0 0 0 0   L H H L H H L L
+ C 0 0 1 1 0 0 0 0 0   L H L H L H L L
+ C 1 0 0 1 0 0 0 0 1   L H L H L H L L
+ C 0 0 0 1 0 0 0 0 1   H H H H H H H L /* READ MISS STARTS */
+ C 1 0 1 1 0 0 0 0 1   H H H H H H H L
+ C 0 0 1 1 0 0 0 0 1   H L H H H H H H
+ C 1 0 1 1 0 0 0 0 1   L L H H H H H H
+ C 0 0 1 1 0 0 0 0 0   L H H L H H H H
+ C 1 0 1 1 0 0 0 0 0   L H H L H H L L
+ C 0 0 1 1 0 0 0 0 1   L H L H L H L L
+ C 1 0 0 1 1 1 0 0 0   L H L H L H L L
+ C 0 0 0 1 1 1 0 0 0   L H H L H H H H /* WRITE HIT STARTS */
+ C 1 0 1 1 1 1 0 0 0   L H H L H L H L
+ C 0 0 1 1 1 1 0 0 0   L H H H L L H L
+ C 1 0 0 1 1 1 0 0 1   L H L H L L H L
+ C 0 0 0 1 1 1 0 0 1   H H H H H H H L /* WRITE MISS STARTS  */
+ C 1 0 1 1 1 1 0 0 1   H H H H H H H L
+ C 0 0 1 1 1 1 0 0 1   H L H H H H H H
+ C 1 0 1 1 1 1 0 0 1   L L H H H H H H
+ C 0 0 1 1 1 1 0 0 0   L H H L H H H H
+ C 1 0 1 1 1 1 0 0 0   L H H L H L H L
+ C 0 0 1 1 1 1 0 0 1   L H H H L L H L
+ C 1 0 1 1 1 1 0 0 0   L H L H L L H L
+ C 0 0 1 1 1 1 0 0 0   H H H H H H H H /* IDLE CYCLE */
+ C 1 0 0 1 1 1 0 0 0   H H H H H H H H
+ C 0 0 0 1 1 1 0 0 0   H L H H H H H H /* WRITE INITIAL OUT OF A LONG PIPE  */
+ C 1 0 0 1 1 1 0 0 0   H L H H H H H H
+ C 0 0 0 1 1 1 0 0 0   H L H H H H H H
+ C 1 0 1 1 1 1 0 0 0   L L H H H H H H
+ C 0 0 1 1 1 1 0 0 0   L H H L H H H H
+ C 1 0 1 1 1 1 0 0 0   L H H L H L H L
+ C 0 0 1 1 1 1 0 0 1   L H H H L L H L
+ C 1 0 1 1 1 1 0 0 0   L H L H L L H L
+ C 0 0 1 1 1 1 0 0 0   H H H H H H H H /* IDLE CYCLE */
+ C 1 0 1 1 1 1 0 1 0   H L H L H H H H
+ C 0 0 1 1 0 1 0 1 0   H H H L H H H H
+ C 1 0 1 1 0 1 0 1 0   H H H L H H H H
+ C 0 0 1 0 0 1 1 1 1   L H H L H H H H /* REFRESH */
+ C 1 0 1 0 0 1 1 1 1   L H H L H H H H
+ C 0 0 1 0 0 1 1 1 1   L H H L H H H L
+ C 1 0 1 0 0 1 1 1 1   L L H L H H H L
+ C 0 0 1 0 0 1 1 1 1   H L H L H H H L
+ C 1 0 1 0 0 1 1 1 1   H L H L H H H L
+ C 0 0 1 1 0 1 1 1 1   H H H L H H H H
+ C 1 0 1 1 1 0 1 1 1   H L H L H H H H
+ C 0 0 1 0 1 1 1 1 1   H L H L H H H H /* DMA READ ELSEWHERE */
+ C 1 0 1 0 1 1 0 1 1   L L H L H H H H /* DMA READ */
+ C 0 0 1 0 1 1 0 1 1   L H H L H H L H
+ C 1 0 1 0 1 1 0 1 1   L H L L H H L H
+ C 0 0 1 0 1 1 0 1 1   L H L L H H L L
+ C 1 0 1 0 1 0 0 1 1   H H L L H H L L
+ C 0 0 1 0 1 0 0 1 1   H L L L H H L L
+ C 1 0 1 1 1 0 0 1 1   H L H L H H H H
+ C 0 0 1 1 1 0 1 1 1   H L H L H H H H
+ C 1 0 1 0 1 0 1 1 1   H L H L H H H H /* DMA WRITE ELSEWHERE */
+ C 0 0 1 0 1 0 0 1 1   L L H L H L H H /* DMA WRITE */
+ C 1 0 1 0 1 0 0 1 1   L H H L H L H H
+ C 0 0 1 0 1 0 0 1 1   L H L L H L H H
+ C 1 0 1 0 1 0 0 1 1   L H L L H L H L
+ C 0 0 1 0 1 0 0 1 1   H H L L H L H L
+ C 1 0 1 0 1 1 0 1 1   H L H L H L H L
+ C 0 0 1 0 1 1 0 1 1   H L H L H L H L
+ C 1 0 1 1 1 1 0 1 1   H L H L H H H H
+ C 0 0 1 1 1 0 0 1 1   H L H L H H H H
+ C 1 0 1 1 1 0 0 0 1   H L H L H H H H
+ C 0 0 1 1 1 0 0 0 1   H H H H H H H H

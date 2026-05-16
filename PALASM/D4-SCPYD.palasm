@@ -11,21 +11,21 @@ COPYEN  = /DAEN* BHE * XA0 * /LM16* MWTC      ;CPU write MEM
         + /DAEN* BHE * XA0 * /LM16* MRDC      ;CPU read MEM
         + /DAEN* BHE * XA0 * /IO16* IORC      ;CPU read I/O
         + DAEN1 * COPYHL * XA0 * LM16 * MRDC  ;DMA byte mem read high of 16
-        + DAENI * XA0 * LM16 * IORC           ;DMA byte mem write high of 16
+        + DAEN1 * XA0 * LM16 * IORC           ;DMA byte mem write high of 16
 
 COPYHL  = /DAEN * BHE * XA0 * /LM16 * MWTC    ;mem write
         + /DAEN * BHE * XA0 * /IO16 * IOWX    ;I/O write
-        + DAENI * XA0 * LM16 * MRDC           ;DMA byte mem read high of 16
+        + DAEN1 * XA0 * LM16 * MRDC           ;DMA byte mem read high of 16
         + COPYHL * COPYEN                     ; Short holdover for write
 
-DAEN    = DAENl * HLDA
+DAEN    = DAEN1 * HLDA
         + AEN2 * HLDA
         
                                               ;If word type of DMA, enable out 
 IF (AEN2 * HLDA) /XA0 = AEN2                  ; (Pin is low for word DMA)
 
                                               ;If DMA, enable output
-IF (DAEN) BHE = XA0 * DAENl                   ; If byte type, is inverted XA0
+IF (DAEN) BHE = XA0 * DAEN1                   ; If byte type, is inverted XA0
               + AEN2                          ;If word type, is active
 
 LM16 = M16 * BALE                             ;Enable M16 input

@@ -1,0 +1,123 @@
+Name            D4-RM32 D4 PAGE RAM BOARD M32 decode logic;
+PartNo          108053-001;
+Revision        01;
+Date            16/5/26;
+Designer        Dave Henry;
+Company         Breadboarding Labs;
+Location        None;
+Assembly        None;
+Device          g16v8;
+
+/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+/*                                                                                         */
+/*******************************************************************************************/
+/*                                                                                         */
+/*******************************************************************************************/
+/*
+DESCRIPTION
+*/
+/* Pin Map 
+
+                               ______________
+                              |   D4-RM32    |
+                      A31 x---|1           20|---x Vcc                      
+                      A23 x---|2           19|---x !M32C                    
+                      A22 x---|3           18|---x !8M                      
+                      A21 x---|4           17|---x !1M                      
+                      A20 x---|5           16|---x !640K                    
+                      A19 x---|6           15|---x !512K                    
+                      A18 x---|7           14|---x !ROM                     
+                      A17 x---|8           13|---x !M32B                    
+                     FA20 x---|9           12|---x !M32A                    
+                      GND x---|10          11|---x !2M                      
+                              |______________|
+
+*/
+
+PIN 1 = A31 ;
+PIN 2 = A23 ;
+PIN 3 = A22 ;
+PIN 4 = A21 ;
+PIN 5 = A20 ;
+PIN 6 = A19 ;
+PIN 7 = A18 ;
+PIN 8 = A17 ;
+PIN 9 = FA20 ;
+PIN 11 = !2M ;
+PIN 12 = !M32A ;
+PIN 13 = !M32B ;
+PIN 14 = !ROM ;
+PIN 15 = !512K ;
+PIN 16 = !640K ;
+PIN 17 = !1M ;
+PIN 18 = !8M ;
+PIN 19 = !M32C ;
+
+M32A.OE = !A22&!A21 ;
+     
+M32A =
+  !A31 & !A23& !A22& !A21& !A20& !A19& !A18              /* 000000-03FFFF 256K */
+# !A31 & !A23& !A22& !A21& !A19& !A18& !FA20             /* 000000-03FFFF 256K */
+# !A31 & !A23& !A22& !A21& !A20& !A19&  A18&       512K  /* 040000-07FFFF 256K */
+# !A31 & !A23& !A22& !A21& !A20&  A19& !A18& !A17& 640K  /* 080000-09FFFF 128K */
+# !A31 & !A23& !A22& !A21& !A20&  A19&  A18&  A17& ROM   /* 0E0000-0FFFFF 128K */
+# !A31 & !A23& !A22& !A21&  A20&                   1M    /* 100000-1FFFFF 1M */
+# !A31 &  A23& !A22& !A21&                         8M;   /* 800000-9FFFFF 2M */
+                               
+
+M32B.OE = A22&!A21 ;
+     
+M32B =
+ !A31 & !A23& A22 & !A21&                          8M    /* 400000-5FFFFF 2M */
+# A31  & A23 & A22 & !A21& !A20& !A19& !A18& !A17;       /* DIAG 8000000h 128K */
+              
+
+M32C.OE = A21 ;
+   
+M32C =
+  !A31 & A23 & A22 & A21 & A20& !A19&  A18&       !512K  /* F40000-F7FFFF 256K */
+# !A31 & A23 & A22 & A21 & A20&  A19& !A18& !A17& !640K  /* F80000-F9FFFF 128K */
+# !A31 & A23 & A22 & A21 & A20&  A19& !A18&  A17         /* FA0000-FBFFFF 128K */
+# !A31 & A23 & A22 & A21 & A20&  A19&  A18               /* FC0000-FFFFFF 256K */
+# !A31 & !A23& A22 & A21 &                         8M    /* 600000-7FFFFF 2M */
+# !A31 & !A23& !A22& A21 &                         2M;   /* 200000-3FFFFF 2M */
+
+/*
+DESCRIPTION
+This PAL is used in the D4 (386) memomy board to decode addresses within the
+memory space and assert the M32* signal. It does all the decoding for all the 
+expected options according to the following jumper settings.
+
+512K 640K                              1M
+H    H 256K     000000-03FFFFh         H       NO EXTENDED MEMORY
+L    H 512K     000000-07FFFFh         L       1024K   100000-1FFFFFh
+L    L 640K     000000-9FFFFFh         
+H    L ****     ILLEGAL
+8M 2M
+H  H   OK
+H  L   2048K    200000-3FFFFFh
+L  H   6144K    400000-9FFFFFh (NOTE: The 8 Meg board asserts both 8M and 2M
+L  L  8192K     200000-9FFFFFh strobes)
+
+When FA20 is low, the address line A20 should be considered to be low.
+When FA20 is high, A20 is decoded as usual.
+
+The above set of m32 outputs are wire ORed to form the signal M32*. The
+actual equation for M32 is shown below.
+M32 = /A31* /A23* /A22* /A21* /A20* /A19* /A18            ;000000-03FFFF 256K
++     /A31* /A23* /A22* /A21*     /A19* /A18*    /FA20 ;000000-03FFFF 256K
++     /A31* /A23* /A22* /A21* /A20* /A19* A18*      512K ;040000-07FFFF 256K
++     /A31* /A23* /A22* /A21* /A20* A19* /A18* /A17* 640K ;080000-09FFFF 128K
++     /A31* /A23* /A22* /A21* /A20* A19* A18* A17* ROM  ;0E0000-0FFFFF 128K
++     /A31* A23* A22* A21* A20* /A19* A18*     /512K ;F40000-F7FFFF 256K
++     /A31* A23* A22* A21* A20* A19* /A18* /A17* /640K ;F80000-F9FFFF 128K
++     /A31* A23* A22* A21* A20* A19* /A18* A17       ;FA0000-FBFFFF 128K
++     /A31* A23* A22* A21* A20* A19* A18            ;FC0000-FFFFFF 256K
++     /A31* /A23* /A22* /A21* A20*                1M   ;100000-1FFFFF 1M
++     /A31* /A23* /A22* A21*                     2M   ;200000-3FFFFF 2M
++     /A31* /A23* A22* /A21*                     8M   ;400000-5FFFFF 2M
++     /A31* /A23* A22* A21*                     8M   ;600000-7FFFFF 2M
++     /A31* A23* /A22* /A21*                     8M   ;800000-9FFFFF 2M
++     A31*  A23* A22* /A21* /A20* /A19* /A18* /A17       ;DIAG 80C0000h 128K
+
+*/

@@ -1,0 +1,91 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SPPI.pld                      Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:47:32 2026
+
+  1:NAME         D4-SPPI ;
+  2:PARTNO       XXXXX ;
+  3:REV          XX ;
+  4:DATE         XX/XX/XX ;
+  5:DESIGNER     XXXXX ;
+  6:COMPANY      XXXXX ;
+  7:ASSEMBLY     XXXXX ;
+  8:LOCATION     XXXXX ;
+  9:
+ 10:/* PAL16L8 */
+ 11:
+ 12:/*                                                PAL DESIGN SPECIFICATION */
+ 13:
+ 14:/* D4-SPPI 105659-001                                   PAUL R. CULLEY    12/10/85 */
+ 15:
+ 16:/* Peripheral interface decode logic */
+ 17:
+ 18:/* Copyright Compaq Computer Houston, Texas */
+ 19:
+ 20:
+ 21:PIN 1 = XA4 ;
+ 22:PIN 2 = !PPICS ;
+ 23:PIN 3 = !XIORC ;
+ 24:PIN 4 = XA3 ;
+ 25:PIN 5 = XA9 ;
+ 26:PIN 6 = XA0 ;
+ 27:PIN 7 = XA8 ;
+ 28:PIN 8 = !XIOWC ;
+ 29:PIN 9 = !INTA ;
+ 30:PIN 11 = RESCMOS ;
+ 31:PIN 12 = !CMOSWR ;
+ 32:PIN 13 = !NMICLK ;
+ 33:PIN 14 = !PBWR ;
+ 34:PIN 15 = !CMOSRD ;
+ 35:PIN 16 = !KEYCS ;
+ 36:PIN 17 = !CIORD ;
+ 37:PIN 18 = !PBRD ;
+ 38:PIN 19 = CMOSAWR ;
+ 39:                              
+ 40:           
+ 41:
+ 42: 
+ 43:NMICLK = PPICS  &  XA4  & !XA3  & !XA0 & XIOWC; /*  NMI register write (70h) */
+ 44: 
+ 45:CMOSRD = PPICS  &  XA4  & !XA3  &  XA0 & XIORC; /*  CMOS data read (71h) */
+ 46: 
+ 47:CMOSWR = PPICS  &  XA4  & !XA3  &  XA0 & XIOWC; /*  CMOS data write (71h) */
+ 48:  
+ 49:KEYCS  = PPICS  & !XA4  & !XA3  & !XA0;         /*  8042 (60h, 64h) */
+ 50:   
+ 51:PBWR   = PPICS  & !XA4  & !XA3  &  XA0 & XIOWC; /*  Port B write (61h) */
+ 52:   
+ 53:PBRD   = PPICS  & !XA4  & !XA3  &  XA0 & XIORC; /*  Port B read (61h) */
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SPPI.pld                      Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:47:32 2026
+
+ 54:  
+ 55:CIORD  = !XA9   & !XA8  &  XIORC                /*  0-FFH */
+ 56:       # INTA;                                  /*  or Interrupt ack */
+ 57: 
+ 58:!CMOSAWR = !NMICLK  & !RESCMOS                  /*  Inverted NMICLK */
+ 59:         # !XIOWC   & !RESCMOS;                 /*  CMOS address write (70h) */
+ 60:                  
+ 61:
+ 62:
+ 63:/*
+ 64:DESCRIPTION
+ 65:This PAL is used in the D4 (386) processor board to decode addresses within the
+ 66:range 60h to 7Fh for I/O. It also generates the signal that controls the
+ 67:direction of the I/O data buffer XD<7..0>.
+ 68:
+ 69:*/
+ 70:
+ 71:
+
+
+
+Jedec Fuse Checksum       (4f29)
+Jedec Transmit Checksum   (035d)

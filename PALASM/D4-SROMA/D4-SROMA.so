@@ -1,0 +1,91 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Sat May 16 17:10:37 2026
+
+LISTING FOR SIMULATION FILE: D4-SROMA.si
+
+   1: Name            D4-SROMA System ROM decode logic;
+   2: PartNo          108135-001;
+   3: Revision        01;
+   4: Date            16/05/26;
+                              ^
+[0025sa] Please note: inconsistent header information
+
+   5: Designer        Dave Henry;
+   6: Company         Breadboarding Labs;
+   7: Location        None;
+   8: Assembly        None;
+   9: 
+  10: /********************************************************************/
+  11: /*                                                                  */
+  12: /********************************************************************/
+  13: /* Target Device Types: ATF16V8 - Device g16v8                      */
+  14: /********************************************************************/
+  15: 
+  16: 
+  17: ORDER:
+  18:  
+  19:     BALE, %1
+  20:   , LA23, %1
+  21:   , LA22, %1
+  22:   , LA21, %1
+  23:   , LA20, %1
+  24:   , LA19, %1
+  25:   , LA18, %1
+  26:   , LA17, %1
+  27:   , SA16, %1
+  28:   ,!MRDC, %1
+  29:   ,!RFSH, %1
+  30:   ,!M32, %3
+  31: 
+  32:   ,!ROM, %1
+  33:   ,!ROMIOE, %1
+  34:   ,!ROM20E, %1
+  35:   ,!ROMEN, %1
+  36:   ,!M16E, %1
+  37:   ,!LOWEN;
+  38: 
+  39: /*
+  40:                              R R 
+  41:                              O O R   L 
+  42:  B L L L L L L L S M R       M M O M O 
+  43:  A A A A A A A A A R F M   R 1 2 M 1 W 
+  44:  L 2 2 2 2 1 1 1 1 D S 3   O O O E 6 E 
+  45:  E 3 2 1 0 9 8 7 6 C H 2   M E E N E N */
+  46: 
+
+==============================================
+                                  ! !         
+                                  R R !   !   
+                        ! !       O O R ! L   
+      B L L L L L L L S M R !   ! M M O M O   
+      A A A A A A A A A R F M   R I 2 M 1 W   
+      L 2 2 2 2 1 1 1 1 D S 3   O O 0 E 6 E   
+      E 3 2 1 0 9 8 7 6 C H 2   M E E N E N   
+==============================================
+0001: 1 0 0 0 0 0 0 0 0 1 1 0   H H H H L L
+0002: 0 0 0 0 0 0 0 0 0 1 1 1   H H H H H L
+0003: 0 0 0 0 0 1 1 1 0 1 1 1   H H H H L L
+0004: 1 0 0 0 0 1 1 1 0 1 1 1   L H H H L L
+0005: 0 0 0 0 0 0 0 0 0 0 1 1   L H L L H L
+0006: 1 0 0 0 0 0 0 0 0 1 1 1   H H H H H L
+0007: 0 0 0 0 0 0 0 0 0 1 1 1   H H H H H L
+0008: 0 1 1 1 1 1 1 1 1 1 1 1   H H H H L L
+0009: 1 1 1 1 1 1 1 1 1 1 1 1   L H H H L H
+0010: 0 1 1 1 1 0 0 0 1 0 1 1   L L H L H H
+0011: 1 0 0 0 0 0 0 0 1 1 1 1   H H H H H L
+0012: 1 1 0 0 0 1 1 1 1 1 1 1   H H H H H H
+0013: 1 0 1 0 0 1 1 1 1 1 1 1   H H H H H H
+0014: 1 0 0 1 0 1 1 1 1 1 1 1   H H H H H H
+0015: 1 0 0 0 1 1 1 1 1 1 1 1   H H H H H H
+0016: 1 0 0 0 0 0 1 1 1 1 1 1   H H H H H L
+0017: 1 0 0 0 0 1 0 1 1 1 1 1   H H H H H L
+0018: 1 0 0 0 0 1 1 0 1 1 1 1   H H H H H L
+0019: 1 0 1 1 1 1 1 1 1 1 1 1   H H H H H H
+0020: 1 1 0 1 1 1 1 1 1 1 1 1   H H H H H H
+0021: 1 1 1 0 1 1 1 1 1 1 1 1   H H H H H H
+0022: 1 1 1 1 0 1 1 1 1 1 1 1   H H H H H H
+0023: 1 1 1 1 1 0 1 1 1 1 1 1   H H H H H H
+0024: 1 1 1 1 1 1 0 1 1 1 0 1   H H H H H L
+0025: 1 1 1 1 1 1 1 0 1 1 1 1   H H H H H H

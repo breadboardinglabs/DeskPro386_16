@@ -1,0 +1,126 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SCPYD.pld                     Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:44:11 2026
+
+  1:NAME         D4-SCPYD ;
+  2:PARTNO       XXXXX ;
+  3:REV          XX ;
+  4:DATE         XX/XX/XX ;
+  5:DESIGNER     XXXXX ;
+  6:COMPANY      XXXXX ;
+  7:ASSEMBLY     XXXXX ;
+  8:LOCATION     XXXXX ;
+  9:
+ 10:/* PAL16L8 */
+ 11:
+ 12:/*                                                PAL DESIGN SPECIFICATION */
+ 13:
+ 14:/* D4-SCPYD 108395-OO1                                     PAUL R. CULLEY 12/17/86 */
+ 15:
+ 16:/* Copy buffer control logic and DMA low address logic
+ 17:   Note that changes were required to LM16 to avoid Unstable Output errors in the simulation
+ 18:   !LM16 changed to registered with BALE as the clock and Pin 11 defined as oe output enable active low
+ 19:   !HLDA moved to pin 19   */
+ 20:
+ 21:/* Copyright 1986 COMPAQ COMPUTER Houston, Texas */
+ 22:
+ 23:
+ 24:/* PIN 1 = !M16 ; */
+ 25:PIN 1 = BALE ;
+ 26:PIN 2 = !IO16 ;
+ 27:PIN 3 = !MWTC ;
+ 28:PIN 4 = !MRDC ;
+ 29:PIN 5 = !IOWX ;
+ 30:PIN 6 = !IORC ;
+ 31:PIN 7 = !DAEN1 ;
+ 32:PIN 8 = AEN2 ;
+ 33:PIN 9 = !M16 ;
+ 34:/* PIN 9 = BALE ; */
+ 35:/* PIN 11 = !HLDA ; */
+ 36:PIN 11 =  oe ;
+ 37:PIN 12 = !DAEN2 ;
+ 38:PIN 13 = !COPYEN ;
+ 39:PIN 14 = !COPYHL ;
+ 40:PIN 15 = !DAEN ;
+ 41:PIN 16 = !BHE ;
+ 42:PIN 17 = XA0 ;
+ 43:PIN 18 = !LM16 ;
+ 44:PIN 19 = !HLDA ;
+ 45:               
+ 46:            
+ 47:
+ 48:  
+ 49:COPYEN =
+ 50:  !DAEN  & BHE     & XA0  & !LM16 & MWTC  /* CPU write MEM */
+ 51:# !DAEN  & BHE     & XA0  & !IO16 & IOWX  /* CPU write I/O */
+ 52:# !DAEN  & BHE     & XA0  & !LM16 & MRDC  /* CPU read MEM */
+ 53:# !DAEN  & BHE     & XA0  & !IO16 & IORC  /* CPU read I/O */
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SCPYD.pld                     Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Thu May 07 16:44:11 2026
+
+ 54:#  DAEN1 & COPYHL  & XA0  &  LM16 & MRDC  /* DMA byte mem read high of 16 */
+ 55:#  DAEN1           & XA0  &  LM16 & IORC; /* DMA byte mem write high of 16 */
+ 56:            
+ 57:  
+ 58:COPYHL = 
+ 59:  !DAEN  & BHE  & XA0  & !LM16  & MWTC    /* mem write */
+ 60:# !DAEN  & BHE  & XA0  & !IO16  & IOWX    /* I/O write */
+ 61:#  DAEN1        & XA0  &  LM16  & MRDC    /* DMA byte mem read high of 16 */
+ 62:#  COPYHL  & COPYEN;                      /*  Short holdover for write */
+ 63:                      
+ 64:    
+ 65:DAEN =
+ 66:  DAEN1  & HLDA 
+ 67:# AEN2   & HLDA;                          /* If word type of DMA, enable out  */
+ 68: 
+ 69:        
+ 70:                                              
+ 71:XA0.OE = AEN2 & HLDA;
+ 72:     
+ 73:!XA0 = AEN2;                              /*  (Pin is low for word DMA) */
+ 74:
+ 75:/* If DMA, enable output */
+ 76:BHE.OE = DAEN ;
+ 77:   
+ 78:BHE =
+ 79:  XA0  & DAEN1                             /*  If byte type, is inverted XA0 */
+ 80:# AEN2;                                    /* If word type, is active */
+ 81:                           
+ 82:
+ 83:LM16.d = M16;                              /* use BALE to latch M16 to avoid unstable output error on LM16 in simulation */
+ 84:
+ 85:/* The Latch term below causes simulations to fail due to Unstable Outputs, converted to registered pin
+ 86:LM16 =
+ 87:  M16  &  BALE                             Enable M16 input 
+ 88:# LM16 & !BALE                             Latch term **** Doesn't work reliably!
+ 89:# LM16 &  M16;                             Deglitch term */
+ 90:                              
+ 91: 
+ 92:DAEN2 = AEN2  &  HLDA;                     /* TIGHTEN UP ON HLDA */
+ 93:                            
+ 94:
+ 95:/*
+ 96:DESCRIPTION
+ 97:This PAL implements the logic to enable the copy buffer (high to low halves 
+ 98:of the 16 bit bus). It also drives the A0 and BHE lines as appropriate during
+ 99:DMA.
+100:Rev A changes the COPYHL enable during byte DMA operations to the high half of 
+101:the bus. The timing is made earlier by changing to IORC from MWTC. 
+102:Rev D changes the polarity of the AEN2 signal for logic reduction on the D3PE 
+103:D4-PROCESSOR board (with 80387).
+104:*/
+105:
+106:
+
+
+
+Jedec Fuse Checksum       (5d1f)
+Jedec Transmit Checksum   (2adf)

@@ -1,0 +1,165 @@
+PAL16R8                                              PAL DESIGN SPECIFICATION
+D4-RCTLA 108352-001                                    PAUL R. CULLEY  09/13/86
+D4 PAGE RAM BOARD Control logic
+Copyright Compaq Computer Houston, Texas 1986
+
+CLK /ADSM /DMIO D_C  W_R  /M32   HLDA /CLK16 /HIT GND
+/OE /MRAS /SWM /NAM /MCAS /MRDY /MWE  /MRD   /YY  VCC
+
+SWM :=
+  /HLDA  * CLK16* ADSM* /MRDY* /W_R* M32        ;CPU IDLE TO MEMORY
++ /HLDA  * CLK16* ADSM* /MRDY*  D_C* M32        ;CPU IDLE TO MEMORY
++ /HLDA  * CLK16* YY*   /MRAS* /SWM             ;AFTER A MISS
++ /CLK16*  SWM*  /MRAS                          ;CLK16 SYNC
++  HLDA*  /ADSM*  D_C* /MRAS                    ;DMA
++  HLDA*  /ADSM* /D_C*  MRAS* YY                ;REFRESH START
++  HLDA*  /ADSM* /D_C*  SWM*  DMIO              ;REFRESH HOLD
++  HLDA*  /ADSM*  DMIO* SWM* /MRAS              ;REFRESH END
+
+YY :=
+  /HLDA*  CLK16* ADSM* MRDY* /W_R* M32* /HIT    ;CPU PIPE TO MEMORY MISS
++ /HLDA*  CLK16* ADSM* MRDY*  D_C* M32* /HIT    ;CPU PIPE TO MEMORY MISS
++ /HLDA*         NAM*  MRAS                     ;OR WHEN LATCH NEEDS CLOSED
++ /HLDA* /CLK16* YY                             ;CLK16 SYNC
++  HLDA*  D_C*   MCAS* DMIO* /ADSM              ;DMA
++  HLDA*         YY*   DMIO* /ADSM              ;DMA,REFRESH HOLD TO END
++  HLDA* /D_C*   MRAS* DMIO* /ADSM* /SWM* CLK16 ;REFRESH
+
+
+NAM :=
+   /HLDA*  CLK16* ADSM* MRDY* /W_R* M32* HIT    ;CPU PIPE TO MEMORY HIT
++  /HLDA*  CLK16* ADSM* MRDY*  D_C* M32* HIT    ;CPU PIPE TO MEMORY HIT
++  /HLDA*  CLK16* SWM* /ADSM* /NAM              ;AFTER AN IDLE OR MISS
++         /CLK16* NAM                           ;CLK16 SYNC
++   HLDA* /ADSM                                 ;DURING REFRESH AND DMA
+
+
+MRDY :=
+  /HLDA*  CLK16* NAM* MRAS                      ;AFTER NA WILL BE READY
++ /HLDA* /CLK16* MRDY                           ;CLK16 SYNC
+
+MRAS :=
+  /HLDA* SWM*  /ADSM* /NAM                       ;OUT OF A MISS OR IDLE OPERATION
++ /HLDA* MRAS* /MRDY                             ;TILL MRDY
++ /HLDA* MRAS* /CLK16                            ; AND TILL CLK16 UNLESS
++ /HLDA* MRAS*  ADSM* /W_R*  M32* HIT             ;CPU PIPE HIT
++ /HLDA* MRAS*  ADSM*  D_C*  M32* HIT             ;CPU PIPE HIT
++  HLDA* DMIO* /ADSM* /D_C* /SWM* CLK16         ;REFRESH
++  HLDA* DMIO* /ADSM* /D_C* /SWM* MRAS          ;REFRESH HOLD
++  HLDA* DMIO* /ADSM*  D_C*  M32* /YY           ;DMA
+
+MCAS :=
+   /HLDA*  CLK16* NAM* MRD*   MRAS              ;AFTER NA WILL BE CAS FOR READ
++  /HLDA* /CLK16* MCAS                          ;CLK16 SYNC
++  /HLDA* /CLK16* MRDY* MWE                     ;AFTER START OF MRDY IS WRITE CAS
++   HLDA* /ADSM*  D_C*  DMIO* MRAS* /SWM        ;DMA START
++   HLDA* /ADSM*  D_C*  DMIO* MCAS*  MRD        ;DMA READ HOLD TILL END
+
+MWE :=
+  /HLDA* /CLK16* NAM* D_C* W_R* M32* MRAS       ;CPU WRITE TO MEMORY
++ /HLDA* /CLK16* MWE                            ;CLK16 SYNC
++ /HLDA*  CLK16* MWE* NAM
++  HLDA* /W_R*   DMIO* /ADSM* M32* /YY          ;DMA WRITE
++  HLDA*  MWE*   DMIO* /ADSM                    ;DMA WRITE HOLD
+
+MRD :=
+  /HLDA* /CLK16* NAM* /W_R* M32* MRAS           ;CPU READ FROM MEMORY
++ /HLDA* /CLK16* MRD                            ;CLK16 SYNC
++ /HLDA*  CLK16* MRD* NAM
++  HLDA*  W_R*   DMIO* D_C* /ADSM* M32* MRAS    ;DMA READ (NOT REFRESH)
++  HLDA*  MRD*   DMIO*      /ADSM               ;DMA READ HOLD
+
+FUNCTION TABLE
+CLK /CLK16 /OE /ADSM /DMIO D_C W_R /M32 HLDA /HIT
+/MRAS /SWM /MCAS /NAM /MRDY /MWE /MRD /YY
+;  / 
+;C C   / /             /   /   / 
+;L L   A D     / H /   M / M / M / /
+;K K / D M D W M L H   R S C N R M M /
+;3 l O S I - - 3 D I   A W A A D W R Y
+;2 6 E M 0 C R 2 A T   S M S M Y E D Y
+--------------------------------------------------------------------
+ C L L L H H H H H H   H H H H H H H H  RESET
+ C H L L H L L L L L   H H H H H H H H
+ C L L L H L L L L L   H L H H H H H H  MEM READ INITIAL
+ C H L H H L L L L L   L L H H H H H H
+ C L L H H L L L L L   L H H L H H H H
+ C H L H H L L L L L   L H H L H H L L
+ C L L H H L L L L H   L H L H L H L L
+ C H L L H L L L L L   L H L H L H L L
+ C L L L H L L L L L   L H H L H H H H  READ HIT STARTS
+ C H L H H L L L L L   L H H L H H L L
+ C L L H H L L L L L   L H L H L H L L
+ C H L L H L L L L H   L H L H L H L L
+ C L L L H L L L L H   H H H H H H H L READ MISS STARTS
+ C H L H H L L L L H   H H H H H H H L
+ C L L H H L L L L H   H L H H H H H H
+ C H L H H L L L L H   L L H H H H H H
+ C L L H H L L L L L   L H H L H H H H
+ C H L H H L L L L L   L H H L H H L L
+ C L L H H L L L L H   L H L H L H L L
+ C H L l H H H L L L   L H L H L H L L
+ C L L L H H H L L L   L H H L H H H H WRITE HIT STARTS
+ C H L H H H H L L L   L H H L H L H L
+ C L L H H H H L L L   L H H H L L H L
+ C H L L H H H L L H   L H L H L L H L
+ C L L L H H H L L H   H H H H H H H L WRITE MISS STARTS 
+ C H L H H H H L L H   H H H H H H H L
+ C L L H H H H L L H   H L H H H H H H
+ C H L H H H H L L H   L L H H H H H H
+ C L L H H H H L L L   L H H L H H H H
+ C H L H H H H L L L   L H H L H L H L
+ C L L H H H H L L H   L H H H L L H L
+ C H L H H H H L L L   L H L H L L H L
+ C L L H H H H L L L   H H H H H H H H IDLE CYCLE
+ C H L L H H H L L L   H H H H H H H H
+ C L L L H H H L L L   H L H H H H H H WRITE INITIAL OUT OF A LONGGG PIPE 
+ C H L L H H H L L L   H L H H H H H H
+ C L L L H H H L L L   H L H H H H H H
+ C H L H H H H L L L   L L H H H H H H
+ C L L H H H H L L L   L H H L H H H H
+ C H L H H H H L L L   L H H L H L H L
+ C L L H H H H L L H   L H H H L L H L
+ C H L H H H H L L L   L H L H L L H L
+ C L L H H H H L L L   H H H H H H H H IDLE CYCLE
+ C H L H H H H L H L   H L H L H H H H 
+ C L L H H L H L H L   H H H L H H H H
+ C H L H H L H L H L   H H H L H H H H
+ C L L H L L H H H H   L H H L H H H H REFRESH
+ C H L H L L H H H H   L H H L H H H H
+ C L L H L L H H H H   L H H L H H H L
+ C H L H L L H H H H   L L H L H H H L
+ C L L H L L H H H H   H L H L H H H L
+ C H L H L L H H H H   H L H L H H H L
+ C L L H H L H H H H   H H H L H H H H
+ C H L H H H L H H H   H L H L H H H H
+ C L L H L H H H H H   H L H L H H H H DMA READ ELSEWHERE
+ C H L H L H H L H H   L L H L H H H H DMA READ
+ C L L H L H H L H H   L H H L H H L H
+ C H L H L H H L H H   L H L L H H L H
+ C L L H L H H L H H   L H L L H H L L
+ C H L H L H L L H H   H H L L H H L L
+ C L L H L H L L H H   H L L L H H L L
+ C H L H H H L L H H   H L H L H H H H
+
+ C L L H H H L H H H   H L H L H H H H 
+ C H L H L H L H H H   H L H L H H H H  DMA WRITE ELSEWHERE
+ C L L H L H L L H H   L L H L H L H H  DMA WRITE
+ C H L H L H L L H H   L H H L H L H H
+ C L L H L H L L H H   L H L L H L H H
+ C H L H L H L L H H   L H L L H L H L
+ C L L H L H L L H H   H H L L H L H L
+ C H L H L H H L H H   H L H L H L H L
+ C L L H L H H L H H   H L H L H L H L
+ C H L H H H H L H H   H L H L H H H H
+ C L L H H H L L H H   H L H L H H H H
+ C H L H H H L L L H   H L H L H H H H
+ C L L H H H L L L H   H H H H H H H H
+--------------------------------------------------------------------
+
+DESCRIPTION
+This PAL is used in the D4 (386) memory board to control the DRAM subsystem.
+The RAS and CAS master strobes are generated, and the CPU next address and
+READY signals are provided.
+Rev A of this PAL changes the DMA state machine to prevent spurious RAM cycles
+after refresh or DMA cycles.

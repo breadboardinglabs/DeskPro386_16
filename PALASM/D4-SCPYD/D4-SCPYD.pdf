@@ -1,0 +1,201 @@
+{COMPONENT C:\DOS\PALASM\D4-SCPYD.PLD.SYM
+
+ {ENVIRONMENT
+  {PDIFvrev 3.00}
+  {Program "CUPL(WM) Version 5.0a"}
+  {DBtype "Schematic"}
+  {DBvrev 1.01}
+  {DBtime "Wed May 06 23:01:39 2026 "}
+  {DBunit "MIL"}
+  {DBgrid 10}
+  {Lyrstr "WIRES" 1 "BUS" 1 "GATE" 2 "IEEE" 2 "PINFUN" 3 "PINNUM" 1 
+          "PINNAM" 6 "PINCON" 4 "REFDES" 2 "ATTR" 6 "SDOT" 1 
+          "DEVICE" 5 "OUTLIN" 5 "ATTR2" 6 "NOTES" 6 "NETNAM" 4 
+          "CMPNAM" 5 "BORDER" 5}
+ }
+
+ {USER
+  {VIEW
+   {Mode SYMB}
+   {Nlst OPEN}
+   {Vw 0 0 2}
+   {Lv 12 2 2 2 0 0 2 2 2 2 0 0 2 1 2 0 0 0 0}
+   {Gs 10 10}
+  }
+ }
+
+ {DISPLAY
+  [Ly "PINNUM"]
+  [Ls "SOLID"][Wd 0]
+  [Ts 15][Tj "LC"][Tr 0][Tm "N"]
+ }
+
+ {SYMBOL
+  {PIN_DEF
+   [Ly "PINCON"]
+   {P M16' {Pt "INPUT"}{Lq 0}{Ploc 100 200}}
+   {P IO16' {Pt "INPUT"}{Lq 0}{Ploc 100 180}}
+   {P MWTC' {Pt "INPUT"}{Lq 0}{Ploc 100 160}}
+   {P MRDC' {Pt "INPUT"}{Lq 0}{Ploc 100 140}}
+   {P IOWX' {Pt "INPUT"}{Lq 0}{Ploc 100 120}}
+   {P IORC' {Pt "INPUT"}{Lq 0}{Ploc 100 100}}
+   {P DAEN1' {Pt "INPUT"}{Lq 0}{Ploc 100 80}}
+   {P AEN2 {Pt "INPUT"}{Lq 0}{Ploc 100 60}}
+   {P BALE {Pt "INPUT"}{Lq 0}{Ploc 100 40}}
+   {P HLDA' {Pt "INPUT"}{Lq 0}{Ploc 100 20}}
+   {P DAEN2' {Pt "I/O"}{Lq 0}{Ploc 310 20}}
+   {P COPYEN' {Pt "I/O"}{Lq 0}{Ploc 310 40}}
+   {P COPYHL' {Pt "I/O"}{Lq 0}{Ploc 310 60}}
+   {P DAEN' {Pt "I/O"}{Lq 0}{Ploc 310 80}}
+   {P BHE' {Pt "I/O"}{Lq 0}{Ploc 310 100}}
+   {P XA0 {Pt "I/O"}{Lq 0}{Ploc 310 120}}
+   {P LM16' {Pt "I/O"}{Lq 0}{Ploc 310 140}}
+  }
+
+  {PKG
+   [Ly "REFDES"]
+   [Ts 25][Tj "CB"][Tr 0][Tm "N"]
+   {Rdl 205 230}
+
+   [Ly "PINNUM"]
+   [Ts 15][Tj "RC"]
+   {Pnl 120 210}
+   {Pnl 120 190}
+   {Pnl 120 170}
+   {Pnl 120 150}
+   {Pnl 120 130}
+   {Pnl 120 110}
+   {Pnl 120 90}
+   {Pnl 120 70}
+   {Pnl 120 50}
+   {Pnl 120 30}
+   [Ts 15][Tj "LC"]
+   {Pnl 290 30}
+   {Pnl 290 50}
+   {Pnl 290 70}
+   {Pnl 290 90}
+   {Pnl 290 110}
+   {Pnl 290 130}
+   {Pnl 290 150}
+
+   {Sd A 1 2 3 4 5 6 7 8 9 11 12 13 14 15 16 17 18}
+  }
+
+  {PIC
+   [Ly "GATE"]
+   [Ts 15][Tj "LC"][Tr 0][Tm "N"]
+   {R 130 220 280 0}
+   {L 120 200 100 200}
+   {C 125 200 5}
+   {L 120 180 100 180}
+   {C 125 180 5}
+   {L 120 160 100 160}
+   {C 125 160 5}
+   {L 120 140 100 140}
+   {C 125 140 5}
+   {L 120 120 100 120}
+   {C 125 120 5}
+   {L 120 100 100 100}
+   {C 125 100 5}
+   {L 120 80 100 80}
+   {C 125 80 5}
+   {L 130 60 100 60}
+   {L 130 40 100 40}
+   {L 120 20 100 20}
+   {C 125 20 5}
+   {C 285 20 5}
+   {L 290 20 310 20}
+   {C 285 40 5}
+   {L 290 40 310 40}
+   {C 285 60 5}
+   {L 290 60 310 60}
+   {C 285 80 5}
+   {L 290 80 310 80}
+   {C 285 100 5}
+   {L 290 100 310 100}
+   {L 280 120 310 120}
+   {C 285 140 5}
+   {L 290 140 310 140}
+   [Ly "PINNAM"]
+   [Tj "LC"]
+   {T "M16'" 140 200}
+   {T "IO16'" 140 180}
+   {T "MWTC'" 140 160}
+   {T "MRDC'" 140 140}
+   {T "IOWX'" 140 120}
+   {T "IORC'" 140 100}
+   {T "DAEN1'" 140 80}
+   {T "AEN2" 140 60}
+   {T "BALE" 140 40}
+   {T "HLDA'" 140 20}
+   [Tj "RC"]
+   {T "DAEN2'" 270 20}
+   {T "COPYEN'" 270 40}
+   {T "COPYHL'" 270 60}
+   {T "DAEN'" 270 80}
+   {T "BHE'" 270 100}
+   {T "XA0" 270 120}
+   {T "LM16'" 270 140}
+   [Ly "DEVICE"]
+   [Tj "CT"]
+   {T "G16V8MA" 205 -10}
+  }
+
+  {ATR
+   {IN
+    {Org 100 20}
+    {Ty 255}
+   }
+   {EX
+    [Ly "ATTR2"]
+    [Ts 12][Tj "CT"][Tr 0][Tm "N"]
+    {At PLD C:\DOS\PALASM\D4-SCPYD.PLD 205 220}
+   }
+  }
+ }
+
+ {DETAIL
+  {ANNOTATE
+  }
+
+  {NET_DEF
+   {N M16'
+   }
+   {N IO16'
+   }
+   {N MWTC'
+   }
+   {N MRDC'
+   }
+   {N IOWX'
+   }
+   {N IORC'
+   }
+   {N DAEN1'
+   }
+   {N AEN2
+   }
+   {N BALE
+   }
+   {N HLDA'
+   }
+   {N DAEN2'
+   }
+   {N COPYEN'
+   }
+   {N COPYHL'
+   }
+   {N DAEN'
+   }
+   {N BHE'
+   }
+   {N XA0
+   }
+   {N LM16'
+   }
+  }
+
+  {SUBCOMP
+  }
+ }
+}

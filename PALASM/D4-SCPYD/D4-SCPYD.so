@@ -1,0 +1,72 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Sat May 16 16:21:09 2026
+
+LISTING FOR SIMULATION FILE: D4-SCPYD.si
+
+   1: Name            D4-SCPYD Copy buffer control logic and DMA low address logic;
+   2: PartNo          108395-OO1;
+   3: Revision        01;
+   4: Date            16/05/26;
+                              ^
+[0025sa] Please note: inconsistent header information
+
+   5: Designer        Dave Henry;
+   6: Company         Breadboarding Labs;
+   7: Location        None;
+   8: Assembly        None;
+   9: 
+  10: /********************************************************************/
+  11: /*                                                                  */
+  12: /********************************************************************/
+  13: /* Target Device Types: ATF16V8 - Device g16v8                      */
+  14: /********************************************************************/
+  15: 
+  16: 
+  17: ORDER:
+  18:     oe,%1
+  19:  , !M16, %1
+  20:  , !IO16, %1
+  21:  , !MRDC, %1
+  22:  , !MWTC, %1
+  23:  , !IORC, %1
+  24:  , !IOWX, %1
+  25:  , !DAEN1, %1
+  26:  , !AEN2, %1
+  27:  ,  BALE, %1
+  28:  , !HLDA, %3
+  29:  
+  30:  , !BHE, %1
+  31:  ,  XA0, %3
+  32:  
+  33:  , !COPYEN, %1
+  34:  , !COPYHL, %1
+  35:  , !DAEN, %1
+  36:  , !LM16, %1
+  37:  , !DAEN2;
+  38: 
+
+================================================
+                                    ! !         
+                    !               C C     !   
+          ! ! ! ! ! D !   !         O O ! ! D   
+        ! I M M I I A A B H   !     P P D L A   
+        M O R W O O E E A L   B X   Y Y A M E   
+      o 1 1 D T R W N N L D   H A   E H E 1 N   
+      e 6 6 C C C X 1 2 E A   E 0   N L N 6 2   
+================================================
+0001: 0 1 1 1 1 1 1 1 1 0 1   1 0   H H H N H
+0002: 0 0 1 1 1 0 1 1 1 C 1   0 1   L H H L H
+0003: 0 0 1 0 1 1 1 0 1 0 0   L 1   L L L L H
+0004: 0 0 1 1 1 0 1 0 1 0 0   L 1   L L L L H
+0005: 0 0 1 1 1 1 1 0 1 0 0   H 0   H H L L H
+0006: 0 1 1 1 1 1 1 1 0 0 0   L L   H H L L L
+0007: 0 0 0 0 0 0 0 1 1 C 1   0 1   H H H L H
+0008: 0 1 1 1 1 1 1 1 1 C 1   0 1   H H H H H
+0009: 0 1 1 0 1 1 1 1 1 C 1   0 1   L H H H H
+0010: 0 1 1 1 0 1 1 1 1 0 1   0 1   L L H H H
+0011: 0 1 1 1 1 1 1 1 1 0 1   1 1   H H H H H
+0012: 0 0 1 1 1 1 1 0 0 C 1   Z Z   H H H L H
+0013: 0 0 1 1 1 1 1 0 0 0 1   Z Z   H H H L H
+0014: 0 1 1 1 1 1 1 0 0 0 1   Z Z   H H H L H

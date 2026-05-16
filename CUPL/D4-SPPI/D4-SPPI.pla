@@ -1,0 +1,45 @@
+# Berkeley PLA format generated using
+#
+# CUPL(WM)        5.0a Serial# MW-10400000
+# Device          g16v8ma  Library DLIB-h-40-8
+# Created         Thu May 07 16:47:32 2026
+# Name            D4-SPPI 
+# Partno          XXXXX 
+# Revision        XX 
+# Date            XX/XX/XX 
+# Designer        XXXXX 
+# Company         XXXXX 
+# Assembly        XXXXX 
+# Location        XXXXX 
+#
+# Inputs  1 !CIORD CMOSAWR !CMOSRD 
+#         !CMOSWR !INTA !KEYCS !NMICLK 
+#         !PBRD !PBWR !PPICS RESCMOS 
+#         XA0 XA3 XA4 XA8 
+#         XA9 !XIORC !XIOWC 
+# Outputs !CIORD !CMOSAWR !CMOSRD !CMOSWR 
+#         !KEYCS !NMICLK !PBRD !PBWR 
+#         CIORD.oe CMOSAWR.oe CMOSRD.oe CMOSWR.oe 
+#         KEYCS.oe NMICLK.oe PBRD.oe PBWR.oe 
+.i 19
+.o 16
+.p 18
+---------------001- 1~~~~~~~~~~~~~~~
+-----1------------- 1~~~~~~~~~~~~~~~
+-------0---0------- ~1~~~~~~~~~~~~~~
+-----------0------0 ~1~~~~~~~~~~~~~~
+----------1-101--1- ~~1~~~~~~~~~~~~~
+----------1-101---1 ~~~1~~~~~~~~~~~~
+----------1-000---- ~~~~1~~~~~~~~~~~
+----------1-001---1 ~~~~~1~~~~~~~~~~
+----------1-100--1- ~~~~~~1~~~~~~~~~
+----------1-100---1 ~~~~~~~1~~~~~~~~
+1------------------ ~~~~~~~~1~~~~~~~
+1------------------ ~~~~~~~~~1~~~~~~
+1------------------ ~~~~~~~~~~1~~~~~
+1------------------ ~~~~~~~~~~~1~~~~
+1------------------ ~~~~~~~~~~~~1~~~
+1------------------ ~~~~~~~~~~~~~1~~
+1------------------ ~~~~~~~~~~~~~~1~
+1------------------ ~~~~~~~~~~~~~~~1
+.end

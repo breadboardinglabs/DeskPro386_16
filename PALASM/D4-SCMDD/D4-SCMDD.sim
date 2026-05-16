@@ -1,0 +1,78 @@
+%SIGNAL
+PIN   7 = !BHLDA 
+PIN   1 = !CMD 
+PIN   2 = !DCMD 
+PIN  18 =  D_C 
+PIN  15 = !IORC 
+PIN  12 = !IOWC 
+PIN   5 =  LD_C 
+PIN   3 =  LM_IO 
+PIN   4 =  LW_R 
+PIN  16 =  MHLDA 
+PIN  13 = !MRDC 
+PIN  14 = !MWTC 
+PIN  17 =  M_IO 
+PIN   8 =  NCI1 
+PIN   9 =  NCI2 
+PIN  11 = !OE 
+PIN   6 = !RFSH 
+PIN  19 =  W_R 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+D_C =>
+    RFSH
+
+D_C.oe  =>
+    !BHLDA & !OE
+
+IORC =>
+    !CMD & LD_C & !LM_IO & !LW_R
+  # !DCMD & !IORC
+
+IORC.oe  =>
+    BHLDA & !OE
+
+IOWC =>
+    !CMD & LD_C & !LM_IO & LW_R
+
+IOWC.oe  =>
+    BHLDA & !OE
+
+!MHLDA =>
+    BHLDA
+  # !MHLDA & !M_IO
+
+MRDC =>
+    !CMD & LM_IO & !LW_R
+  # !DCMD & !MRDC
+
+MRDC.oe  =>
+    BHLDA & !OE
+
+MWTC =>
+    !CMD & LD_C & LM_IO & LW_R
+
+MWTC.oe  =>
+    BHLDA & !OE
+
+!M_IO =>
+    !MWTC
+  # !MRDC
+
+M_IO.oe  =>
+    !BHLDA & !OE
+
+W_R =>
+    MWTC
+
+W_R.oe  =>
+    !BHLDA & !OE
+
+MHLDA.oe  =>
+    1 
+
+%END

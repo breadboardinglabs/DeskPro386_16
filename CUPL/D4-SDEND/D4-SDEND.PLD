@@ -1,0 +1,91 @@
+NAME         D4-SDEND ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+/* PAL16L8 */
+
+/*                                                PAL DESIGN SPECIFICATION */
+
+/* D4-SDEND 109390-001                                     PAUL R. CULLEY 12/09/80 */
+
+/* DataBuffer enable logic  */
+
+/* Copyright COMPAQ COMPUTER Houston, Texas 1986 */
+
+
+PIN 1 = A1 ;
+PIN 2 = A0 ;
+PIN 3 = !BHE ;
+PIN 4 = !CMD ;
+PIN 5 = !M32 ;
+PIN 6 = !WDEN ;
+PIN 7 = LW_R ;
+PIN 8 = LD_C ;
+PIN 9 = LM_IO ;
+PIN 11 = !TST ;
+PIN 12 = !BDIRRD ;
+PIN 13 = !B0EN ;
+PIN 14 = !B1EN ;
+PIN 15 = !B2EN ;
+PIN 16 = !INTA ;
+PIN 17 = !MWTC ;
+PIN 18 = !MRDC ;
+PIN 19 = !B3EN ;
+
+                        
+            
+BDIRRD.OE = !TST ;
+   
+BDIRRD = !MRDC & !WDEN;            /* OTHER WRITE TO LOCAL MEM */
+                
+
+B0EN.OE = !TST ;
+   
+B0EN =
+  !A1 & !A0 & MWTC & !WDEN         /* OTHER WRITE TO LOCAL MEM */
+# !A1 & !A0 & MRDC & !WDEN & M32   /* OTHER READ FROM LOCAL MEM */
+# !A1 & !A0 & LD_C & LW_R & WDEN;  /* CPU WRITE TO BUS */
+    
+
+B1EN.OE = !TST ;
+   
+B1EN =
+  !A1 & BHE & MWTC & !WDEN         /* OTHER WRITE TO LOCAL MEM */
+# !A1 & BHE & MRDC & !WDEN & M32   /* OTHER READ FROM LOCAL MEM */
+# !A1 & BHE & LD_C & LW_R & WDEN;  /* CPU WRITE TO BUS */
+    
+
+B2EN.OE = !TST ;
+   
+B2EN =
+  A1 & !A0 & MWTC & !WDEN          /* OTHER WRITE TO LOCAL MEM */
+# A1 & !A0 & MRDC & !WDEN & M32    /* OTHER READ FROM LOCAL MEM */
+# A1 & !A0 & LD_C &  LW_R & WDEN;  /* CPU WRITE TO BUS */
+                    
+
+B3EN.OE = !TST ;
+   
+B3EN =
+  A1 & BHE & MWTC & !WDEN          /* OTHER WRITE TO LOCAL MEM */
+# A1 & BHE & MRDC & !WDEN & M32    /* OTHER READ FROM LOCAL MEM */
+# A1 & BHE & LD_C & LW_R  & WDEN;  /* CPU WRITE TO BUS */
+                    
+
+INTA.OE = !TST ;
+   
+INTA =
+   CMD & !LM_IO & !LW_R & !LD_C;   /* CPU INTERRUPT ACK */
+
+/*
+DESCRIPTION
+This PAL developes the control signal to enable the data buffers on the system
+board.
+Rev A ensures turnon of the buffer enables for mem write after the direction 
+is active by leaving the buffer turned around during the entire write cycle.
+Rev D is for use with D3PE D4-processor board (with 387).
+*/

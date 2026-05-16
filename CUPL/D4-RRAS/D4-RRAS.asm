@@ -1,0 +1,66 @@
+PAL16L8                                               PAL DESIGN SPECIFICATION
+D4-RRAS l08054-001                                   PAUL R. CULLEY     5/20/86
+D4 PAGE RAM BOARD RAS decode logic
+Copyright Compaq Computer Houston, Texas 1986
+
+
+A31    A23  A22  A21  A20  A19    A18    A17  FA20 GND
+/RFSH /RS0 /MWE /MRD /WE0 /PARRD /PARWR /ROM /RS1  VCC
+
+RS0 =
+  /A31* /A23* /A22* /A21* /A20*  /A19                   ;00000000H 512K
+ +/A31* /A23* /A22* /A21* /FA20* /A19                   ;00100000H 512K
+ +/A31* /A23* /A22* /A21* /A20*   A19* /A18* /A17       ;00080000H 128K
+ +/A31* /A23* /A22* /A21* /A20*   A19*  A18*  A17       ;000E0000H 128K
+ +/A31*  A23*  A22*  A21*  A20                          ;00F00000H 1024K
+ + RFSH                                                 ;REFRESH
+
+RS1 =
+  /A31* /A23* /A22* /A21* A20* FA20                     ;00100000H 1024K
+  + RFSH                                                ;REFRESH
+
+PARWR =
+   MWE* A31* A23* A22* /A21* /A20* /A19* /A18* /A17     ;80COOOOOH 128K
+
+PARRD =
+   MRD* A31* A23* A22* /A21* /A20* /A19* /A18* /A17     ;80C00000H 128K
+
+WE0 =
+  MWE* /A31* /A23* /A22* /A21* /A19                         ;00000000H 512K
+ +MWE* /A31* /A23* /A22* /A21* /A20*  A19* /A18* /A17       ;00080000H 128K
+ +MWE* /A31* /A23* /A22* /A21* /A20*  A19*  A18*  A17* /ROM ;000E0000H 128K
+ +MWE* /A31*  A23*  A22*  A21*  A20* /A19*  A18             ;00F40000H 256K
+ +MWE* /A31*  A23*  A22*  A21*  A20*  A19* /A18             ;00FB0000H 256K
+ +MWE* /A31*  A23*  A22*  A21*  A20*  A19*  A18* /A17       ;00FC0000H 128K
+ +MWE* /A31*  A23*  A22*  A21*  A20*  A19*  A18*  A17* /ROM ;00FE0000H 128K
+
+FUNCTION TABLE
+A31 A23 A22 A21 A20 A19 A18 A17 FA20 /ROM /MWE /MRD /RFSH
+/RS0 /RS1 /PARWR /PARRD /WE0
+
+;                                  / /
+;                        /         P P
+;                F /   / / R   / / A A /
+;A A A A A A A A A R   M M F   R R R R W
+;3 2 2 2 2 1 1 1 2 0   W R S   S S W R E
+;1 3 2 1 0 9 8 7 0 M   E D H   0 1 R D 0
+-------------------------------------------------------------------------
+ L L L L L L L L H L   L H H   L H H H L       000000H 512K
+ L L L L H L L L L L   L H H   L H H H L       100000H 512K
+ L L L L L H L L H L   L H H   L H H H L       080000H 128K
+ L L L L L H H H H L   L H H   L H H H H       0E0000H 128K
+ L L L L L H H H H H   L H H   L H H H L       0E0000H 128K
+ L H H H H L H L H L   L H H   L H H H L       F40000H 256K
+ L H H H H H L L H L   L H H   L H H H L       F80000H 256K
+ L H H H H H H L H L   L H H   L H H H L       FC0000H 128K
+ L H H H H H H H H L   L H H   L H H H H       FE0000H 128K
+ L H H H H H H H H H   L H H   L H H H L       FE0000H 128K
+ L L L L H L L L H L   H H H   H L H H H       100000H 1024K
+ H H H L L L L L H L   L H H   H H L H H       80C00000H 128K
+ H H H L L L L L H L   H L H   H H H L H       80C00000H 128K
+ H H H H H H H H H L   H H L   L L H H H       REFRESH
+-------------------------------------------------------------------------
+ 
+DESCRIPTION
+This-PAL is used in the D4 (386) memory board to decode the RAS signals
+and the parity read and write logic.

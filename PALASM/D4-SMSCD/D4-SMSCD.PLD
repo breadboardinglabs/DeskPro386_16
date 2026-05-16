@@ -1,0 +1,85 @@
+Name            D4-SMSCD Miscellaneous garbage logic;
+PartNo          108397-001;
+Revision        01;
+Date            16/5/26;
+Designer        Dave Henry;
+Company         Breadboarding Labs;
+Location        None;
+Assembly        None;
+Device          g16v8;
+
+/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+/*                                                                                         */
+/*******************************************************************************************/
+/*                                                                                         */
+/*******************************************************************************************/
+/*
+DESCRIPTION
+Rev D of this PAL is for the upgraded D3PE D4-processor board (with 387) and
+is a new design.
+This PAL contains the equations for the signal MYCYC (BUS state machine cycle),
+SHTD <decoded shutdown status), LNCP (numeric processor access status), and
+LOE (latch output enable). It also is the F/F for the NAB signal.
+*/
+/* Pin Map 
+                               ______________
+                              |   D4-SMSCD   |
+                      CLK x---|1           20|---x Vcc                      
+                     !M32 x---|2           19|---x !ADS                     
+                    !BRDY x---|3           18|---x 387I                     
+                     BALE x---|4           17|---x !SHTD                    
+                      W_R x---|5           16|---x !NAB                     
+                      D_C x---|6           15|---x !LOE                     
+                     M_IO x---|7           14|---x !MYCYC                   
+                     !BE0 x---|8           13|---x !CLSTD                   
+                     PA31 x---|9           12|---x !LNCP                    
+                      GND x---|10          11|---x !OE                      
+                              |______________|
+
+*/
+
+
+
+PIN 1 = CLK ;
+PIN 2 = !M32 ;
+PIN 3 = !BRDY ;
+PIN 4 = BALE ;
+PIN 5 = W_R ;
+PIN 6 = D_C ;
+PIN 7 = M_IO ;
+PIN 8 = !BE0 ;
+PIN 9 = PA31 ;
+PIN 11 = !OE ;
+PIN 12 = !LNCP ;
+PIN 13 = !CLSTD ;
+PIN 14 = !MYCYC ;
+PIN 15 = !LOE ;
+PIN 16 = !NAB ;
+PIN 17 = !SHTD ;
+PIN 18 = 387I ;
+PIN 19 = !ADS ;
+                     
+              
+ 
+LOE.D =
+  MYCYC &  BALE  & !W_R  & !LNCP           /*  GOES ACTIVE AT ALE */
+# LOE   & !BRDY;                           /*  HOLD THROUGH TILL BRDY ACTIVE */
+                        
+SHTD.D =
+  MYCYC  & BALE & M_IO & !D_C & W_R & BE0; /*  DECODED SHUTDOWN OPCODE */
+    
+MYCYC.D =
+  !CLSTD  & ADS  & !M_IO  & !387I          /*  WHEN NO 387 AND 1/0 */
+# !CLSTD  & ADS  & !M_IO  & !PA31          /*  OR NOT NCP 1/0 CYCLE */
+# !CLSTD  & ADS  & M_IO   & !M32           /*  OR NOT 32 BIT MEMORY CYCLE */
+# !CLSTD  & ADS  & M_IO   & !D_C  & W_R    /*  OR HALT/SHUTDOWN CYCLE */
+# !CLSTD  & MYCYC;                         /*  HOLD TILL NAB */
+                     
+NAB.D = CLSTD;                             /*  NEXT ADDRESS BUS */
+                         
+
+LNCP =
+  MYCYC &  BALE & PA31 & !M_IO             /*  NUMERIC COPROCESSOR OP */
+# LNCP  & !BALE                             /*  HOLD TILL NEXT ALE OR HOLD */
+# MYCYC &  PA31 & !M_IO & LNCP;             /*  DEGLITCH */
+           

@@ -1,0 +1,68 @@
+Name            D4-SMSCD Miscellaneous garbage logic;
+PartNo          108397-001;
+Revision        01;
+Date            16/05/26;
+Designer        Dave Henry;
+Company         Breadboarding Labs;
+Location        None;
+Assembly        None;
+
+/********************************************************************/
+/*                                                                  */
+/********************************************************************/
+/* Target Device Types: ATF16V8 - Device g16v8                      */
+/********************************************************************/
+
+
+ORDER:
+ 
+  CLK, %1
+  , !OE, %1
+  , !M32, %1
+  , !BRDY, %1
+  , BALE, %1
+  , M_IO, %1
+  , D_C, %1
+  , W_R, %1
+  , !BE0, %1
+  , PA31, %3
+  
+  , !ADS, %1
+  , !CLSTD, %1
+  , 387I, %3
+  
+  , !LNCP, %3
+  
+  , !MYCYC, %1
+  , !LOE, %1
+  , !NAB, %1
+  , !SHTD;
+
+VECTORS:
+/*
+;                      /     /
+;      /               C   / M     /
+;    / B B M     / P / L 3 L Y / / S
+;C / M R A - D W B A A S 8 N C L N H
+;L 0 3 D L I - - E 3 D T 7 C Y 0 A T 
+;K E 2 Y E O C R 0 1 S D I P C E B D
+;I I I I I I I I I I I I I O O O O O
+---------------------------------------------------------------- */
+ C 0 1 0 1 1 1 1 1 0 0 1 1 H N H H H /* RESET MYCYC BY /M32 CHANGED MYCYC FROM X TO N */
+
+ C 0 1 0 1 1 1 1 1 0 0 1 1 H L H H H /* RESET MYCYC BY /M32 */
+
+ C 0 1 0 1 1 1 1 1 0 1 1 1 H L H H H /* HOLD MYCYC */
+
+ C 0 1 0 1 1 1 1 1 0 1 0 1 H H H L H
+ C 0 0 0 1 1 0 1 1 0 0 0 1 H H H L H
+ C 0 0 0 1 1 0 1 0 0 0 1 1 H L H H H /* MYCYC BY HALT */
+
+ C 0 0 0 1 1 0 1 0 0 0 0 1 H H H L L
+ C 0 0 0 1 0 0 0 1 0 0 1 1 H L H H H /* MYCYC BY I/O */
+
+ C 0 0 0 1 0 0 0 1 0 0 0 1 H H L L H
+ C 0 0 0 1 0 0 0 1 1 0 1 0 L L H H H /* MYCYC BY 387 NOT INSTALLED */
+ 0 0 0 0 0 0 0 0 1 1 0 1 0 L L H H H
+ C 0 0 1 0 0 0 0 1 1 0 0 0 L H H L H
+ C 0 0 1 0 0 0 0 1 1 0 0 0 L H H L H

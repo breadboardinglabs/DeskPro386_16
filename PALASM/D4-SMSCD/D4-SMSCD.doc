@@ -1,0 +1,199 @@
+
+*******************************************************************************
+                                   D4-SMSCD
+*******************************************************************************
+
+CUPL(WM)        5.0a Serial# MW-10400000
+Device          g16v8ms  Library DLIB-h-40-11
+Created         Sat May 16 16:44:01 2026
+Name            D4-SMSCD Miscellaneous garbage logic
+Partno          108397-001
+Revision        01
+Date            16/5/26
+Designer        Dave Henry
+Company         Breadboarding Labs
+Assembly        None
+Location        None
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+LNCP =>
+    BALE & MYCYC & !M_IO & PA31
+  # !BALE & LNCP
+  # LNCP & MYCYC & !M_IO & PA31
+
+LOE.d  =>
+    BALE & !LNCP & MYCYC & !W_R
+  # !BRDY & LOE
+
+MYCYC.d  =>
+    !387I & ADS & !CLSTD & !M_IO
+  # ADS & !CLSTD & !M_IO & !PA31
+  # ADS & !CLSTD & !M32 & M_IO
+  # ADS & !CLSTD & !D_C & M_IO & W_R
+  # !CLSTD & MYCYC
+
+NAB.d  =>
+    CLSTD
+
+SHTD.d  =>
+    BALE & BE0 & !D_C & MYCYC & M_IO & W_R
+
+387I.oe  =>
+    0 
+
+ADS.oe  =>
+    0 
+
+CLSTD.oe  =>
+    0 
+
+LNCP.oe  =>
+    1 
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+    387I                        18       V        -       -       -     
+ !  ADS                         19       V        -       -       -     
+    BALE                        4        V        -       -       -     
+ !  BE0                         8        V        -       -       -     
+ !  BRDY                        3        V        -       -       -     
+    CLK                         1        V        -       -       -     
+ !  CLSTD                       13       V        -       -       -     
+    D_C                         6        V        -       -       -     
+ !  LNCP                        12       V        3       7       1     
+ !  LOE                         15       V        -       -       -     
+ !  LOE                 d       15       X        2       8       1     
+ !  M32                         2        V        -       -       -     
+ !  MYCYC                       14       V        -       -       -     
+ !  MYCYC               d       14       X        5       8       1     
+    M_IO                        7        V        -       -       -     
+ !  NAB                         16       V        -       -       -     
+ !  NAB                 d       16       X        1       8       1     
+ !  OE                          11       V        -       -       -     
+    PA31                        9        V        -       -       -     
+ !  SHTD                        17       V        -       -       -     
+ !  SHTD                d       17       X        1       8       1     
+    W_R                         5        V        -       -       -     
+    387I                oe      18       D        1       1       0     
+    ADS                 oe      19       D        1       1       0     
+    CLSTD               oe      13       D        1       1       0     
+    LNCP                oe      12       D        1       1       0     
+
+
+LEGEND    D : default variable         F : field      G : group
+          I : intermediate variable    N : node       M : extended node
+          U : undefined                V : variable   X : extended variable
+          T : function
+
+
+===============================================================================
+                                   Fuse Plot
+===============================================================================
+
+Syn   02192 x Ac0   02193 - 
+
+Pin #19  02048  Pol x  02120  Ac1 - 
+ 00000 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00032 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00064 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00096 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00128 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00160 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00192 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00224 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #18  02049  Pol x  02121  Ac1 - 
+ 00256 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00288 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00320 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00352 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00384 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00416 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00448 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00480 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #17  02050  Pol x  02122  Ac1 x 
+ 00512 --------x---x----x--x--x-x------ 
+ 00544 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00576 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00608 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00640 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00672 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00736 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #16  02051  Pol x  02123  Ac1 x 
+ 00768 ---------------------------x---- 
+ 00800 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00832 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00864 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00896 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00928 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00992 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #15  02052  Pol x  02124  Ac1 x 
+ 01024 --------x----x---------x------x- 
+ 01056 ----x--------------x------------ 
+ 01088 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01120 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01152 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01184 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01216 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01248 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #14  02053  Pol x  02125  Ac1 x 
+ 01280 ---x---x-------------x----x----- 
+ 01312 ---x-----------------x----x--x-- 
+ 01344 x--x----------------x-----x----- 
+ 01376 ---x--------x----x--x-----x----- 
+ 01408 -----------------------x--x----- 
+ 01440 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01472 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01504 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #13  02054  Pol x  02126  Ac1 - 
+ 01536 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01568 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01600 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01632 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01664 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01696 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01728 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01760 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #12  02055  Pol x  02127  Ac1 - 
+ 01792 -------------------------------- 
+ 01824 --------x------------x-x----x--- 
+ 01856 ---------x---------------------x 
+ 01888 ---------------------x-x----x--x 
+ 01920 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01952 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01984 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 02016 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+
+
+LEGEND    X : fuse not blown 
+          - : fuse blown 
+
+===============================================================================
+                                 Chip Diagram
+===============================================================================
+
+                               ______________
+                              |   D4-SMSCD   |
+                      CLK x---|1           20|---x Vcc                      
+                     !M32 x---|2           19|---x !ADS                     
+                    !BRDY x---|3           18|---x 387I                     
+                     BALE x---|4           17|---x !SHTD                    
+                      W_R x---|5           16|---x !NAB                     
+                      D_C x---|6           15|---x !LOE                     
+                     M_IO x---|7           14|---x !MYCYC                   
+                     !BE0 x---|8           13|---x !CLSTD                   
+                     PA31 x---|9           12|---x !LNCP                    
+                      GND x---|10          11|---x !OE                      
+                              |______________|
+

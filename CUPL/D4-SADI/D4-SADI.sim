@@ -1,0 +1,88 @@
+%SIGNAL
+PIN   2 =  A0 
+PIN   1 =  A1 
+PIN  16 =  B0CK 
+PIN  17 =  B1CK 
+PIN  18 =  B2CK 
+PIN  19 =  B3CK 
+PIN  12 = !BE0 
+PIN  13 = !BE1 
+PIN  14 = !BE2 
+PIN  15 = !BE3 
+PIN   3 = !BHE 
+PIN   6 = !CMD 
+PIN   4 = !CX16 
+PIN   8 =  HLDA 
+PIN   7 =  LW_R 
+PIN   9 =  NC1 
+PIN   5 =  NC2 
+PIN  11 =  TST 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+!B0CK =>
+    CMD
+  # LW_R
+  # A0
+  # A1
+
+B0CK.oe  =>
+    !TST
+
+!B1CK =>
+    CMD
+  # BHE
+  # !A0 & CX16
+  # LW_R
+  # A1
+
+B1CK.oe  =>
+    !TST
+
+!B2CK =>
+    CMD
+  # !A1
+  # LW_R
+  # A0
+
+B2CK.oe  =>
+    !TST
+
+!B3CK =>
+    CMD
+  # BHE
+  # !A1
+  # !A0 & CX16
+  # LW_R
+
+B3CK.oe  =>
+    !TST
+
+BE0 =>
+    !A0 & !A1
+
+BE0.oe  =>
+    HLDA
+
+BE2 =>
+    !A0 & A1
+
+BE2.oe  =>
+    HLDA
+
+BE3 =>
+    A1 & !BHE
+
+BE3.oe  =>
+    HLDA
+
+BEl =>
+    !A1 & BHE
+
+BEl =>
+    HLDA
+
+%END

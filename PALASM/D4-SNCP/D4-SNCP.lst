@@ -1,0 +1,145 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SNCP.pld                      Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:55:15 2026
+
+  1:Name            D4-SNCP Numeric Coprocessor error and busy logic;
+  2:PartNo          105657-001;
+  3:Revision        01;
+  4:Date            16/5/26;
+  5:Designer        Dave Henry;
+  6:Company         Breadboarding Labs;
+  7:Location        None;
+  8:Assembly        None;
+  9:Device          g16v8;
+ 10:
+ 11:/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+ 12:/*                                                                                         */
+ 13:/*******************************************************************************************/
+ 14:/*                                                                                         */
+ 15:/*******************************************************************************************/
+ 16:/*
+ 17:DESCRIPTION
+ 18:This PAL is used in the Magnum processor board to handle the error logic for
+ 19:the numeric coprocessor. It allows a greater measure of compatibility with
+ 20:the previous products. It sets up the system to generate an interrupt when 
+ 21:the error signal is recieved. It holds the interrupt until the service
+ 22:routine does a write to port F0h. It also holds busy out active until the 
+ 23:interrupt occurs or till the CPU times out from no activity. This is to
+ 24:prevent any other numeric processor instructions from being executed until 
+ 25:the error has been recognized. If the no activity timeout occurs, that means
+ 26:the CPU hung up on the 287 interface due to different design of the 386.
+ 27:
+ 28:In this case, the interrupt will have been recieved by the 386.
+ 29:In addition, the timer chip selects are broken out to the seperate selects by the PAL logic.
+ 30:
+ 31:*/
+ 32:/* Pin Map 
+ 33:                               ______________
+ 34:                              |   D4-SNCP    |
+ 35:                   !TIMCS x---|1           20|---x Vcc                      
+ 36:                   !XIOWC x---|2           19|---x !BUSYOUT                 
+ 37:                      XA0 x---|3           18|---x EN_ERR                   
+ 38:                   !ERROR x---|4           17|---x NC02                     
+ 39:                  !BUSYIN x---|5           16|---x IRQ13                    
+ 40:                     TIMO x---|6           15|---x ONESHT                   
+ 41:                   !NCPIN x---|7           14|---x !TIM1CS                  
+ 42:                   !NCPCS x---|8           13|---x !TIM2CS                  
+ 43:                   !RESET x---|9           12|---x RES287                   
+ 44:                      GND x---|10          11|---x XA3                      
+ 45:                              |______________|
+ 46:
+ 47:*/
+ 48:
+ 49:
+ 50:PIN 1 = !TIMCS ;
+ 51:PIN 2 = !XIOWC ;
+ 52:PIN 3 = XA0 ;
+ 53:PIN 4 = !ERROR ;
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SNCP.pld                      Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:55:15 2026
+
+ 54:PIN 5 = !BUSYIN ;
+ 55:PIN 6 = TIMO ;
+ 56:PIN 7 = !NCPIN ;
+ 57:PIN 8 = !NCPCS ;
+ 58:PIN 9 = !RESET ;
+ 59:PIN 11 = XA3 ;
+ 60:PIN 12 = RES287 ;
+ 61:PIN 13 = !TIM2CS ;
+ 62:PIN 14 = !TIM1CS ;
+ 63:PIN 15 = ONESHT ;
+ 64:PIN 16 = IRQ13 ;
+ 65:PIN 17 = NC02 ;
+ 66:PIN 18 = EN_ERR ;
+ 67:PIN 19 = !BUSYOUT ;/* The following equation is the positive true output of the equation: */
+ 68:
+ 69:
+ 70:
+ 71:/* RES287 = RESET + XIOWC * NCPCS * /XA3 * XA0  ; I/O write to F1h */
+ 72:   
+ 73:!RES287 =
+ 74:  !RESET  & !XIOWC /* NOT I/O WRITE */
+ 75:# !RESET  & !NCPCS /*  NOT port FX */
+ 76:# !RESET  &  XA3   /*  NOT address XXIXXXb */
+ 77:# !RESET  & !XA0;  /*  NOT address XXXXXOb */
+ 78:                  
+ 79:   
+ 80:BUSYOUT =
+ 81:  !RESET & NCPIN  & BUSYIN /*  coprocessor busy */
+ 82:# !RESET  & NCPIN  & ERROR  & EN_ERR & !TIMO /*  error before int ack */
+ 83:# !RESET  & !NCPIN & NCPCS  & XA3  & XIOWC /*  When not installed and NCP accessed */
+ 84:# !RESET  & !NCPIN & ONESHT & !TIMO; /*  When not installed till timeout */
+ 85:
+ 86:
+ 87:/* The following equation is the positive true output of the equation: */
+ 88:/*  IRQ13 = ERROR* /BUSYIN* EN_ERR* NCPIN   ; Int when error and enabled */
+ 89:!IRQ13 =
+ 90:         !ERROR /*  No int if no error */
+ 91:       #  BUSYIN /*  or busy */
+ 92:       # !EN_ERR /*  or not enabled for err */
+ 93:       # !NCPIN; /*  No int if not installed */
+ 94:                                   
+ 95:   
+ 96:!EN_ERR =
+ 97:    !RESET & NCPIN & !EN_ERR  &  ERROR  /*  Hold disabled till ERROR goes away */
+ 98:  # !RESET & NCPIN & !EN_ERR  &  BUSYIN /*  Hold disabled till BUSY goes away */
+ 99:  #  XIOWC  & NCPCS & !XA3     & !XA0;   /*  Disable on write to port 0F0h */
+100:              
+101:   
+102:!ONESHT =
+103:    NCPIN & !IRQ13                      /*  One shot output when IRQ (installed) */
+104: # !NCPIN & !ONESHT  & !XIOWC           /*  Goes high on NCP access when not */
+105: # !NCPIN  & !ONESHT  & !XA3            /*      installed */
+106: # !NCPIN  & !ONESHT  & !NCPCS 
+107: # !NCPIN  &  TIMO                      /*  and stays high till timeout */
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-SNCP.pld                      Page 3
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 16:55:15 2026
+
+108: #  RESET;                              /*  Low at reset time */
+109:                                    
+110:   
+111:TIM1CS = TIMCS  & !XA3;                 /*  Timer 1 at address 040h-047h, 050h-057h */
+112:             
+113:   
+114:TIM2CS = TIMCS  &  XA3;                 /*  Timer 2 at address 048h-04Fh, 058h-05Fh */
+115: 
+116:
+117:
+
+
+
+Jedec Fuse Checksum       (7d58)
+Jedec Transmit Checksum   (74aa)

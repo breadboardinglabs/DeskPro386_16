@@ -1,0 +1,102 @@
+%SIGNAL
+PIN  22 = !ALE 
+PIN  15 = !BRDY 
+PIN   7 = !BWAIT 
+PIN  21 =  CK8 
+PIN   3 = !CLAST 
+PIN   1 =  CLK16 
+PIN  17 = !CMD 
+PIN   4 = !CX16 
+PIN   5 =  LMIO 
+PIN   6 = !LNOWS 
+PIN   8 = !M16 
+PIN   2 = !MYCYC 
+PIN  13 = !OE 
+PIN  23 = !RST 
+PIN   9 =  T00 
+PIN  10 =  T01 
+PIN  11 =  T10 
+PIN  14 =  T31 
+PIN  19 = !T40 
+PIN  20 = !T41 
+PIN  16 = !TS0 
+PIN  18 = !WDEN 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+ALE.d  =>
+    RST & !TS0
+  # ALE & CMD & !MYCYC & RST & !T00 & TS0
+
+ALE.oe  =>
+    !OE
+
+BRDY.d  =>
+    BWAIT & !CLAST & RST & !T41
+  # !CK8 & !CLAST & !CMD & !LNOWS & RST
+
+BRDY.oe  =>
+    !OE
+
+!CK8.d  =>
+    RST & !TS0
+  # ALE & CMD & !MYCYC & RST & !T00 & TS0
+  # CK8
+
+CK8.oe  =>
+    !OE
+
+CMD.d  =>
+    !CMD & LNOWS & RST & T41
+  # !BWAIT & !CMD & LNOWS & RST
+  # CK8 & !CMD & RST
+  # !ALE & CMD & LMIO & !M16 & RST
+  # CMD & RST & T00
+
+CMD.oe  =>
+    !OE
+
+T40.d  =>
+    !CX16 & LNOWS & RST & T01
+  # LNOWS & RST & T31
+
+T40.oe  =>
+    !OE
+
+T41.d  =>
+    RST & !T40
+  # !CMD & !CX16 & LNOWS & RST & T10
+  # !BWAIT & RST & !T41
+
+T41.oe  =>
+    !OE
+
+TS0.d  =>
+    BWAIT & CLAST & RST & !T41
+  # !CK8 & CLAST & !CMD & !LNOWS & RST
+  # BWAIT & !CLAST & !MYCYC & RST & !T41
+  # !CK8 & !CLAST & !CMD & !LNOWS & !MYCYC & RST
+
+TS0.oe  =>
+    !OE
+
+WDEN.d  =>
+    RST & !TS0
+  # ALE & CMD & !MYCYC & RST & !T00 & TS0
+  # !ALE & RST
+  # RST & T00
+  # !CMD & RST
+
+WDEN.oe  =>
+    !OE
+
+RST.oe  =>
+    0 
+
+T31.oe  =>
+    0 
+
+%END

@@ -9,7 +9,7 @@ XA3     RES287 /TIM2CS /TIM1CS  ONESHT  IRQ13  NC02   EN_ERR /BUSYOUT  VCC
 ;The following equation is the positive true output of the equation:
 ;RES287 = RESET + XIOWC * NCPCS * /XA3 * XA0  ; I/O write to F1h
 
-IF (VCC) IRES287 =
+IF (VCC) /RES287 =
   /RESET * /XIOWC               ;NOT I/O WRITE
 + /RESET * /NCPCS               ; NOT port FX
 + /RESET * XA3                  ; NOT address XXIXXXb
@@ -17,7 +17,7 @@ IF (VCC) IRES287 =
 
 IF (VCC) BUSYOUT =
    /RESET*  NCPIN* BUSYIN                 ; coprocessor busy
-+  /RESET*  NCPIN* ERROR * EN_ERR* /TIMO  ; error before int ack
++  /RESET*  NCPIN* ERROR * EN_ERR* /TIMO  ; error before int ack
 +  /RESET* /NCPIN* NCPCS * XA3 * XIOWC    ; When not installed and NCP accessed
 +  /RESET* /NCPIN* ONESHT* /TIMO          ; When not installed till timeout
 
@@ -33,7 +33,7 @@ IF (VCC) /IRQ13 =
 IF (VCC) /EN_ERR =
   /RESET* NCPIN* /EN_ERR * ERROR          ; Hold disabled till ERROR goes away
 + /RESET* NCPIN* /EN_ERR * BUSYIN         ; Hold disabled till BUSY goes away
-+ XIDWC * NCPCS * /XA3 * /XA0             ; Disable on write to port 0F0h
++ XIOWC * NCPCS * /XA3 * /XA0             ; Disable on write to port 0F0h
 
 IF (VCC) /ONESHT =
    NCPIN * /IRQ13                         ; One shot output when IRQ (installed)

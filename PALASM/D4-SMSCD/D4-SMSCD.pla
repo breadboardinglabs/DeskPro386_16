@@ -1,0 +1,42 @@
+# Berkeley PLA format generated using
+#
+# CUPL(WM)        5.0a Serial# MW-10400000
+# Device          g16v8ms  Library DLIB-h-40-11
+# Created         Sat May 16 16:44:01 2026
+# Name            D4-SMSCD Miscellaneous garbage logic
+# Partno          108397-001
+# Revision        01
+# Date            16/5/26
+# Designer        Dave Henry
+# Company         Breadboarding Labs
+# Assembly        None
+# Location        None
+#
+# Inputs  0 1 387I !ADS 
+#         BALE !BE0 !BRDY CLK 
+#         !CLSTD D_C !LNCP !LOE 
+#         !M32 !MYCYC M_IO !NAB 
+#         !OE PA31 !SHTD W_R 
+# Outputs !LNCP !LOE.d !MYCYC.d !NAB.d 
+#         !SHTD.d 387I.oe ADS.oe CLSTD.oe 
+#         LNCP.oe 
+.i 20
+.o 9
+.p 16
+----1--------10--1-- 1~~~~~~~~
+----0-----1--------- 1~~~~~~~~
+----------1--10--1-- 1~~~~~~~~
+----1-----0--1-----0 ~1~~~~~~~
+------0----1-------- ~1~~~~~~~
+--01----0-----0----- ~~1~~~~~~
+---1----0-----0--0-- ~~1~~~~~~
+---1----0---0-1----- ~~1~~~~~~
+---1----00----1----1 ~~1~~~~~~
+--------0----1------ ~~1~~~~~~
+--------1----------- ~~~1~~~~~
+----11---0---11----1 ~~~~1~~~~
+1------------------- ~~~~~1~~~
+1------------------- ~~~~~~1~~
+1------------------- ~~~~~~~1~
+-1------------------ ~~~~~~~~1
+.end

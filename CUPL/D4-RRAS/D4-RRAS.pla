@@ -1,0 +1,42 @@
+# Berkeley PLA format generated using
+#
+# CUPL(WM)        5.0a Serial# MW-10400000
+# Device          g16v8s  Library DLIB-h-40-9
+# Created         Thu May 07 16:38:24 2026
+# Name            D4-RRAS 
+# Partno          XXXXX 
+# Revision        XX 
+# Date            XX/XX/XX 
+# Designer        XXXXX 
+# Company         XXXXX 
+# Assembly        XXXXX 
+# Location        XXXXX 
+#
+# Inputs  A17 A18 A19 A20 
+#         A21 A22 A23 A31 
+#         FA20 !MRD !MWE !PARRD 
+#         !PARWR !RFSH !ROM !RS0 
+#         !RS1 !WE0 
+# Outputs !PARRD !PARWR !RS0 !RS1 
+#         !WE0 
+.i 18
+.o 5
+.p 17
+00000111-1-------- 1~~~~
+00000111--1------- ~1~~~
+--000000---------- ~~1~~
+--0-00000--------- ~~1~~
+00100000---------- ~~1~~
+11100000---------- ~~1~~
+---11110---------- ~~1~~
+-------------1---- ~~1~~
+---100001--------- ~~~1~
+-------------1---- ~~~1~
+--0-0000--1------- ~~~~1
+00100000--1------- ~~~~1
+11100000--1---0--- ~~~~1
+-1011110--1------- ~~~~1
+-0111110--1------- ~~~~1
+01111110--1------- ~~~~1
+11111110--1---0--- ~~~~1
+.end

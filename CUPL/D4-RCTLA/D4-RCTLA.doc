@@ -1,0 +1,226 @@
+
+*******************************************************************************
+                                   D4-RCTLA
+*******************************************************************************
+
+CUPL(WM)        5.0a Serial# MW-10400000
+Device          g16v8ms  Library DLIB-h-40-11
+Created         Thu May 07 16:36:23 2026
+Name            D4-RCTLA 
+Partno          XXXXX 
+Revision        XX 
+Date            XX/XX/XX 
+Designer        XXXXX 
+Company         XXXXX 
+Assembly        XXXXX 
+Location        XXXXX 
+
+===============================================================================
+                            Expanded Product Terms
+===============================================================================
+
+MCAS.d  =>
+    CLK16 & !HLDA & MRAS & MRD & NAM
+  # !CLK16 & !HLDA & MCAS
+  # !CLK16 & !HLDA & MRDY & MWE
+  # !ADSM & DMIO & D_C & HLDA & MRAS & !SWM
+  # !ADSM & DMIO & D_C & HLDA & MCAS & MRD
+
+MRAS.d  =>
+    !ADSM & !HLDA & !NAM & SWM
+  # !HLDA & MRAS & !MRDY
+  # !CLK16 & !HLDA & MRAS
+  # ADSM & HIT & !HLDA & M32 & MRAS & !W_R
+  # ADSM & D_C & HIT & !HLDA & M32 & MRAS
+  # !ADSM & CLK16 & DMIO & !D_C & HLDA & !SWM
+  # !ADSM & DMIO & !D_C & HLDA & MRAS & !SWM
+  # !ADSM & DMIO & D_C & HLDA & M32 & !YY
+
+MRD.d  =>
+    !CLK16 & !HLDA & M32 & MRAS & NAM & !W_R
+  # !CLK16 & !HLDA & MRD
+  # CLK16 & !HLDA & MRD & NAM
+  # !ADSM & DMIO & D_C & HLDA & M32 & MRAS & W_R
+  # !ADSM & DMIO & HLDA & MRD
+
+MRDY.d  =>
+    CLK16 & !HLDA & MRAS & NAM
+  # !CLK16 & !HLDA & MRDY
+
+MWE.d  =>
+    !CLK16 & D_C & !HLDA & M32 & MRAS & NAM & W_R
+  # !CLK16 & !HLDA & MWE
+  # CLK16 & !HLDA & MWE & NAM
+  # !ADSM & DMIO & HLDA & M32 & !W_R & !YY
+  # !ADSM & DMIO & HLDA & MWE
+
+NAM.d  =>
+    ADSM & CLK16 & HIT & !HLDA & M32 & MRDY & !W_R
+  # ADSM & CLK16 & D_C & HIT & !HLDA & M32 & MRDY
+  # !ADSM & CLK16 & !HLDA & !NAM & SWM
+  # !CLK16 & NAM
+  # !ADSM & HLDA
+
+SWM.d  =>
+    ADSM & CLK16 & !HLDA & M32 & !MRDY & !W_R
+  # ADSM & CLK16 & D_C & !HLDA & M32 & !MRDY
+  # CLK16 & !HLDA & !MRAS & !SWM & YY
+  # !CLK16 & !MRAS & SWM
+  # !ADSM & D_C & HLDA & !MRAS
+  # !ADSM & !D_C & HLDA & MRAS & YY
+  # !ADSM & DMIO & !D_C & HLDA & SWM
+  # !ADSM & DMIO & HLDA & !MRAS & SWM
+
+YY.d  =>
+    ADSM & CLK16 & !HIT & !HLDA & M32 & MRDY & !W_R
+  # ADSM & CLK16 & D_C & !HIT & !HLDA & M32 & MRDY
+  # !HLDA & MRAS & NAM
+  # !CLK16 & !HLDA & YY
+  # !ADSM & DMIO & D_C & HLDA & MCAS
+  # !ADSM & DMIO & HLDA & YY
+  # !ADSM & CLK16 & DMIO & !D_C & HLDA & MRAS & !SWM
+
+
+===============================================================================
+                                 Symbol Table
+===============================================================================
+
+Pin Variable                                    Pterms   Max     Min    
+Pol   Name              Ext     Pin     Type     Used   Pterms  Level   
+--- --------            ---     ---     ----    ------  ------  -----   
+
+ !  ADSM                        2        V        -       -       -     
+    CLK                         1        V        -       -       -     
+ !  CLK16                       8        V        -       -       -     
+ !  DMIO                        3        V        -       -       -     
+    D_C                         4        V        -       -       -     
+ !  HIT                         9        V        -       -       -     
+    HLDA                        7        V        -       -       -     
+ !  M32                         6        V        -       -       -     
+ !  MCAS                        15       V        -       -       -     
+ !  MCAS                d       15       X        5       8       1     
+ !  MRAS                        12       V        -       -       -     
+ !  MRAS                d       12       X        8       8       1     
+ !  MRD                         18       V        -       -       -     
+ !  MRD                 d       18       X        5       8       1     
+ !  MRDY                        16       V        -       -       -     
+ !  MRDY                d       16       X        2       8       1     
+ !  MWE                         17       V        -       -       -     
+ !  MWE                 d       17       X        5       8       1     
+ !  NAM                         14       V        -       -       -     
+ !  NAM                 d       14       X        5       8       1     
+ !  OE                          11       V        -       -       -     
+ !  SWM                         13       V        -       -       -     
+ !  SWM                 d       13       X        8       8       1     
+    W_R                         5        V        -       -       -     
+ !  YY                          19       V        -       -       -     
+ !  YY                  d       19       X        7       8       1     
+
+
+LEGEND    D : default variable         F : field      G : group
+          I : intermediate variable    N : node       M : extended node
+          U : undefined                V : variable   X : extended variable
+          T : function
+
+
+===============================================================================
+                                   Fuse Plot
+===============================================================================
+
+Syn   02192 x Ac0   02193 - 
+
+Pin #19  02048  Pol x  02120  Ac1 x 
+ 00000 -x-----------x-x-x---x---x--x--- 
+ 00032 -x------x------x-x---x---x--x--- 
+ 00064 ---------------------x-x-------x 
+ 00096 ---x-----------------x--x------- 
+ 00128 x----x--x----------xx----------- 
+ 00160 x--x-x--------------x----------- 
+ 00192 x----x---x----------x----xx----x 
+ 00224 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #18  02049  Pol x  02121  Ac1 x 
+ 00256 -------------x---x---x-xx------x 
+ 00288 -------x-------------x--x------- 
+ 00320 -------x-------------x-x-x------ 
+ 00352 x----x--x---x----x--x----------x 
+ 00384 x----x-x------------x----------- 
+ 00416 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00448 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00480 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #17  02050  Pol x  02122  Ac1 x 
+ 00512 --------x---x----x---x-xx------x 
+ 00544 -----------x---------x--x------- 
+ 00576 -----------x---------x-x-x------ 
+ 00608 x-x--x-------x---x--x----------- 
+ 00640 x----x-----x--------x----------- 
+ 00672 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00736 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #16  02051  Pol x  02123  Ac1 x 
+ 00768 ---------------------x-x-x-----x 
+ 00800 ---------------x-----x--x------- 
+ 00832 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00864 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00896 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00928 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 00992 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #15  02052  Pol x  02124  Ac1 x 
+ 01024 -------x-------------x-x-x-----x 
+ 01056 -------------------x-x--x------- 
+ 01088 -----------x---x-----x--x------- 
+ 01120 x----x--x-----------x-----x----x 
+ 01152 x----x-xx----------xx----------- 
+ 01184 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01216 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01248 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #14  02053  Pol x  02125  Ac1 x 
+ 01280 -x-----------x-x-x---x---x---x-- 
+ 01312 -x------x------x-x---x---x---x-- 
+ 01344 x--------------------xx--x-x---- 
+ 01376 -----------------------xx------- 
+ 01408 x-------------------x----------- 
+ 01440 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01472 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+ 01504 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
+Pin #13  02054  Pol x  02126  Ac1 x 
+ 01536 -x-----------xx--x---x---x------ 
+ 01568 -x------x-----x--x---x---x------ 
+ 01600 ---x-----------------x---xx---x- 
+ 01632 ------------------------x--x--x- 
+ 01664 x-------x-----------x---------x- 
+ 01696 x--x-----x----------x----------x 
+ 01728 x----x---x----------x------x---- 
+ 01760 x----x--------------x------x--x- 
+Pin #12  02055  Pol x  02127  Ac1 x 
+ 01792 x--------------------xx----x---- 
+ 01824 --------------x------x---------x 
+ 01856 ---------------------x--x------x 
+ 01888 -x-----------x---x---x-------x-x 
+ 01920 -x------x--------x---x-------x-x 
+ 01952 x----x---x----------x----xx----- 
+ 01984 x----x---x----------x-----x----x 
+ 02016 x-x--x--x--------x--x----------- 
+
+
+LEGEND    X : fuse not blown 
+          - : fuse blown 
+
+===============================================================================
+                                 Chip Diagram
+===============================================================================
+
+                               ______________
+                              |   D4-RCTLA   |
+                      CLK x---|1           20|---x Vcc                      
+                    !ADSM x---|2           19|---x !YY                      
+                    !DMIO x---|3           18|---x !MRD                     
+                      D_C x---|4           17|---x !MWE                     
+                      W_R x---|5           16|---x !MRDY                    
+                     !M32 x---|6           15|---x !MCAS                    
+                     HLDA x---|7           14|---x !NAM                     
+                   !CLK16 x---|8           13|---x !SWM                     
+                     !HIT x---|9           12|---x !MRAS                    
+                      GND x---|10          11|---x !OE                      
+                              |______________|
+

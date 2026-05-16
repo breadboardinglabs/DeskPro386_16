@@ -1,0 +1,164 @@
+LISTING FOR LOGIC DESCRIPTION FILE: D4-RCTLA.pld                     Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 15:50:51 2026
+
+  1:Name            D4-RCTLA D4 PAGE RAM BOARD Control logic;
+  2:PartNo          108352-001;
+  3:Revision        01;
+  4:Date            16/5/26;
+  5:Designer        Dave Henry;
+  6:Company         Breadboarding Labs;
+  7:Location        None;
+  8:Assembly        None;
+  9:Device          g16v8;
+ 10:
+ 11:/* 15/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+ 12:/*                                                                                         */
+ 13:/*******************************************************************************************/
+ 14:/*                                                                                         */
+ 15:/*******************************************************************************************/
+ 16:/*
+ 17:DESCRIPTION
+ 18:This PAL is used in the D4 (386) memory board to control the DRAM subsystem.
+ 19:The RAS and CAS master strobes are generated, and the CPU next address and
+ 20:READY signals are provided.
+ 21:Rev A of this PAL changes the DMA state machine to prevent spurious RAM cycles
+ 22:after refresh or DMA cycles.
+ 23:*/
+ 24:/* Pin Map 
+ 25:                               ______________
+ 26:                              |   D4-RCTLA   |
+ 27:                      CLK x---|1           20|---x Vcc                      
+ 28:                    !ADSM x---|2           19|---x !YY                      
+ 29:                    !DMIO x---|3           18|---x !MRD                     
+ 30:                      D_C x---|4           17|---x !MWE                     
+ 31:                      W_R x---|5           16|---x !MRDY                    
+ 32:                     !M32 x---|6           15|---x !MCAS                    
+ 33:                     HLDA x---|7           14|---x !NAM                     
+ 34:                   !CLK16 x---|8           13|---x !SWM                     
+ 35:                     !HIT x---|9           12|---x !MRAS                    
+ 36:                      GND x---|10          11|---x !OE                      
+ 37:                              |______________|
+ 38:
+ 39:*/
+ 40:
+ 41:PIN 1 = CLK ;
+ 42:PIN 2 = !ADSM ;
+ 43:PIN 3 = !DMIO ;
+ 44:PIN 4 = D_C ;
+ 45:PIN 5 = W_R ;
+ 46:PIN 6 = !M32 ;
+ 47:PIN 7 = HLDA ;
+ 48:PIN 8 = !CLK16 ;
+ 49:PIN 9 = !HIT ;
+ 50:PIN 11 = !OE ;
+ 51:PIN 12 = !MRAS ;
+ 52:PIN 13 = !SWM ;
+ 53:PIN 14 = !NAM ;
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-RCTLA.pld                     Page 2
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 15:50:51 2026
+
+ 54:PIN 15 = !MCAS ;
+ 55:PIN 16 = !MRDY ;
+ 56:PIN 17 = !MWE ;
+ 57:PIN 18 = !MRD ;
+ 58:PIN 19 = !YY ;
+ 59:             
+ 60:             
+ 61:
+ 62: 
+ 63:SWM.D =
+ 64:  !HLDA & CLK16 & ADSM & !MRDY & !W_R & M32                                  /* CPU IDLE TO MEMORY */
+ 65:# !HLDA   & CLK16 & ADSM & !MRDY & D_C  & M32                                /* CPU IDLE TO MEMORY */
+ 66:# !HLDA   & CLK16 & YY & !MRAS   & !SWM                                      /* AFTER A MISS */
+ 67:# !CLK16 & SWM  & !MRAS                                                      /* CLK16 SYNC */
+ 68:# HLDA  & !ADSM  & D_C  & !MRAS                                              /* DMA */
+ 69:# HLDA  & !ADSM  & !D_C & MRAS  & YY                                         /* REFRESH START */
+ 70:# HLDA  & !ADSM  & !D_C & SWM  & DMIO                                        /* REFRESH HOLD */
+ 71:# HLDA  & !ADSM  & DMIO  & SWM & !MRAS;                                      /* REFRESH END */
+ 72:               
+ 73: 
+ 74:YY.D =
+ 75:  !HLDA & CLK16  & ADSM & MRDY & !W_R & M32 & !HIT                           /* CPU PIPE TO MEMORY MISS */
+ 76:# !HLDA & CLK16  & ADSM & MRDY & D_C  & M32 & !HIT                           /* CPU PIPE TO MEMORY MISS */
+ 77:# !HLDA & NAM         & MRAS                                                 /* OR WHEN LATCH NEEDS CLOSED */
+ 78:# !HLDA & !CLK16 & YY                                                        /* CLK16 SYNC */
+ 79:# HLDA  & D_C  & MCAS   & DMIO & !ADSM                                       /* DMA */
+ 80:# HLDA  & YY         & DMIO   & !ADSM                                        /* DMA,REFRESH HOLD TO END */
+ 81:# HLDA  & !D_C & MRAS   & DMIO & !ADSM & !SWM & CLK16;                       /* REFRESH */
+ 82:  
+ 83:
+ 84: 
+ 85:NAM.D =
+ 86:  !HLDA & CLK16  &  ADSM &  MRDY & !W_R  & M32 & HIT                         /* CPU PIPE TO MEMORY HIT */
+ 87:# !HLDA & CLK16  &  ADSM &  MRDY &  D_C  & M32 & HIT                         /* CPU PIPE TO MEMORY HIT */
+ 88:# !HLDA & CLK16  &  SWM  & !ADSM & !NAM                                      /* AFTER AN IDLE OR MISS */
+ 89:#        !CLK16  &  NAM                                                      /* CLK16 SYNC */
+ 90:#  HLDA          & !ADSM;                                                    /* DURING REFRESH AND DMA */
+ 91:                                  
+ 92:
+ 93: 
+ 94:MRDY.D =
+ 95:  !HLDA   & CLK16 & NAM & MRAS                                               /* AFTER NA WILL BE READY */
+ 96:# !HLDA  & !CLK16 & MRDY;                                                    /* CLK16 SYNC */
+ 97:                            
+ 98: 
+ 99:MRAS.D =
+100:  !HLDA & SWM &  !ADSM  & !NAM                                               /* OUT OF A MISS OR IDLE OPERATION */
+101:# !HLDA & MRAS & !MRDY                                                       /* TILL MRDY */
+102:# !HLDA & MRAS & !CLK16                                                      /*  AND TILL CLK16 UNLESS */
+103:# !HLDA & MRAS &  ADSM  & !W_R & M32  & HIT                                  /* CPU PIPE HIT */
+104:# !HLDA & MRAS &  ADSM  &  D_C  & M32  & HIT                                 /* CPU PIPE HIT */
+105:#  HLDA & DMIO & !ADSM  & !D_C & !SWM & CLK16                                /* REFRESH */
+106:#  HLDA & DMIO & !ADSM  & !D_C & !SWM & MRAS                                 /* REFRESH HOLD */
+107:#  HLDA & DMIO & !ADSM  &  D_C  & M32  & !YY;                                /* DMA */
+
+LISTING FOR LOGIC DESCRIPTION FILE: D4-RCTLA.pld                     Page 3
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat May 16 15:50:51 2026
+
+108:            
+109: 
+110:MCAS.D =
+111:  !HLDA  &  CLK16 & NAM  & MRD   & MRAS                                      /* AFTER NA WILL BE CAS FOR READ */
+112:# !HLDA  & !CLK16 & MCAS                                                     /* CLK16 SYNC */
+113:# !HLDA  & !CLK16 & MRDY & MWE                                               /* AFTER START OF MRDY IS WRITE CAS */
+114:#  HLDA  & !ADSM  & D_C  & DMIO  & MRAS & !SWM                               /* DMA START */
+115:#  HLDA  & !ADSM  & D_C  & DMIO  & MCAS & MRD;                               /* DMA READ HOLD TILL END */
+116:          
+117: 
+118:MWE.D =
+119:  !HLDA  & !CLK16 & NAM  & D_C   & W_R & M32 & MRAS                          /* CPU WRITE TO MEMORY */
+120:# !HLDA  & !CLK16 & MWE                                                      /* CLK16 SYNC */
+121:# !HLDA  &  CLK16 & MWE  & NAM 
+122:# HLDA   & !W_R   & DMIO & !ADSM & M32 & !YY                                 /* DMA WRITE */
+123:# HLDA   &  MWE   & DMIO & !ADSM;                                            /* DMA WRITE HOLD */
+124:                     
+125: 
+126:MRD.D =
+127:  !HLDA & !CLK16 & NAM  & !W_R & M32 & MRAS                                  /* CPU READ FROM MEMORY */
+128:# !HLDA & !CLK16 & MRD                                                       /* CLK16 SYNC */
+129:# !HLDA &  CLK16 & MRD  &  NAM 
+130:#  HLDA &  W_R   & DMIO &  D_C & !ADSM & M32 & MRAS                          /* DMA READ (NOT REFRESH) */
+131:#  HLDA &  MRD   & DMIO & !ADSM;                                             /* DMA READ HOLD */
+132:                     
+133:
+134:
+135:
+136:
+
+
+
+Jedec Fuse Checksum       (a319)
+Jedec Transmit Checksum   (e37c)

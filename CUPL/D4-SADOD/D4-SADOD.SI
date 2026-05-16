@@ -1,0 +1,108 @@
+NAME         D4-SADOD ;
+PARTNO       XXXXX ;
+REV          XX ;
+DATE         XX/XX/XX ;
+DESIGNER     XXXXX ;
+COMPANY      XXXXX ;
+ASSEMBLY     XXXXX ;
+LOCATION     XXXXX ;
+
+
+ORDER:
+ 
+
+   CALE, %1
+ , BHLDA, %1
+ , !RST, %1
+ , !BE3, %1
+ , !BE2, %1
+ , !BE1, %1
+ , !BE0, %1
+ ,  LM_IO, %1
+ ,  ALE, %1
+ ,  T00, %1
+ ,  T10, %1
+ , !LM16, %1
+ , !IO16, %1
+ , !CMD, %3
+
+ , !DCMD, %1
+ , !CLAST, %3
+ ,  A1, %1
+ ,  A0, %1
+ , !BHE, %1
+ , !ALST, %1
+ , !CLSTD, %1
+ , !CX16;
+
+VECTORS:
+/*
+   B           L                C           C 
+ C H           M       L I    D L        A  L C 
+ A L R B B B B - A T T M O C  C A      B L  S X 
+ L D S E E E E I L 0 1 1 1 M  M S  A A H S  T 1 
+ E A T 3 2 1 0 O E 0 0 6 6 D  D T  1 0 E T  D 6
+ I I I I I I I I I I I I I I  O O  O O O O  O O */
+
+ C 0 0 1 1 1 1 1 1 1 0 1 1 1  H L  H H H H  L H /* RESET */
+ C 0 0 1 1 1 1 1 0 1 0 1 1 0  L L  H H H H  L H
+ C 0 1 0 0 0 0 1 0 0 0 1 1 1  H L  L L L H  H H /* 32 BIT ON 8 BUS */
+ C 0 1 0 0 0 0 1 1 1 1 1 1 1  H H  L H L H  H H
+ C 0 1 0 0 0 0 1 1 1 1 1 1 1  H H  H L L H  H H
+ C 0 1 0 0 0 0 1 1 0 0 1 1 1  H H  H H L L  H H
+ 0 0 1 0 0 0 0 1 0 1 1 1 1 1  H L  H H L L  L H
+ C 0 1 1 0 0 0 1 0 1 1 1 1 1  H L  L L L H  H H /* 24 BIT ON 8 BUS */
+ C 0 1 1 0 0 0 1 1 1 1 1 1 1  H H  L H L H  H H
+ C 0 1 1 0 0 0 1 1 0 0 1 1 1  H H  H L H L  H H
+ 0 0 1 1 0 0 0 1 0 1 1 1 1 1  H L  H L H L  L H
+ C 0 1 0 0 0 1 1 0 1 1 1 1 1  H L  L H L H  H H /* 24 BIT ON 8 BUS HIGH */
+ C 0 1 0 0 0 1 1 1 1 1 1 1 1  H H  H L L H  H H /* H */
+ C 0 1 0 0 0 1 1 1 0 0 1 1 1  H H  H H L L  H H
+ 0 0 1 0 0 0 1 1 0 1 1 1 1 1  H L  H H L L  L H
+ C 0 1 1 1 0 0 1 0 1 1 1 1 1  H L  L L L H  H H /* 16 LOW ON 8 BUS */
+ C 0 1 1 1 0 0 1 1 0 0 1 1 1  H H  L H L L  H H
+ 0 0 1 1 1 0 0 1 0 1 1 1 1 1  H L  L H L L  L H
+ C 0 1 1 0 0 1 1 0 1 1 1 1 1  H L  L H L H  H H /* 16 MED ON 8 BUS */
+ C 0 1 1 0 0 1 1 1 0 0 1 1 1  H H  H L H L  H H
+ 0 0 1 1 0 0 1 1 0 1 1 1 1 1  H L  H L H L  L H
+ C 0 1 0 0 1 1 1 0 1 1 1 1 1  H L  H L L H  H H /* 16 HIGH ON 8 BUS */
+ C 0 1 0 0 1 1 1 1 0 0 1 1 1  H H  H H L L  H H
+ 0 0 1 0 0 1 1 1 0 1 1 1 1 1  H L  H H L L  L H
+ C 0 1 1 1 1 0 1 1 1 1 1 1 1  H L  L L H L  L H /* 8 LOW ON 8 BUS */
+ C 0 1 1 1 0 1 1 1 1 1 1 1 1  H L  L H L L  L H /* 8 HIGH ON 8 BUS */
+                              
+ C 0 1 1 0 1 1 1 1 1 1 1 1 1  H L  H L H L  L H /* 8 LOW ON 8 BUS HIGH WORD */  
+ C 0 1 0 1 1 1 1 0 1 1 1 1 1  H L  H H L L  L H /* 8 HIGH ON 8 BUS HIGH WORD */
+ C 0 1 0 0 0 0 1 0 1 0 0 1 1  H L  L L L H  H L /* 32 BIT ON 16 BUS */
+ 0 0 1 0 0 0 0 1 0 0 0 0 1 1  H L  L L L H  H L
+ 0 0 1 0 0 0 0 1 1 0 0 0 1 1  H H  L L L H  H H
+ 0 0 1 0 0 0 0 1 0 1 0 0 1 1  H H  L L L H  H L
+ C 0 1 0 0 0 0 1 0 0 0 0 1 1  H H  H L L H  H L
+ 0 0 1 0 0 0 0 1 1 1 1 0 1 1  H L  H L L H  L L
+ C 0 1 1 0 0 0 0 0 1 1 1 0 1  H L  L L L H  H L /* 24 BIT ON 16 BUS  */
+ 0 0 1 1 0 0 0 0 1 1 1 1 0 1  H H  L L L H  H L
+ 0 0 1 1 0 0 0 0 0 1 1 1 0 1  H H  L L L H  H L
+ C 0 1 1 0 0 0 0 0 0 0 1 0 1  H H  H L H L  H L
+ 0 0 1 1 0 0 0 0 0 1 1 1 0 1  H L  H L H L  L L
+ C 0 1 0 0 0 1 0 0 1 1 0 0 1  H L  L H L H  H L /* 24 BIT ON 16 BUS HIGH */
+ 0 0 1 0 0 0 1 0 1 1 1 0 0 1  H H  L H L H  H L
+ 0 0 1 0 0 0 1 0 0 1 1 0 0 1  H H  L H L H  H L
+ C 0 1 0 0 0 1 0 0 0 0 0 0 1  H H  H L L H  H L
+ 0 0 1 0 0 0 1 0 1 1 1 0 0 1  H L  H L L H  L L
+ C 0 1 1 1 0 0 1 1 1 1 0 1 1  H L  L L L H  L L /* 16 LOW ON 16 BUS */
+ 0 0 1 1 1 0 0 1 0 1 1 0 1 1  H L  L L L H  L L
+ C 0 1 1 0 0 1 1 0 1 1 0 1 1  H L  L H L H  H L /*  16 MED ON 16 BUS  */
+ 0 0 1 1 0 0 1 1 1 1 1 0 1 1  H H  L H L H  H L
+ 0 0 1 1 0 0 1 1 0 1 1 0 1 1  H H  L H L H  H L
+ C 0 1 1 0 0 1 1 0 0 0 0 1 1  H H  H L H L  H L
+ 0 0 1 1 0 0 1 1 1 1 1 0 1 1  H L  H L H L  L L
+ C 0 1 0 0 1 1 1 1 1 1 0 1 1  H L  H L L H  L L /* 16 HIGH ON 16 BUS */
+ C 0 1 1 1 1 0 1 1 1 1 0 1 1  H L  L L H L  L L /* 8 LOW ON 16 BUS */
+ C 0 1 1 1 0 1 1 1 1 1 0 1 1  H L  L H L L  L L /* 8 HIGH ON 16 BUS */
+ C 0 1 1 0 1 1 1 1 1 1 0 1 1  H L  H L H L  L L /* 8 LOW ON 16 BUS HIGH WORD */
+ C 0 1 0 1 1 1 0 1 1 1 0 0 1  H L  H H L L  L L /* 8 HIGH ON 16 BUS HIGH WORD */
+ 0 0 1 0 1 1 1 0 0 1 1 0 0 1  H L  H H L L  L L
+ 0 0 1 0 1 1 1 0 0 0 0 1 0 1  H L  H H L L  H L
+ C 0 1 1 1 0 0 0 0 0 1 1 0 1  H L  L L L H  L L /* 16 LOW ON 16 BUS */
+ 0 0 1 1 1 0 0 0 1 0 1 1 0 1  H L  L L L H  L L
+ 0 1 1 1 1 0 0 0 1 0 0 1 0 1  H H  Z Z Z Z  H H

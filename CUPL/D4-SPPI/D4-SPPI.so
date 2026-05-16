@@ -1,0 +1,65 @@
+CSIM(WM): CUPL Simulation Program
+Version 5.0a Serial# MW-10400000
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+CREATED Thu May 07 16:47:33 2026
+
+LISTING FOR SIMULATION FILE: D4-SPPI.si
+
+   1: NAME         D4-SPPI ;
+   2: PARTNO       XXXXX ;
+   3: REV          XX ;
+   4: DATE         XX/XX/XX ;
+   5: DESIGNER     XXXXX ;
+   6: COMPANY      XXXXX ;
+   7: ASSEMBLY     XXXXX ;
+   8: LOCATION     XXXXX ;
+   9: 
+  10: 
+  11: ORDER:
+  12:  
+  13: 
+  14:      !XIORC, %1
+  15:    , !XIOWC, %1
+  16:    , !INTA, %1
+  17:    ,  XA9, %1
+  18:    ,  XA8, %1
+  19:    ,  XA4, %1
+  20:    ,  XA3, %1
+  21:    ,  XA0, %1
+  22:    , !PPICS, %1
+  23:    ,  RESCMOS, %3
+  24: 
+  25:    , !NMICLK, %1
+  26:    ,  CMOSAWR, %1
+  27:    , !CMOSWR, %1
+  28:    , !CMOSRD, %1
+  29:    , !KEYCS, %1
+  30:    , !PBWR, %1
+  31:    , !PBRD, %1
+  32:    , !CIORD;
+  33: 
+  34: 
+
+==============================================
+                        R   ! C ! !           
+      ! !             ! E   N M C C !     !   
+      X X !           P S   M O M M K ! ! C   
+      I I I           P C   I S O O E P P I   
+      O O N X X X X X I M   C A S S Y B B O   
+      R W T A A A A A C O   L W W R C W R R   
+      C C A 9 8 4 3 0 S S   K R R D S R D D   
+==============================================
+0001: 1 1 1 1 1 1 0 1 1 1   H H H H H H H H
+0002: 1 1 1 0 0 0 0 0 0 0   H L H H L H H H
+0003: 1 1 0 1 1 1 0 1 1 0   H L H H H H H L
+0004: 1 0 1 0 0 1 0 0 0 0   L H H H H H H H
+0005: 1 1 1 0 0 1 0 0 0 0   H L H H H H H H
+0006: 1 0 1 0 0 1 0 1 0 0   H L L H H H H H
+0007: 0 1 1 0 0 1 0 1 0 0   H L H L H H H L
+0008: 0 1 1 0 0 0 0 1 0 0   H L H H H H L L
+0009: 0 1 1 0 0 0 0 1 1 0   H L H H H H H L
+0010: 0 1 1 1 0 0 0 1 1 0   H L H H H H H H
+0011: 0 1 1 0 1 0 0 1 1 0   H L H H H H H H
+0012: 1 0 1 0 0 0 0 1 0 0   H L H H H L H H
+0013: 1 0 1 0 0 0 1 1 0 0   H L H H H H H H
+0014: 1 0 1 0 0 1 1 1 0 0   H L H H H H H H
