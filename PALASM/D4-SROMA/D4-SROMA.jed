@@ -1,7 +1,7 @@
 
 CUPL(WM)        5.0a  Serial# MW-10400000
 Device          g16v8ma  Library DLIB-h-40-8
-Created         Sat May 16 17:10:37 2026
+Created         Fri May 22 00:37:00 2026
 Name            D4-SROMA System ROM decode logic
 Partno          108135-001
 Revision        01
@@ -68,4 +68,4 @@ Location        None
 *V0023 111110111N1H11HHHHHN
 *V0024 111111011N1H01HHHLHN
 *V0025 111111101N1H11HHHHHN
-*CA56
+*CA43

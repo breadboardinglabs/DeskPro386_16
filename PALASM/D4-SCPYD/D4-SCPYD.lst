@@ -3,7 +3,7 @@ LISTING FOR LOGIC DESCRIPTION FILE: D4-SCPYD.pld                     Page 1
 CUPL(WM): Universal Compiler for Programmable Logic
 Version 5.0a Serial# MW-10400000
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-Created Sat May 16 16:21:09 2026
+Created Thu Jul 09 17:34:55 2026
 
   1:Name            D4-SCPYD Copy buffer control logic and DMA low address logic;
   2:PartNo          108395-OO1;
@@ -31,7 +31,7 @@ Created Sat May 16 16:21:09 2026
  24:D4-PROCESSOR board (with 80387).
  25:
  26:Note that changes were required to LM16 to avoid Unstable Output errors in the simulation
- 27:!LM16 changed to registered with BALE as the clock and Pin 11 defined as oe output enable active low
+ 27:!LM16 changed to registered with BALE as the clock and Pin 11 defined as oe output enable active high
  28:!HLDA moved to pin 19
  29:*/
  30:
@@ -47,7 +47,7 @@ Created Sat May 16 16:21:09 2026
  40:                   !DAEN1 x---|7           14|---x !COPYHL                  
  41:                     AEN2 x---|8           13|---x !COPYEN                  
  42:                     !M16 x---|9           12|---x !DAEN2                   
- 43:                      GND x---|10          11|---x oe                       
+ 43:                      GND x---|10          11|---x !oe                       
  44:                              |______________|
  45:*/
  46:
@@ -64,7 +64,7 @@ LISTING FOR LOGIC DESCRIPTION FILE: D4-SCPYD.pld                     Page 2
 CUPL(WM): Universal Compiler for Programmable Logic
 Version 5.0a Serial# MW-10400000
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-Created Sat May 16 16:21:09 2026
+Created Thu Jul 09 17:34:55 2026
 
  54:PIN 6 = !IORC ;
  55:PIN 7 = !DAEN1 ;
@@ -72,7 +72,7 @@ Created Sat May 16 16:21:09 2026
  57:PIN 9 = !M16 ;
  58:/* PIN 9 = BALE ; */
  59:/* PIN 11 = !HLDA ; */
- 60:PIN 11 =  oe ;
+ 60:PIN 11 = !oe ;
  61:PIN 12 = !DAEN2 ;
  62:PIN 13 = !COPYEN ;
  63:PIN 14 = !COPYHL ;
@@ -126,7 +126,7 @@ LISTING FOR LOGIC DESCRIPTION FILE: D4-SCPYD.pld                     Page 3
 CUPL(WM): Universal Compiler for Programmable Logic
 Version 5.0a Serial# MW-10400000
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-Created Sat May 16 16:21:09 2026
+Created Thu Jul 09 17:34:55 2026
 
 108:
 109:/* The Latch term below causes simulations to fail due to Unstable Outputs, converted to registered pin
@@ -145,4 +145,4 @@ Created Sat May 16 16:21:09 2026
 
 
 Jedec Fuse Checksum       (6107)
-Jedec Transmit Checksum   (4221)
+Jedec Transmit Checksum   (4236)

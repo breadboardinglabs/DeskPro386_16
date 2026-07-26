@@ -16,7 +16,7 @@ PIN   9 = !M16
 PIN   4 = !MRDC 
 PIN   3 = !MWTC 
 PIN  17 =  XA0 
-PIN  11 =  oe 
+PIN  11 = !oe 
 %END
 
 %FIELD

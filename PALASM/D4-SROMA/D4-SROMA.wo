@@ -33,8 +33,8 @@
 #H   ,!M32, %3
 #H 
 #H   ,!ROM, %1
-#H   ,!ROMIOE, %1
-#H   ,!ROM20E, %1
+#H   ,!ROM1OE, %1
+#H   ,!ROM2OE, %1
 #H   ,!ROMEN, %1
 #H   ,!M16E, %1
 #H   ,!LOWEN;

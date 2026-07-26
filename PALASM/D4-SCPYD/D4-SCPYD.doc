@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# MW-10400000
 Device          g16v8ms  Library DLIB-h-40-11
-Created         Sat May 16 16:21:09 2026
+Created         Thu Jul 09 17:34:55 2026
 Name            D4-SCPYD Copy buffer control logic and DMA low address logic
 Partno          108395-OO1
 Revision        01
@@ -100,7 +100,7 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
  !  MWTC                        3        V        -       -       -     
     XA0                         17       V        1       7       1     
     XA0                 oe      17       X        1       1       1     
-    oe                          11       V        -       -       -     
+ !  oe                          11       V        -       -       -     
     COPYEN              oe      13       D        1       1       0     
     COPYHL              oe      14       D        1       1       0     
     DAEN                oe      15       D        1       1       0     
@@ -212,6 +212,6 @@ LEGEND    X : fuse not blown
                    !DAEN1 x---|7           14|---x !COPYHL                  
                      AEN2 x---|8           13|---x !COPYEN                  
                      !M16 x---|9           12|---x !DAEN2                   
-                      GND x---|10          11|---x oe                       
+                      GND x---|10          11|---x !oe                      
                               |______________|
 

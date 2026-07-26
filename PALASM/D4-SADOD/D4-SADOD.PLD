@@ -72,10 +72,9 @@ PIN 19 = !BHE ;
 PIN 20 = !ALST ;
 PIN 21 = !CX16 ;
 PIN 22 = !DCMD ;
-PIN 23 = !RST ;/* The following 4 outputs are clocked by ALE, output only when /HLDA is true */
+PIN 23 = !RST ;
 
-                      
-                 
+/* The following 4 outputs are clocked by ALE, output only when /HLDA is true */
 
   
 !A1.D =

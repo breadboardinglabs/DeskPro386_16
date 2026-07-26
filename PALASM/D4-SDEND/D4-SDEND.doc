@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# MW-10400000
 Device          g16v8ma  Library DLIB-h-40-8
-Created         Sat May 16 16:25:11 2026
+Created         Sun Jul 26 22:02:40 2026
 Name            D4-SDEND DataBuffer enable logic
 Partno          109390-001
 Revision        01
@@ -25,7 +25,7 @@ B0EN =>
   # !A0 & !A1 & LD_C & LW_R & WDEN
 
 B0EN.oe  =>
-    !TST
+    TST
 
 B1EN =>
     !A1 & BHE & MWTC & !WDEN
@@ -33,7 +33,7 @@ B1EN =>
   # !A1 & BHE & LD_C & LW_R & WDEN
 
 B1EN.oe  =>
-    !TST
+    TST
 
 B2EN =>
     !A0 & A1 & MWTC & !WDEN
@@ -41,7 +41,7 @@ B2EN =>
   # !A0 & A1 & LD_C & LW_R & WDEN
 
 B2EN.oe  =>
-    !TST
+    TST
 
 B3EN =>
     A1 & BHE & MWTC & !WDEN
@@ -49,19 +49,19 @@ B3EN =>
   # A1 & BHE & LD_C & LW_R & WDEN
 
 B3EN.oe  =>
-    !TST
+    TST
 
 BDIRRD =>
     !MRDC & !WDEN
 
 BDIRRD.oe  =>
-    !TST
+    TST
 
 INTA =>
     CMD & !LD_C & !LM_IO & !LW_R
 
 INTA.oe  =>
-    !TST
+    TST
 
 MRDC.oe  =>
     0 
@@ -119,7 +119,7 @@ LEGEND    D : default variable         F : field      G : group
 Syn   02192 - Ac0   02193 - 
 
 Pin #19  02048  Pol x  02120  Ac1 - 
- 00000 ------------------------------x- 
+ 00000 -------------------------------x 
  00032 --x--x-----x----x--------------- 
  00064 --x--x-x-----x--x--------------- 
  00096 --x--x-----------x--x---x------- 
@@ -146,7 +146,7 @@ Pin #17  02050  Pol x  02122  Ac1 -
  00704 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00736 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #16  02051  Pol x  02123  Ac1 - 
- 00768 ------------------------------x- 
+ 00768 -------------------------------x 
  00800 ---------x-----------x---x---x-- 
  00832 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00864 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
@@ -155,7 +155,7 @@ Pin #16  02051  Pol x  02123  Ac1 -
  00960 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  00992 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #15  02052  Pol x  02124  Ac1 - 
- 01024 ------------------------------x- 
+ 01024 -------------------------------x 
  01056 -xx--------x----x--------------- 
  01088 -xx----x-----x--x--------------- 
  01120 -xx--------------x--x---x------- 
@@ -164,7 +164,7 @@ Pin #15  02052  Pol x  02124  Ac1 -
  01216 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01248 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #14  02053  Pol x  02125  Ac1 - 
- 01280 ------------------------------x- 
+ 01280 -------------------------------x 
  01312 ---x-x-----x----x--------------- 
  01344 ---x-x-x-----x--x--------------- 
  01376 ---x-x-----------x--x---x------- 
@@ -173,7 +173,7 @@ Pin #14  02053  Pol x  02125  Ac1 -
  01472 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01504 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #13  02054  Pol x  02126  Ac1 - 
- 01536 ------------------------------x- 
+ 01536 -------------------------------x 
  01568 -x-x-------x----x--------------- 
  01600 -x-x---x-----x--x--------------- 
  01632 -x-x-------------x--x---x------- 
@@ -182,7 +182,7 @@ Pin #13  02054  Pol x  02126  Ac1 -
  01728 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01760 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
 Pin #12  02055  Pol x  02127  Ac1 - 
- 01792 ------------------------------x- 
+ 01792 -------------------------------x 
  01824 ------x---------x--------------- 
  01856 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 
  01888 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx 

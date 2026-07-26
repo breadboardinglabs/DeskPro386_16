@@ -4,7 +4,7 @@ System ROM decode logic
 Copyright 1986 Compaq Computer Houston, Texas
 
 BALE   LA23    LA22  LA21 LA20  LA19 LA18   LA17   SA16   GND
-/MRDC /ROMIOE /RFSH /M32 /M16E /ROM /ROMEN /LOWEN /ROM20E VCC
+/MRDC /ROM1OE /RFSH /M32 /M16E /ROM /ROMEN /LOWEN /ROM20E VCC
 
 M16E = /LA23*/LA22*/LA21*/LA20* LA19* LA18* LA17       ;00E0000h-00FFFFFh
      +  LA23* LA22* LA21* LA20* LA19* LA18* LA17       ;0FE0000h-0FFFFFFh
@@ -16,7 +16,7 @@ ROM  = /LA23*/LA22*/LA21*/LA20* LA19* LA18* LA17* BALE ;00E0000h-00FFFFFh
      +  LA23* LA22* LA21* LA20* LA19* LA18* LA17* ROM  ;DEGLITCH
      + /BALE* ROM                                      ;LATCH TERM
 
-ROMIOE = ROM * SA16 * MRDC                             ;00F0000h-00FFFFFh 
+ROM1OE = ROM * SA16 * MRDC                             ;00F0000h-00FFFFFh 
                                                        ;0FF0000h-0FFFFFFh
 
 ROM20E = ROM * /SA16 * MRDC                            ;00E0000h-00EFFFFh 
@@ -32,7 +32,7 @@ LOWEN = /LA23* /LA22* /LA21* /LA20* BALE               ;BOTTOM ONE MEGABYTE AND 
       
 FUNCTION TABLE
 BALE  LA23    LA22    LA21   LA20  LA19 LA18 LA17 SA16 /MRDC /RFSH /M32
-/ROM /ROMIOE /ROM20E /ROMEN /M16E /LOWEN
+/ROM /ROM1OE /ROM20E /ROMEN /M16E /LOWEN
 
 ;                            R R
 ;                            O O R   L

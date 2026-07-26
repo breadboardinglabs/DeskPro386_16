@@ -13,9 +13,9 @@ PIN  14 = !M32
 PIN  11 = !MRDC 
 PIN  13 = !RFSH 
 PIN  16 = !ROM 
-PIN  19 = !ROM20E 
+PIN  12 = !ROM1OE 
+PIN  19 = !ROM2OE 
 PIN  17 = !ROMEN 
-PIN  12 = !ROMIOE 
 PIN   9 =  SA16 
 %END
 
@@ -41,14 +41,14 @@ ROM =>
   # LA17 & LA18 & LA19 & LA20 & LA21 & LA22 & LA23 & !ROM
   # !BALE & !ROM
 
-ROM20E =>
+ROM1OE =>
+    !MRDC & !ROM & SA16
+
+ROM2OE =>
     !MRDC & !ROM & !SA16
 
 ROMEN =>
     !MRDC & !ROM
-
-ROMIOE =>
-    !MRDC & !ROM & SA16
 
 LOWEN.oe  =>
     1 
@@ -65,13 +65,13 @@ RFSH.oe  =>
 ROM.oe  =>
     1 
 
-ROM20E.oe  =>
+ROM1OE.oe  =>
+    1 
+
+ROM2OE.oe  =>
     1 
 
 ROMEN.oe  =>
-    1 
-
-ROMIOE.oe  =>
     1 
 
 %END

@@ -1,6 +1,6 @@
 Name            D4-RM32 D4 PAGE RAM BOARD M32 decode logic;
 PartNo          108053-001;
-Revision        01;
+Revision        02;
 Date            16/5/26;
 Designer        Dave Henry;
 Company         Breadboarding Labs;
@@ -9,7 +9,7 @@ Assembly        None;
 Device          g16v8;
 
 /* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
-/*                                                                                         */
+/*            V2 Clean up and annotation                                                   */
 /*******************************************************************************************/
 /*                                                                                         */
 /*******************************************************************************************/
@@ -34,23 +34,27 @@ DESCRIPTION
 
 */
 
-PIN 1 = A31 ;
-PIN 2 = A23 ;
-PIN 3 = A22 ;
-PIN 4 = A21 ;
-PIN 5 = A20 ;
-PIN 6 = A19 ;
-PIN 7 = A18 ;
-PIN 8 = A17 ;
-PIN 9 = FA20 ;
+/* Inputs */
+PIN 1 = A31 ; /* PA31 processor address */
+PIN 2 = A23 ; /* PA23 processor address */
+PIN 3 = A22 ; /* PA22 processor address */
+PIN 4 = A21 ; /* PA21 processor address */
+PIN 5 = A20 ; /* PA20 processor address. Note when FA20 is high/true A20=PA20, when low/false  A20=0 */
+PIN 6 = A19 ; /* PA19 processor address */
+PIN 7 = A18 ; /* PA18 processor address */
+PIN 8 = A17 ; /* PA17 processor address */
+PIN 9 = FA20 ; /* LOWA20 when low disables A20 for 1MB real mode applications */
 PIN 11 = !2M ;
-PIN 12 = !M32A ;
+
+PIN 14 = !ROM ;  /* Memory shaddowing ROM when active low. Defaults to High (false) on reset. From U8B Q output on 74ALS74 */ 
+PIN 15 = !512K ; /* 512K RAM Jumper when low. Both high 256K. BBPC low */
+PIN 16 = !640K ; /* 640K RAM Jumper when low and 512K low.    BBPC low */
+PIN 17 = !1M ;   /* 1MB extended RAM when low.                BBPC Low */
+PIN 18 = !8M ;   /* 8MB Memory expansion when low.            BBPC high initially with 4 x 512K */
+
+/* Outputs */
+PIN 12 = !M32A ; /* These M32 outputs are wired together as an OR but the OE terms ensure only one is active at a time */
 PIN 13 = !M32B ;
-PIN 14 = !ROM ;
-PIN 15 = !512K ;
-PIN 16 = !640K ;
-PIN 17 = !1M ;
-PIN 18 = !8M ;
 PIN 19 = !M32C ;
 
 M32A.OE = !A22&!A21 ;
@@ -69,7 +73,7 @@ M32B.OE = A22&!A21 ;
      
 M32B =
  !A31 & !A23& A22 & !A21&                          8M    /* 400000-5FFFFF 2M */
-# A31  & A23 & A22 & !A21& !A20& !A19& !A18& !A17;       /* DIAG 8000000h 128K */
+# A31 &  A23& A22 & !A21& !A20& !A19& !A18& !A17;        /* DIAG 80C0000h 128K */
               
 
 M32C.OE = A21 ;
@@ -84,7 +88,7 @@ M32C =
 
 /*
 DESCRIPTION
-This PAL is used in the D4 (386) memomy board to decode addresses within the
+This PAL is used in the D4 (386) memory board to decode addresses within the
 memory space and assert the M32* signal. It does all the decoding for all the 
 expected options according to the following jumper settings.
 

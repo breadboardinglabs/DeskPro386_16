@@ -16,7 +16,7 @@ Assembly        None;
 ORDER:
  
 
-  TST, %1
+ !TST, %1
  , A1, %1
  , A0, %1
  , !BHE, %1

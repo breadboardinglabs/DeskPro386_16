@@ -5,7 +5,7 @@
 
 CUPL(WM)        5.0a Serial# MW-10400000
 Device          g16v8ma  Library DLIB-h-40-8
-Created         Sat May 16 17:10:37 2026
+Created         Fri May 22 00:37:00 2026
 Name            D4-SROMA System ROM decode logic
 Partno          108135-001
 Revision        01
@@ -37,14 +37,14 @@ ROM =>
   # LA17 & LA18 & LA19 & LA20 & LA21 & LA22 & LA23 & ROM
   # !BALE & ROM
 
-ROM20E =>
+ROM1OE =>
+    MRDC & ROM & SA16
+
+ROM2OE =>
     MRDC & ROM & !SA16
 
 ROMEN =>
     MRDC & ROM
-
-ROMIOE =>
-    MRDC & ROM & SA16
 
 LOWEN.oe  =>
     1 
@@ -61,13 +61,13 @@ RFSH.oe  =>
 ROM.oe  =>
     1 
 
-ROM20E.oe  =>
+ROM1OE.oe  =>
+    1 
+
+ROM2OE.oe  =>
     1 
 
 ROMEN.oe  =>
-    1 
-
-ROMIOE.oe  =>
     1 
 
 
@@ -93,18 +93,18 @@ Pol   Name              Ext     Pin     Type     Used   Pterms  Level
  !  MRDC                        11       V        -       -       -     
  !  RFSH                        13       V        -       -       -     
  !  ROM                         16       V        5       7       1     
- !  ROM20E                      19       V        1       7       1     
+ !  ROM1OE                      12       V        1       7       1     
+ !  ROM2OE                      19       V        1       7       1     
  !  ROMEN                       17       V        1       7       1     
- !  ROMIOE                      12       V        1       7       1     
     SA16                        9        V        -       -       -     
     LOWEN               oe      18       D        1       1       0     
     M16E                oe      15       D        1       1       0     
     M32                 oe      14       D        1       1       0     
     RFSH                oe      13       D        1       1       0     
     ROM                 oe      16       D        1       1       0     
-    ROM20E              oe      19       D        1       1       0     
+    ROM1OE              oe      12       D        1       1       0     
+    ROM2OE              oe      19       D        1       1       0     
     ROMEN               oe      17       D        1       1       0     
-    ROMIOE              oe      12       D        1       1       0     
 
 
 LEGEND    D : default variable         F : field      G : group
@@ -203,14 +203,14 @@ LEGEND    X : fuse not blown
                                ______________
                               |   D4-SROMA   |
                      BALE x---|1           20|---x Vcc                      
-                     LA23 x---|2           19|---x !ROM20E                  
+                     LA23 x---|2           19|---x !ROM2OE                  
                      LA22 x---|3           18|---x !LOWEN                   
                      LA21 x---|4           17|---x !ROMEN                   
                      LA20 x---|5           16|---x !ROM                     
                      LA19 x---|6           15|---x !M16E                    
                      LA18 x---|7           14|---x !M32                     
                      LA17 x---|8           13|---x !RFSH                    
-                     SA16 x---|9           12|---x !ROMIOE                  
+                     SA16 x---|9           12|---x !ROM1OE                  
                       GND x---|10          11|---x !MRDC                    
                               |______________|
 

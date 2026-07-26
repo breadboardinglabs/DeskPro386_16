@@ -1,4 +1,59 @@
-[Info] Opening project file
+[Info] Saving new project file [C:\Users\Dave\OneDrive\Documents\GitHub\DeskPro386_16\PALASM\D4-SCPYD\D4-SCPYD.wcp]
+[Info] Adding existing CUPL design file into project
+[Info] Adding existing CUPL simulation input file into project
+[Info] Running compilation ...
+
+===================================== Compiler Message Begins =====================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+[0014cb] invalid input:  oe
+[0014cb] invalid input:  
+time: 0 secs
+Total time: 0 secs
+Fatal CUPL errors encountered ... program aborted!
+Normal exit
+Error Code = 1
+
+====================================== Compiler Message Ends ======================================
+[Error #1066] Compilation failed
+[Info] Running compilation ...
+
+===================================== Compiler Message Begins =====================================
+cuplx
+time: 0 secs
+cupla
+[0018ca] intermediate var not assigned an expression:  OE
+time: 0 secs
+Total time: 0 secs
+Fatal CUPL errors encountered ... program aborted!
+Normal exit
+Error Code = 1
+
+====================================== Compiler Message Ends ======================================
+[Error #1066] Compilation failed
+[Info] Running compilation ...
+
+===================================== Compiler Message Begins =====================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+total time: 0 secs
+Normal exit
+Error Code = 0
+
+====================================== Compiler Message Ends ======================================
+[Info] Design compiled successfully
+[Info] Current project being saved
 [Info] Running compilation ...
 
 ===================================== Compiler Message Begins =====================================
@@ -39,3 +94,208 @@ Error Code = 0
 
 ================================= Compiler/Simulator Message Ends =================================
 [Info] Design compiled and simulated successfully
+[Info] Running compilation ...
+
+===================================== Compiler Message Begins =====================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+total time: 0 secs
+Normal exit
+Error Code = 0
+
+====================================== Compiler Message Ends ======================================
+[Info] Design compiled successfully
+[Info] Running compilation and simulation ...
+
+================================ Compiler/Simulator Message Begins ================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+csima
+time: 0 secs
+Total time: 0 secs
+CSIM errors encountered!
+Normal exit
+Error Code = 1
+
+================================= Compiler/Simulator Message Ends =================================
+[Error #1086] Compilation or simulation failed
+[Info] Running compilation ...
+
+===================================== Compiler Message Begins =====================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+total time: 0 secs
+Normal exit
+Error Code = 0
+
+====================================== Compiler Message Ends ======================================
+[Info] Design compiled successfully
+[Info] Running compilation and simulation ...
+
+================================ Compiler/Simulator Message Begins ================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+csima
+time: 0 secs
+Total time: 0 secs
+CSIM errors encountered!
+Normal exit
+Error Code = 1
+
+================================= Compiler/Simulator Message Ends =================================
+[Error #1086] Compilation or simulation failed
+[Info] Running compilation ...
+
+===================================== Compiler Message Begins =====================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+total time: 0 secs
+Normal exit
+Error Code = 0
+
+====================================== Compiler Message Ends ======================================
+[Info] Design compiled successfully
+[Info] Running compilation and simulation ...
+
+================================ Compiler/Simulator Message Begins ================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+csima
+time: 0 secs
+Total time: 0 secs
+CSIM errors encountered!
+Normal exit
+Error Code = 1
+
+================================= Compiler/Simulator Message Ends =================================
+[Error #1086] Compilation or simulation failed
+[Info] Running compilation ...
+
+===================================== Compiler Message Begins =====================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+total time: 0 secs
+Normal exit
+Error Code = 0
+
+====================================== Compiler Message Ends ======================================
+[Info] Design compiled successfully
+[Info] Running compilation and simulation ...
+
+================================ Compiler/Simulator Message Begins ================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+csima
+time: 0 secs
+Total time: 0 secs
+CSIM errors encountered!
+Normal exit
+Error Code = 1
+
+================================= Compiler/Simulator Message Ends =================================
+[Error #1086] Compilation or simulation failed
+[Info] Running compilation ...
+
+===================================== Compiler Message Begins =====================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+total time: 0 secs
+Normal exit
+Error Code = 0
+
+====================================== Compiler Message Ends ======================================
+[Info] Design compiled successfully
+[Info] Running compilation and simulation ...
+
+================================ Compiler/Simulator Message Begins ================================
+cuplx
+time: 0 secs
+cupla
+time: 0 secs
+cuplb
+time: 0 secs
+cuplm
+time: 0 secs
+cuplc
+time: 0 secs
+csima
+time: 0 secs
+total time: 0 secs
+Normal exit
+Error Code = 0
+
+================================= Compiler/Simulator Message Ends =================================
+[Info] Design compiled and simulated successfully
+[Info] Project file saved ... exiting application

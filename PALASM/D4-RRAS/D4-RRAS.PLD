@@ -1,6 +1,6 @@
 Name            D4-RRAS D4 PAGE RAM BOARD RAS decode logic;
 PartNo          l08054-001;
-Revision        01;
+Revision        02;
 Date            16/5/26;
 Designer        Dave Henry;
 Company         Breadboarding Labs;
@@ -9,19 +9,23 @@ Assembly        None;
 Device          g16v8;
 
 /* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
-/*                                                                                         */
+/*            V2 Clean up and annotate                                                     */
 /*******************************************************************************************/
 /*                                                                                         */
 /*******************************************************************************************/
 /*
 DESCRIPTION
+This-PAL is used in the D4 (386) memory board to decode the RAS signals
+and the parity read and write logic.
+Note !ROM should be !WPRT
+
 */
 /* Pin Map 
                                ______________
                               |   D4-RRAS    |
                       A31 x---|1           20|---x Vcc                      
                       A23 x---|2           19|---x !RS1                     
-                      A22 x---|3           18|---x !ROM                     
+                      A22 x---|3           18|---x !ROM   (Wired to WPRT*)                  
                       A21 x---|4           17|---x !PARWR                   
                       A20 x---|5           16|---x !PARRD                   
                       A19 x---|6           15|---x !WE0                     
@@ -33,25 +37,29 @@ DESCRIPTION
 
 */
 
+/* Inputs */
+PIN 1 = A31 ;  /* BA31 latched Memory Board address */
+PIN 2 = A23 ;  /* BA23 latched Memory Board address */
+PIN 3 = A22 ;  /* BA22 latched Memory Board address */
+PIN 4 = A21 ;  /* BA21 latched Memory Board address */
+PIN 5 = A20 ;  /* BA20 latched Memory Board address. Note when FA20 is high/true A20=PA20, when low/false  A20=0 */
+PIN 6 = A19 ;  /* BA19 latched Memory Board address */
+PIN 7 = A18 ;  /* BA18 latched Memory Board address */
+PIN 8 = A17 ;  /* BA17 latched Memory Board address */
+PIN 9 = FA20 ; /* LOWA20 when low disables A20 for 1MB real mode applications */
+PIN 11 = !RFSH ; /* Dynamic RAM refresh in progress, active low */
 
-PIN 1 = A31 ;
-PIN 2 = A23 ;
-PIN 3 = A22 ;
-PIN 4 = A21 ;
-PIN 5 = A20 ;
-PIN 6 = A19 ;
-PIN 7 = A18 ;
-PIN 8 = A17 ;
-PIN 9 = FA20 ;
-PIN 11 = !RFSH ;
-PIN 12 = !RS0 ;
-PIN 13 = !MWE ;
-PIN 14 = !MRD ;
-PIN 15 = !WE0 ;
-PIN 16 = !PARRD ;
-PIN 17 = !PARWR ;
-PIN 18 = !ROM ;
-PIN 19 = !RS1 ;
+PIN 13 = !MWE ; /* Master/Memory Write Enable */
+PIN 14 = !MRD ; /* Master/Memory Read Enable */
+PIN 18 = !ROM ; /* Write Protect Top 128K RAM This is actually wired to WPRT* so is confusing and wrong!
+                   Write protects top 128K RAM when BIOS is shaddowed. From U8B Q output on 74ALS74 */ 
+
+/* Outputs */
+PIN 12 = !RS0 ;   /* Row Select 0 - Used to select RAS0A and RAS0B Conventional 640K RAM and 256K Compaq and 128K System RAM */
+PIN 15 = !WE0 ;   /* Write enable 0 but used for all banks */
+PIN 16 = !PARRD ; /* Parity Read active low */
+PIN 17 = !PARWR ; /* Parity Write active low - used to set RAM Relocation Register at 0x80C00000 */
+PIN 19 = !RS1 ;   /* Row Select 1 - Used to select RAS1A and RAS1B First 1MB of Extended RAM */
 
                        
           
@@ -82,16 +90,11 @@ PARRD =
 WE0 =
   MWE & !A31 & !A23 & !A22 & !A21 & !A19                                /* 00000000H 512K */
 # MWE & !A31 & !A23 & !A22 & !A21 & !A20 &  A19  & !A18 & !A17          /* 00080000H 128K */
-# MWE & !A31 & !A23 & !A22 & !A21 & !A20 &  A19  &  A18 &  A17  & !ROM  /* 000E0000H 128K */
+# MWE & !A31 & !A23 & !A22 & !A21 & !A20 &  A19  &  A18 &  A17  & !ROM  /* 000E0000H 128K only allow write when WPRT*=1 */
 # MWE & !A31 &  A23 &  A22 &  A21 &  A20 & !A19  &  A18                 /* 00F40000H 256K */
 # MWE & !A31 &  A23 &  A22 &  A21 &  A20 &  A19  & !A18                 /* 00FB0000H 256K */
 # MWE & !A31 &  A23 &  A22 &  A21 &  A20 &  A19  &  A18 & !A17          /* 00FC0000H 128K */
-# MWE & !A31 &  A23 &  A22 &  A21 &  A20 &  A19  &  A18 &  A17  & !ROM; /* 00FE0000H 128K */
+# MWE & !A31 &  A23 &  A22 &  A21 &  A20 &  A19  &  A18 &  A17  & !ROM; /* 00FE0000H 128K only allow write when WPRT*=1 */
  
 
-/*
-DESCRIPTION
-This-PAL is used in the D4 (386) memory board to decode the RAS signals
-and the parity read and write logic.
 
-*/

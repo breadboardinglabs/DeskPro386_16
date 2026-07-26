@@ -9,7 +9,7 @@ Assembly        None;
 Device          g16v8;
 
 /* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
-/*                                                                                         */
+/*            V2 Clean up and annotate                                                     */
 /*******************************************************************************************/
 /*                                                                                         */
 /*******************************************************************************************/
@@ -25,7 +25,7 @@ after refresh or DMA cycles.
                                ______________
                               |   D4-RCTLA   |
                       CLK x---|1           20|---x Vcc                      
-                    !ADSM x---|2           19|---x !YY                      
+                    !ADSM x---|2           19|---x !YY  (CLAT)                    
                     !DMIO x---|3           18|---x !MRD                     
                       D_C x---|4           17|---x !MWE                     
                       W_R x---|5           16|---x !MRDY                    
@@ -38,24 +38,26 @@ after refresh or DMA cycles.
 
 */
 
-PIN 1 = CLK ;
-PIN 2 = !ADSM ;
-PIN 3 = !DMIO ;
-PIN 4 = D_C ;
-PIN 5 = W_R ;
-PIN 6 = !M32 ;
-PIN 7 = HLDA ;
-PIN 8 = !CLK16 ;
-PIN 9 = !HIT ;
-PIN 11 = !OE ;
-PIN 12 = !MRAS ;
-PIN 13 = !SWM ;
-PIN 14 = !NAM ;
-PIN 15 = !MCAS ;
-PIN 16 = !MRDY ;
-PIN 17 = !MWE ;
-PIN 18 = !MRD ;
-PIN 19 = !YY ;
+/* Inputs */
+PIN 1 = CLK ;         /* CLK32 - 16MHz for 386BBPC initially */
+PIN 2 = !ADSM ;       /* Address Strobe for Memory, excludes I/O cycles */
+PIN 3 = !DMIO ;       /* Delayed Memory/IO from CPU by  1 CLK32 cycle */
+PIN 4 = D_C ;         /* Data/Control from CPU */
+PIN 5 = W_R ;         /* Write/Read from CPU */
+PIN 6 = !M32 ;        /* Memory 32 bit active low when 32 bit memory board is accessed */
+PIN 7 = HLDA ;        /* CPU Hold Acknowledge - High when CPU hands over bus to DMA */
+PIN 8 = !CLK16 ;      /* Main system clock */
+PIN 9 = !HIT ;        /* Paged Hit - Upper PA11-PA23 the same as previous access - use same RAS, Paged Hit access using just CAS */ 
+PIN 11 = !OE ;        /* Output Enable always low as don't need TST support */
+/* Outputs */
+PIN 12 = !MRAS ;      /* Master Row Address Strobe - low during full memory access cycle and during paged access */
+PIN 13 = !SWM ;       /* SW Mux controls switching the Address Multiplexer between Rows (low - true) and Columns (high - false) */
+PIN 14 = !NAM ;       /* Next Address - Memory board indicates next address available on PA31..2 may be pipelined */
+PIN 15 = !MCAS ;      /* Master Column Address Strobe when MCAS and MRAS are low, reads and writes to memory occur */
+PIN 16 = !MRDY ;      /* Memory board - Ready - the current cycle has completed, indicate to CPU */
+PIN 17 = !MWE ;       /* Memory board Write Enable - Write data to 32 bit memory */
+PIN 18 = !MRD ;       /* Memory board Read Enable - Read data from 32 bit memory */
+PIN 19 = !YY ;        /* Confusingly this is CLAT Column Latch for the Column 74F573 latches, low latches (true), high pass through (false)*/
              
              
 
@@ -70,7 +72,7 @@ SWM.D =
 # HLDA  & !ADSM  & !D_C & SWM  & DMIO                                        /* REFRESH HOLD */
 # HLDA  & !ADSM  & DMIO  & SWM & !MRAS;                                      /* REFRESH END */
                
- 
+/* AKA CLAT Column Latch */
 YY.D =
   !HLDA & CLK16  & ADSM & MRDY & !W_R & M32 & !HIT                           /* CPU PIPE TO MEMORY MISS */
 # !HLDA & CLK16  & ADSM & MRDY & D_C  & M32 & !HIT                           /* CPU PIPE TO MEMORY MISS */

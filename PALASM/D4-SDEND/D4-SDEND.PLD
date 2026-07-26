@@ -9,6 +9,7 @@ Assembly        None;
 Device          g16v8;
 
 /* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
+/* 26/07/2026 V2 Corrected Pin 11 !TST to be active high in oe. conditions                 */
 /*                                                                                         */
 /*******************************************************************************************/
 /*                                                                                         */
@@ -60,12 +61,12 @@ PIN 19 = !B3EN ;
 
                         
             
-BDIRRD.OE = !TST ;
+BDIRRD.OE = TST ;
    
 BDIRRD = !MRDC & !WDEN;            /* OTHER WRITE TO LOCAL MEM */
                 
 
-B0EN.OE = !TST ;
+B0EN.OE = TST ;
    
 B0EN =
   !A1 & !A0 & MWTC & !WDEN         /* OTHER WRITE TO LOCAL MEM */
@@ -73,7 +74,7 @@ B0EN =
 # !A1 & !A0 & LD_C & LW_R & WDEN;  /* CPU WRITE TO BUS */
     
 
-B1EN.OE = !TST ;
+B1EN.OE = TST ;
    
 B1EN =
   !A1 & BHE & MWTC & !WDEN         /* OTHER WRITE TO LOCAL MEM */
@@ -81,7 +82,7 @@ B1EN =
 # !A1 & BHE & LD_C & LW_R & WDEN;  /* CPU WRITE TO BUS */
     
 
-B2EN.OE = !TST ;
+B2EN.OE = TST ;
    
 B2EN =
   A1 & !A0 & MWTC & !WDEN          /* OTHER WRITE TO LOCAL MEM */
@@ -89,7 +90,7 @@ B2EN =
 # A1 & !A0 & LD_C &  LW_R & WDEN;  /* CPU WRITE TO BUS */
                     
 
-B3EN.OE = !TST ;
+B3EN.OE = TST ;
    
 B3EN =
   A1 & BHE & MWTC & !WDEN          /* OTHER WRITE TO LOCAL MEM */
@@ -97,7 +98,7 @@ B3EN =
 # A1 & BHE & LD_C & LW_R  & WDEN;  /* CPU WRITE TO BUS */
                     
 
-INTA.OE = !TST ;
+INTA.OE = TST ;
    
 INTA =
    CMD & !LM_IO & !LW_R & !LD_C;   /* CPU INTERRUPT ACK */

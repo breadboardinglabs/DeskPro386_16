@@ -15,7 +15,7 @@ Assembly        None;
 
 
 ORDER:
-    oe,%1
+   !oe,%1
  , !M16, %1
  , !IO16, %1
  , !MRDC, %1

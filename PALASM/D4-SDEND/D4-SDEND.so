@@ -1,7 +1,7 @@
 CSIM(WM): CUPL Simulation Program
 Version 5.0a Serial# MW-10400000
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-CREATED Sat May 16 16:25:11 2026
+CREATED Sun Jul 26 22:02:40 2026
 
 LISTING FOR SIMULATION FILE: D4-SDEND.si
 
@@ -26,7 +26,7 @@ LISTING FOR SIMULATION FILE: D4-SDEND.si
   16: ORDER:
   17:  
   18: 
-  19:   TST, %1
+  19:  !TST, %1
   20:  , A1, %1
   21:  , A0, %1
   22:  , !BHE, %1
@@ -51,7 +51,7 @@ LISTING FOR SIMULATION FILE: D4-SDEND.si
                                 !             
                                 B             
               ! L         ! !   D ! ! ! ! !   
-            ! W M L L ! ! M M   I B B B B I   
+      !     ! W M L L ! ! M M   I B B B B I   
       T     B D _ W D C M W R   R 3 2 1 0 N   
       S A A H E I _ _ M 3 T D   R E E E E T   
       T 1 0 E N O R C D 2 C C   D N N N N A   

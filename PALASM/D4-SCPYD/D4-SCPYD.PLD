@@ -24,7 +24,7 @@ Rev D changes the polarity of the AEN2 signal for logic reduction on the D3PE
 D4-PROCESSOR board (with 80387).
 
 Note that changes were required to LM16 to avoid Unstable Output errors in the simulation
-!LM16 changed to registered with BALE as the clock and Pin 11 defined as oe output enable active low
+!LM16 changed to registered with BALE as the clock and Pin 11 defined as oe output enable active high
 !HLDA moved to pin 19
 */
 
@@ -40,7 +40,7 @@ Note that changes were required to LM16 to avoid Unstable Output errors in the s
                    !DAEN1 x---|7           14|---x !COPYHL                  
                      AEN2 x---|8           13|---x !COPYEN                  
                      !M16 x---|9           12|---x !DAEN2                   
-                      GND x---|10          11|---x oe                       
+                      GND x---|10          11|---x !oe                       
                               |______________|
 */
 
@@ -57,7 +57,7 @@ PIN 8 = AEN2 ;
 PIN 9 = !M16 ;
 /* PIN 9 = BALE ; */
 /* PIN 11 = !HLDA ; */
-PIN 11 =  oe ;
+PIN 11 = !oe ;
 PIN 12 = !DAEN2 ;
 PIN 13 = !COPYEN ;
 PIN 14 = !COPYHL ;

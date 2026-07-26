@@ -1,7 +1,7 @@
 CSIM(WM): CUPL Simulation Program
 Version 5.0a Serial# MW-10400000
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-CREATED Sat May 16 16:21:09 2026
+CREATED Thu Jul 09 17:34:55 2026
 
 LISTING FOR SIMULATION FILE: D4-SCPYD.si
 
@@ -25,7 +25,7 @@ LISTING FOR SIMULATION FILE: D4-SCPYD.si
   15: 
   16: 
   17: ORDER:
-  18:     oe,%1
+  18:    !oe,%1
   19:  , !M16, %1
   20:  , !IO16, %1
   21:  , !MRDC, %1
@@ -52,7 +52,7 @@ LISTING FOR SIMULATION FILE: D4-SCPYD.si
                     !               C C     !   
           ! ! ! ! ! D !   !         O O ! ! D   
         ! I M M I I A A B H   !     P P D L A   
-        M O R W O O E E A L   B X   Y Y A M E   
+      ! M O R W O O E E A L   B X   Y Y A M E   
       o 1 1 D T R W N N L D   H A   E H E 1 N   
       e 6 6 C C C X 1 2 E A   E 0   N L N 6 2   
 ================================================

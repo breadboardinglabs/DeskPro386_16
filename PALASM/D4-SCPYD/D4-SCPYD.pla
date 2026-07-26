@@ -2,7 +2,7 @@
 #
 # CUPL(WM)        5.0a Serial# MW-10400000
 # Device          g16v8ms  Library DLIB-h-40-11
-# Created         Sat May 16 16:21:09 2026
+# Created         Thu Jul 09 17:34:55 2026
 # Name            D4-SCPYD Copy buffer control logic and DMA low address logic
 # Partno          108395-OO1
 # Revision        01
@@ -16,7 +16,7 @@
 #         !BHE !COPYEN !COPYHL !DAEN 
 #         !DAEN1 !DAEN2 !HLDA !IO16 
 #         !IORC !IOWX !LM16 !M16 
-#         !MRDC !MWTC XA0 oe 
+#         !MRDC !MWTC XA0 !oe 
 # Outputs !BHE BHE.oe !COPYEN !COPYHL 
 #         !DAEN !DAEN2 !LM16.d !XA0 
 #         XA0.oe COPYEN.oe COPYHL.oe DAEN.oe 

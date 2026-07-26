@@ -1,6 +1,6 @@
 Name            D4-SROMA System ROM decode logic;
 PartNo          108135-001;
-Revision        01;
+Revision        02;
 Date            16/5/26;
 Designer        Dave Henry;
 Company         Breadboarding Labs;
@@ -9,7 +9,7 @@ Assembly        None;
 Device          g16v8;
 
 /* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
-/*                                                                                         */
+/*            V2 Corrections for I to 1 and 0 to O                                         */
 /*******************************************************************************************/
 /*                                                                                         */
 /*******************************************************************************************/
@@ -27,38 +27,43 @@ megabyte of the system is being accessed.
                                ______________
                               |   D4-SROMA   |
                      BALE x---|1           20|---x Vcc                      
-                     LA23 x---|2           19|---x !ROM20E                  
+                     LA23 x---|2           19|---x !ROM2OE                  
                      LA22 x---|3           18|---x !LOWEN                   
                      LA21 x---|4           17|---x !ROMEN                   
                      LA20 x---|5           16|---x !ROM                     
                      LA19 x---|6           15|---x !M16E                    
                      LA18 x---|7           14|---x !M32                     
                      LA17 x---|8           13|---x !RFSH                    
-                     SA16 x---|9           12|---x !ROMIOE                  
+                     SA16 x---|9           12|---x !ROM1OE                  
                       GND x---|10          11|---x !MRDC                    
                               |______________|
 
 */
 
+/* Inputs */
+PIN 1 = BALE ;   /* Bus Address Latch Enable. This output signal (when high) indicates that 
+                    a valid address is present on the LAxx address lines. The LAxx address lines
+                    or any decodes developed from them should be latched at the falling edge of BALE. 
+                    This line is always high when a DMA or bus master operation is occurring. */
+PIN 2 = LA23 ;   /* Latchable Address 23 when BALE high */
+PIN 3 = LA22 ;   /* Latchable Address 22 when BALE high */
+PIN 4 = LA21 ;   /* Latchable Address 21 when BALE high */
+PIN 5 = LA20 ;   /* Latchable Address 20 when BALE high */
+PIN 6 = LA19 ;   /* Latchable Address 19 when BALE high */
+PIN 7 = LA18 ;   /* Latchable Address 18 when BALE high */
+PIN 8 = LA17 ;   /* Latchable Address 17 when BALE high */
+PIN 9 = SA16 ;   /* Latched System Address 16 */
+PIN 11 = !MRDC ; /* Memory Read Command MEMR */
+PIN 13 = !RFSH ; /* Dynamic RAM refresh is active low */
+PIN 14 = !M32 ;  /* 32 bit Memory board is being accessed, disables 16 bit to 8 bit bus conversion */
 
-PIN 1 = BALE ;
-PIN 2 = LA23 ;
-PIN 3 = LA22 ;
-PIN 4 = LA21 ;
-PIN 5 = LA20 ;
-PIN 6 = LA19 ;
-PIN 7 = LA18 ;
-PIN 8 = LA17 ;
-PIN 9 = SA16 ;
-PIN 11 = !MRDC ;
-PIN 12 = !ROMIOE ;
-PIN 13 = !RFSH ;
-PIN 14 = !M32 ;
-PIN 15 = !M16E ;
-PIN 16 = !ROM ;
-PIN 17 = !ROMEN ;
-PIN 18 = !LOWEN ;
-PIN 19 = !ROM20E ;
+/* Outputs */
+PIN 12 = !ROM1OE ;  /* Enables ROM 1 (BIOS) at 00F0000h-00FFFFFh 1MB address space or 0FF0000h-0FFFFFFh 16 MB address space*/
+PIN 15 = !M16E ;    /* Used to indicate 16 bit data "Pulling this line low prevents the 16 bit to 8 bit bus conversion logic from being activated." This is why the M32 is included */
+PIN 16 = !ROM ;     /* Intermediate term used for logic rules and jumper configuration for ROM sizes 8K,16K,32K and static/dynamic*/ 
+PIN 17 = !ROMEN ;   /* ROM Buffer enable */
+PIN 18 = !LOWEN ;   /* Lower 1MB of address space is being accessed */
+PIN 19 = !ROM2OE ;  /* Enables ROM 2 (Option ROM/BASIC) at 00E0000h-00EFFFFh 1MB address space or 0FE0000h-0FEFFFFh 16 MB address space*/
                       
          
 
@@ -66,7 +71,7 @@ PIN 19 = !ROM20E ;
 M16E =
   !LA23 & !LA22 & !LA21 & !LA20 & LA19 & LA18 & LA17        /* 00E0000h-00FFFFFh */
  # LA23 &  LA22 &  LA21 &  LA20 & LA19 & LA18 & LA17        /* 0FE0000h-0FFFFFFh */
- # M32;  
+ # M32;                                                     /* Prevent 16 bit to 8 bit bus conversion for 32 bit access */
      
   
 ROM =
@@ -77,12 +82,13 @@ ROM =
 # !BALE &  ROM;                                             /* LATCH TERM */
                                        
  
-ROMIOE =
+ROM1OE =
   ROM  & SA16  & MRDC;                                      /* 00F0000h-00FFFFFh  */
                                                             /* 0FF0000h-0FFFFFFh */
                                                                                      
  
-ROM20E = ROM  & !SA16  & MRDC;                              /* 00E0000h-00EFFFFh  */
+ROM2OE =
+  ROM  & !SA16 & MRDC;                                      /* 00E0000h-00EFFFFh  */
                                                             /* 0FE0000h-0FEFFFFh */
   
 ROMEN =

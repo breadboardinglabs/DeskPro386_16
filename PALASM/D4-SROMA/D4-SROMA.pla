@@ -2,7 +2,7 @@
 #
 # CUPL(WM)        5.0a Serial# MW-10400000
 # Device          g16v8ma  Library DLIB-h-40-8
-# Created         Sat May 16 17:10:37 2026
+# Created         Fri May 22 00:37:00 2026
 # Name            D4-SROMA System ROM decode logic
 # Partno          108135-001
 # Revision        01
@@ -16,11 +16,11 @@
 #         LA18 LA19 LA20 LA21 
 #         LA22 LA23 !LOWEN !M16E 
 #         !M32 !MRDC !RFSH !ROM 
-#         !ROM20E !ROMEN !ROMIOE SA16 
-# Outputs !LOWEN !M16E !ROM !ROM20E 
-#         !ROMEN !ROMIOE LOWEN.oe M16E.oe 
-#         M32.oe RFSH.oe ROM.oe ROM20E.oe 
-#         ROMEN.oe ROMIOE.oe 
+#         !ROM1OE !ROM2OE !ROMEN SA16 
+# Outputs !LOWEN !M16E !ROM !ROM1OE 
+#         !ROM2OE !ROMEN LOWEN.oe M16E.oe 
+#         M32.oe RFSH.oe ROM.oe ROM1OE.oe 
+#         ROM2OE.oe ROMEN.oe 
 .i 20
 .o 14
 .p 23
@@ -36,9 +36,9 @@
 ---1110000-----1---- ~~1~~~~~~~~~~~
 ---1111111-----1---- ~~1~~~~~~~~~~~
 --0------------1---- ~~1~~~~~~~~~~~
--------------1-1---0 ~~~1~~~~~~~~~~
--------------1-1---- ~~~~1~~~~~~~~~
--------------1-1---1 ~~~~~1~~~~~~~~
+-------------1-1---1 ~~~1~~~~~~~~~~
+-------------1-1---0 ~~~~1~~~~~~~~~
+-------------1-1---- ~~~~~1~~~~~~~~
 -1------------------ ~~~~~~1~~~~~~~
 -1------------------ ~~~~~~~1~~~~~~
 1------------------- ~~~~~~~~1~~~~~

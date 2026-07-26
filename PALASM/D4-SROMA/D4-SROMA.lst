@@ -3,7 +3,7 @@ LISTING FOR LOGIC DESCRIPTION FILE: D4-SROMA.pld                     Page 1
 CUPL(WM): Universal Compiler for Programmable Logic
 Version 5.0a Serial# MW-10400000
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-Created Sat May 16 17:10:37 2026
+Created Fri May 22 00:37:00 2026
 
   1:Name            D4-SROMA System ROM decode logic;
   2:PartNo          108135-001;
@@ -16,7 +16,7 @@ Created Sat May 16 17:10:37 2026
   9:Device          g16v8;
  10:
  11:/* 16/05/2026 V1 Initial version converted from PALASM format in COMPAQ design doc         */
- 12:/*                                                                                         */
+ 12:/*            V2 Corrections for I to 1 and 0 to O                                         */
  13:/*******************************************************************************************/
  14:/*                                                                                         */
  15:/*******************************************************************************************/
@@ -34,88 +34,94 @@ Created Sat May 16 17:10:37 2026
  27:                               ______________
  28:                              |   D4-SROMA   |
  29:                     BALE x---|1           20|---x Vcc                      
- 30:                     LA23 x---|2           19|---x !ROM20E                  
+ 30:                     LA23 x---|2           19|---x !ROM2OE                  
  31:                     LA22 x---|3           18|---x !LOWEN                   
  32:                     LA21 x---|4           17|---x !ROMEN                   
  33:                     LA20 x---|5           16|---x !ROM                     
  34:                     LA19 x---|6           15|---x !M16E                    
  35:                     LA18 x---|7           14|---x !M32                     
  36:                     LA17 x---|8           13|---x !RFSH                    
- 37:                     SA16 x---|9           12|---x !ROMIOE                  
+ 37:                     SA16 x---|9           12|---x !ROM1OE                  
  38:                      GND x---|10          11|---x !MRDC                    
  39:                              |______________|
  40:
  41:*/
  42:
- 43:
- 44:PIN 1 = BALE ;
- 45:PIN 2 = LA23 ;
- 46:PIN 3 = LA22 ;
- 47:PIN 4 = LA21 ;
- 48:PIN 5 = LA20 ;
- 49:PIN 6 = LA19 ;
- 50:PIN 7 = LA18 ;
- 51:PIN 8 = LA17 ;
- 52:PIN 9 = SA16 ;
- 53:PIN 11 = !MRDC ;
+ 43:/* Inputs */
+ 44:PIN 1 = BALE ;   /* Bus Address Latch Enable. This output signal (when high) indicates that 
+ 45:                    a valid address is present on the LAxx address lines. The LAxx address lines
+ 46:                    or any decodes developed from them should be latched at the falling edge of BALE. 
+ 47:                    This line is always high when a DMA or bus master operation is occurring. */
+ 48:PIN 2 = LA23 ;   /* Latchable Address 23 when BALE high */
+ 49:PIN 3 = LA22 ;   /* Latchable Address 22 when BALE high */
+ 50:PIN 4 = LA21 ;   /* Latchable Address 21 when BALE high */
+ 51:PIN 5 = LA20 ;   /* Latchable Address 20 when BALE high */
+ 52:PIN 6 = LA19 ;   /* Latchable Address 19 when BALE high */
+ 53:PIN 7 = LA18 ;   /* Latchable Address 18 when BALE high */
 
 LISTING FOR LOGIC DESCRIPTION FILE: D4-SROMA.pld                     Page 2
 
 CUPL(WM): Universal Compiler for Programmable Logic
 Version 5.0a Serial# MW-10400000
 Copyright (c) 1983, 1998 Logical Devices, Inc.
-Created Sat May 16 17:10:37 2026
+Created Fri May 22 00:37:00 2026
 
- 54:PIN 12 = !ROMIOE ;
- 55:PIN 13 = !RFSH ;
- 56:PIN 14 = !M32 ;
- 57:PIN 15 = !M16E ;
- 58:PIN 16 = !ROM ;
- 59:PIN 17 = !ROMEN ;
- 60:PIN 18 = !LOWEN ;
- 61:PIN 19 = !ROM20E ;
- 62:                      
- 63:         
- 64:
- 65: 
- 66:M16E =
- 67:  !LA23 & !LA22 & !LA21 & !LA20 & LA19 & LA18 & LA17        /* 00E0000h-00FFFFFh */
- 68: # LA23 &  LA22 &  LA21 &  LA20 & LA19 & LA18 & LA17        /* 0FE0000h-0FFFFFFh */
- 69: # M32;  
- 70:     
- 71:  
- 72:ROM =
- 73:  !LA23 & !LA22 & !LA21 & !LA20 & LA19 & LA18 & LA17 & BALE /* 00E0000h-00FFFFFh */
- 74:#  LA23 &  LA22 &  LA21 &  LA20 & LA19 & LA18 & LA17 & BALE /* 0FE0000h-0FFFFFFh */
- 75:# !LA23 & !LA22 & !LA21 & !LA20 & LA19 & LA18 & LA17 & ROM  /* DEGLITCH */
- 76:#  LA23 &  LA22 &  LA21 &  LA20 & LA19 & LA18 & LA17 & ROM  /* DEGLITCH */
- 77:# !BALE &  ROM;                                             /* LATCH TERM */
- 78:                                       
- 79: 
- 80:ROMIOE =
- 81:  ROM  & SA16  & MRDC;                                      /* 00F0000h-00FFFFFh  */
- 82:                                                            /* 0FF0000h-0FFFFFFh */
- 83:                                                                                     
+ 54:PIN 8 = LA17 ;   /* Latchable Address 17 when BALE high */
+ 55:PIN 9 = SA16 ;   /* Latched System Address 16 */
+ 56:PIN 11 = !MRDC ; /* Memory Read Command MEMR */
+ 57:PIN 13 = !RFSH ; /* Dynamic RAM refresh is active low */
+ 58:PIN 14 = !M32 ;  /* 32 bit Memory board is being accessed, disables 16 bit to 8 bit bus conversion */
+ 59:
+ 60:/* Outputs */
+ 61:PIN 12 = !ROM1OE ;  /* Enables ROM 1 (BIOS) at 00F0000h-00FFFFFh 1MB address space or 0FF0000h-0FFFFFFh 16 MB address space*/
+ 62:PIN 15 = !M16E ;    /* Used to indicate 16 bit data "Pulling this line low prevents the 16 bit to 8 bit bus conversion logic from being activated." This is why the M32 is included */
+ 63:PIN 16 = !ROM ;     /* Intermediate term used for logic rules and jumper configuration for ROM sizes 8K,16K,32K and static/dynamic*/ 
+ 64:PIN 17 = !ROMEN ;   /* ROM Buffer enable */
+ 65:PIN 18 = !LOWEN ;   /* Lower 1MB of address space is being accessed */
+ 66:PIN 19 = !ROM2OE ;  /* Enables ROM 2 (Option ROM/BASIC) at 00E0000h-00EFFFFh 1MB address space or 0FE0000h-0FEFFFFh 16 MB address space*/
+ 67:                      
+ 68:         
+ 69:
+ 70: 
+ 71:M16E =
+ 72:  !LA23 & !LA22 & !LA21 & !LA20 & LA19 & LA18 & LA17        /* 00E0000h-00FFFFFh */
+ 73: # LA23 &  LA22 &  LA21 &  LA20 & LA19 & LA18 & LA17        /* 0FE0000h-0FFFFFFh */
+ 74: # M32;                                                     /* Prevent 16 bit to 8 bit bus conversion for 32 bit access */
+ 75:     
+ 76:  
+ 77:ROM =
+ 78:  !LA23 & !LA22 & !LA21 & !LA20 & LA19 & LA18 & LA17 & BALE /* 00E0000h-00FFFFFh */
+ 79:#  LA23 &  LA22 &  LA21 &  LA20 & LA19 & LA18 & LA17 & BALE /* 0FE0000h-0FFFFFFh */
+ 80:# !LA23 & !LA22 & !LA21 & !LA20 & LA19 & LA18 & LA17 & ROM  /* DEGLITCH */
+ 81:#  LA23 &  LA22 &  LA21 &  LA20 & LA19 & LA18 & LA17 & ROM  /* DEGLITCH */
+ 82:# !BALE &  ROM;                                             /* LATCH TERM */
+ 83:                                       
  84: 
- 85:ROM20E = ROM  & !SA16  & MRDC;                              /* 00E0000h-00EFFFFh  */
- 86:                                                            /* 0FE0000h-0FEFFFFh */
- 87:  
- 88:ROMEN =
- 89:  ROM  & MRDC;                                              /* BUFFER ENABLE */
- 90:                                     
- 91: 
- 92:LOWEN =
- 93:  !LA23 & !LA22 & !LA21 & !LA20 & BALE                      /* BOTTOM ONE MEGABYTE AND BALE */
- 94:# !LA23 & !LA22 & !LA21 & !LA20 & LOWEN                     /* DEGLITCH TERM */
- 95:# !BALE & LOWEN                                             /* LATCH TERM */
- 96:# RFSH;                                                     /* AND REFRESH */
- 97:                                                  
- 98:
- 99:
-100:
-101:
+ 85:ROM1OE =
+ 86:  ROM  &  SA16 & MRDC;                                      /* 00F0000h-00FFFFFh */
+ 87:                                                            /* 0FF0000h-0FFFFFFh */
+ 88:                                                                                     
+ 89: 
+ 90:ROM2OE =
+ 91:  ROM  & !SA16 & MRDC;                                      /* 00E0000h-00EFFFFh  */
+ 92:                                                            /* 0FE0000h-0FEFFFFh */
+ 93:  
+ 94:ROMEN =
+ 95:  ROM  & MRDC;                                              /* BUFFER ENABLE */
+ 96:                                     
+ 97: 
+ 98:LOWEN =
+ 99:  !LA23 & !LA22 & !LA21 & !LA20 & BALE                      /* BOTTOM ONE MEGABYTE AND BALE */
+100:# !LA23 & !LA22 & !LA21 & !LA20 & LOWEN                     /* DEGLITCH TERM */
+101:# !BALE &  LOWEN                                            /* LATCH TERM */
+102:#  RFSH;                                                    /* AND REFRESH */
+103:                                                  
+104:
+105:
+106:
+107:
 
 
 
 Jedec Fuse Checksum       (57a4)
-Jedec Transmit Checksum   (27ca)
+Jedec Transmit Checksum   (27b7)

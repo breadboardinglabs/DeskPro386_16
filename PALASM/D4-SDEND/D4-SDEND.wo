@@ -19,7 +19,7 @@
 #H ORDER:
 #H  
 #H 
-#H   TST, %1
+#H  !TST, %1
 #H  , A1, %1
 #H  , A0, %1
 #H  , !BHE, %1

@@ -29,7 +29,7 @@ B0EN =>
   # !A0 & !A1 & LD_C & LW_R & !WDEN
 
 B0EN.oe  =>
-    TST
+    !TST
 
 B1EN =>
     !A1 & !BHE & !MWTC & WDEN
@@ -37,7 +37,7 @@ B1EN =>
   # !A1 & !BHE & LD_C & LW_R & !WDEN
 
 B1EN.oe  =>
-    TST
+    !TST
 
 B2EN =>
     !A0 & A1 & !MWTC & WDEN
@@ -45,7 +45,7 @@ B2EN =>
   # !A0 & A1 & LD_C & LW_R & !WDEN
 
 B2EN.oe  =>
-    TST
+    !TST
 
 B3EN =>
     A1 & !BHE & !MWTC & WDEN
@@ -53,19 +53,19 @@ B3EN =>
   # A1 & !BHE & LD_C & LW_R & !WDEN
 
 B3EN.oe  =>
-    TST
+    !TST
 
 BDIRRD =>
     MRDC & WDEN
 
 BDIRRD.oe  =>
-    TST
+    !TST
 
 INTA =>
     !CMD & !LD_C & !LM_IO & !LW_R
 
 INTA.oe  =>
-    TST
+    !TST
 
 MRDC.oe  =>
     0 

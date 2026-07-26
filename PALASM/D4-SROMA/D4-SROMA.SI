@@ -30,8 +30,8 @@ ORDER:
   ,!M32, %3
 
   ,!ROM, %1
-  ,!ROMIOE, %1
-  ,!ROM20E, %1
+  ,!ROM1OE, %1
+  ,!ROM2OE, %1
   ,!ROMEN, %1
   ,!M16E, %1
   ,!LOWEN;
